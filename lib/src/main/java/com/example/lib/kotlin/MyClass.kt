@@ -6,5 +6,5 @@ class MyClass {
 }
 
 fun main(args: Array<String>) {
-     print("hello world")
+     print("hello world kotlin")
 }
