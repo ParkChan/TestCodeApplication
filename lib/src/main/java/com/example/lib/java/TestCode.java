@@ -1,9 +1,7 @@
 package com.example.lib.java;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Queue;
 
 public class TestCode {
@@ -15,17 +13,18 @@ public class TestCode {
 //        String[] phoneBook1 = {"119", "11997674223", "1195524421"};
 //        phoneNumber(phoneBook1);
 
-
 //        int[] prices = {1, 2, 3, 2, 3};
 //        System.out.println("solution is >> " + Arrays.toString(solution(prices)));
 
         int[] progresses = {93, 30, 55};
         int[] speeds = {1, 30, 5};
-
         System.out.println("solution is >> " + Arrays.toString(solution(progresses, speeds)));
+
     }
 
     public static int[] solution(int[] progresses, int[] speeds) {
+
+        int[] answer = {};
 
         Queue<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < progresses.length; i++) {
@@ -34,7 +33,6 @@ public class TestCode {
             );
         }
         System.out.println("queue is >> " + queue.toString());
-        List<Integer> result = new ArrayList<>();
         int compareNum = queue.poll();
         int updateCnt = 1;
 
@@ -43,16 +41,14 @@ public class TestCode {
             if (compareNum >= num) {
                 updateCnt++;
             } else {
-                result.add(updateCnt);
+                answer = Arrays.copyOf(answer, answer.length + 1);
+                answer[answer.length - 1] = updateCnt;
                 updateCnt = 1;
                 compareNum = num;
             }
         }
-        result.add(updateCnt);
-        int[] answer = new int[result.size()];
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = result.get(i);
-        }
+        answer = Arrays.copyOf(answer, answer.length + 1);
+        answer[answer.length - 1] = updateCnt;
         return answer;
     }
 
