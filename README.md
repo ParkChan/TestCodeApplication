@@ -1,10 +1,8 @@
 # TestCodeApplication
 1. 코딩 테스트 연습
 
-## 타이틀
-### JetPack
+## 프로그래머스
+### 코딩테스트 고득점 Kit
 
-* DataBinding
-* LiveData
-* ViewModel
-* Hilt
+- 해시
+* 완주하지 못한 선수
