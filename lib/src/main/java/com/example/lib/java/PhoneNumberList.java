@@ -22,11 +22,16 @@ public class PhoneNumberList {
         String[] phoneBook2 = {"123", "456", "789"};                //true
         String[] phoneBook3 = {"12", "123", "1235", "567", "88"};   //false
 
-        println("===========");
+        println("===========solution1===========");
         println("phoneBook1 is " + solution1(phoneBook1));
         println("phoneBook2 is " + solution1(phoneBook2));
         println("phoneBook3 is " + solution1(phoneBook3));
-        print("===========");
+        println("===========solution1===========");
+        println("===========solution2===========");
+        println("phoneBook1 is " + solution2(phoneBook1));
+        println("phoneBook2 is " + solution2(phoneBook2));
+        println("phoneBook3 is " + solution2(phoneBook3));
+        println("===========solution2===========");
 
     }
 
@@ -47,6 +52,26 @@ public class PhoneNumberList {
                 }
                 if (phone_book[j].startsWith(phone_book[i])) {
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean solution2(String[] phone_book) {
+        for (int i = 0; i < phone_book.length - 1; i++) {
+            for (int j = i + 1; j < phone_book.length; j++) {
+                String temp;
+                if (phone_book[i].length() < phone_book[j].length()) {
+                    temp = phone_book[j].substring(0, phone_book[i].length());
+                    if (phone_book[i].equals(temp)) {
+                        return false;
+                    }
+                } else {
+                    temp = phone_book[i].substring(0, phone_book[j].length());
+                    if (phone_book[j].equals(temp)) {
+                        return false;
+                    }
                 }
             }
         }
