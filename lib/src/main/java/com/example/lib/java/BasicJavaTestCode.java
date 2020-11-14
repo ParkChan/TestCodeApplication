@@ -15,4 +15,9 @@ public class BasicJavaTestCode {
     private static void println(String message) {
         System.out.println(message);
     }
+
+    public static long[] solution(String[] words) {
+        long[] answer = {};
+        return answer;
+    }
 }
