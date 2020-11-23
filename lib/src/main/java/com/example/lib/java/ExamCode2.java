@@ -53,9 +53,9 @@ public class ExamCode2 {
 
     public static void main(String[] args) {
 
-        String[] words = {"one", "one", "two", "one"};
-        println("===========");
-        print(solution(6, "hi bye", 6));
+//        String[] words = {"one", "one", "two", "one"};
+//        println("===========");
+//        print(solution(6, "hi bye", 6));
     }
 
     /**

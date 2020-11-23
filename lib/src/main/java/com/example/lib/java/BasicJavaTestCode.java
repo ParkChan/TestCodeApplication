@@ -8,11 +8,11 @@ public class BasicJavaTestCode {
         print("===========");
     }
 
-    private static void print(String message) {
+    public static void print(String message) {
         System.out.print(message);
     }
 
-    private static void println(String message) {
+    public static void println(String message) {
         System.out.println(message);
     }
 
