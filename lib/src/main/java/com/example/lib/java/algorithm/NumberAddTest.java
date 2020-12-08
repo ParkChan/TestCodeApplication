@@ -1,4 +1,4 @@
-package com.example.lib.java;
+package com.example.lib.java.algorithm;
 
 public class NumberAddTest {
 

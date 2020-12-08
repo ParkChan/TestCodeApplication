@@ -1,4 +1,4 @@
-package com.example.lib.java;
+package com.example.lib.java.algorithm;
 
 /**
  * 문제 설명
