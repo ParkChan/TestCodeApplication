@@ -23,9 +23,9 @@ public class BlockingDequeTest extends BasicJavaTestCode {
             String two = deque.takeLast();
             String one = deque.takeFirst();
 
-            println("two >>> " + two);
-            println("one >>> " + one);
-            println("deque size >>> " + deque.size());
+            print("two >>> " + two);
+            print("one >>> " + one);
+            print("deque size >>> " + deque.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

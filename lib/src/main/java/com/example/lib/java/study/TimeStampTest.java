@@ -11,7 +11,7 @@ public class TimeStampTest extends BasicJavaTestCode {
 
 
     public static void main(String[] args){
-        println("cn time " + getBeijingDatetime());
+        print("cn time " + getBeijingDatetime());
     }
 
     private static String getBeijingDatetime() {
