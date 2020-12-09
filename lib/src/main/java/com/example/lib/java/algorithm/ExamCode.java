@@ -2,8 +2,9 @@ package com.example.lib.java.algorithm;
 
 import java.util.HashMap;
 
-/**
- * Verbal memory 게임에서 게이머는 각 라운드마다 주어진 단어가 몇 번째 라운드에서 나왔던 단어인지 판단해야 합니다. 예를 들어, 4 라운드 게임에서 각 라운드마다 단어가 다음같이 주어진 경우, [one, one, two, one]
+/*
+ * Verbal memory 게임에서 게이머는 각 라운드마다 주어진 단어가 몇 번째 라운드에서 나왔던 단어인지 판단해야 합니다.
+ * 예를 들어, 4 라운드 게임에서 각 라운드마다 단어가 다음같이 주어진 경우, [one, one, two, one]
  *
  * 1 라운드: 단어 one이 주어졌으며, 이 단어는 이번 라운드에 처음으로 등장한 단어입니다.
  * 2 라운드: 단어 one이 주어졌으며, 이 단어는 1 라운드에서 처음으로 등장했습니다.
@@ -35,7 +36,6 @@ import java.util.HashMap;
  * 4	you	4	처음 등장한 단어
  * 5	you	4	4 라운드에 나온 단어
  */
-
 public class ExamCode {
 
     public static void main(String[] args) {

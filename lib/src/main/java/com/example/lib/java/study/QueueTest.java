@@ -1,22 +1,17 @@
 package com.example.lib.java.study;
 
-import com.example.lib.java.BasicJavaTestCode;
+import com.example.lib.java.util.LoggingLogger;
 
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import sun.rmi.runtime.Log;
 
 /**
  * https://wakestand.tistory.com/198
  */
-public class QueueTest extends BasicJavaTestCode {
+public class QueueTest{
 
     public static void main(String[] args) {
-
-        initLogger(false);
 
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"};
 
@@ -27,8 +22,12 @@ public class QueueTest extends BasicJavaTestCode {
         for (String s : alphabet) {
             queue.offer(s);
         }
+        System.out.println(String.format("file.encoding: %s", System.getProperty("file.encoding")));
+        System.out.println(String.format("defaultCharset: %s", Charset.defaultCharset().name()));
 
-        print("Queue 값 포함 여부 : " + queue.contains("B"));
+        LoggingLogger.getInstance().print("테스트");
+        LoggingLogger.getInstance().print("Queue 값 포함 여부 : " + queue.contains("B"));
+
 //        println("Queue 값 포함 다음 출력값 확인 1: " + queue.peek());
 //        println("Queue 크기확인: " + queue.size());
 //        println("Queue 값 포함 다음 출력값 확인 2: " + queue.peek());
