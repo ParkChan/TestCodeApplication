@@ -1,6 +1,6 @@
 package com.example.lib.java.study;
 
-import com.example.lib.java.util.LoggingLogger;
+import com.example.lib.java.util.CustomLogger;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -23,9 +23,9 @@ public class BlockingDequeTest{
             String two = deque.takeLast();
             String one = deque.takeFirst();
 
-            LoggingLogger.getInstance().print("two >>> " + two);
-            LoggingLogger.getInstance().print("one >>> " + one);
-            LoggingLogger.getInstance().print("deque size >>> " + deque.size());
+            CustomLogger.getInstance().info("two >>> " + two);
+            CustomLogger.getInstance().info("one >>> " + one);
+            CustomLogger.getInstance().info("deque size >>> " + deque.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

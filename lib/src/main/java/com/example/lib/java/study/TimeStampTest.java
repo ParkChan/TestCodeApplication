@@ -1,6 +1,6 @@
 package com.example.lib.java.study;
 
-import com.example.lib.java.util.LoggingLogger;
+import com.example.lib.java.util.CustomLogger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,7 +11,7 @@ public class TimeStampTest{
 
 
     public static void main(String[] args){
-        LoggingLogger.getInstance().print("cn time " + getBeijingDatetime());
+        CustomLogger.getInstance().info("cn time " + getBeijingDatetime());
     }
 
     private static String getBeijingDatetime() {
