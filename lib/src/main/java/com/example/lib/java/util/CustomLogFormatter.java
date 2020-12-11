@@ -34,7 +34,7 @@ public class CustomLogFormatter extends Formatter {
     }
 
     private String calcDate(long millisecs) {
-        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date resultdate = new Date(millisecs);
         return date_format.format(resultdate);
     }

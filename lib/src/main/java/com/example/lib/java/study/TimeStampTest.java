@@ -1,17 +1,17 @@
 package com.example.lib.java.study;
 
-import com.example.lib.java.BasicJavaTestCode;
+import com.example.lib.java.util.CustomLogger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class TimeStampTest extends BasicJavaTestCode {
+public class TimeStampTest{
 
 
     public static void main(String[] args){
-        print("cn time " + getBeijingDatetime());
+        CustomLogger.getInstance().info("cn time " + getBeijingDatetime());
     }
 
     private static String getBeijingDatetime() {
