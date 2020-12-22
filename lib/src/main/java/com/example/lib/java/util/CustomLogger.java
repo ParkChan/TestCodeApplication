@@ -15,20 +15,16 @@ import java.util.logging.Logger;
 public class CustomLogger {
 
     private final static Logger LOG = Logger.getGlobal();
-
+    private static final boolean isSaveLogger = true;
     private CustomLogger() {
-        initLogger(false);
-    }
-
-    private CustomLogger(boolean isSaveFile) {
-        initLogger(isSaveFile);
+        initLogger();
     }
 
     public static CustomLogger getInstance() {
         return SingleTonHolder.instance;
     }
 
-    private static void initLogger(boolean isSaveFile) {
+    private static void initLogger() {
         //기본 로그 제거
         Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
@@ -36,18 +32,19 @@ public class CustomLogger {
             rootLogger.removeHandler(handlers[0]);
         }
 
-        //로그 파일 저장
-        String moduleName = "test";
-        String filePath = "log/" + moduleName;
-        File f = new File(filePath);
-        f.mkdirs();
-
-        String logPostfixFileName = new SimpleDateFormat("_yyyyMMdd").format(new Date());
-        String logFileName = moduleName + logPostfixFileName + ".log";
-        String logFilePath = filePath + "/" + logFileName;
-
         CustomLogFormatter formatter = new CustomLogFormatter();
-        if (isSaveFile) {
+        if (isSaveLogger) {
+
+            //로그 파일 저장
+            String moduleName = "test";
+            String filePath = "log/" + moduleName;
+            File f = new File(filePath);
+            f.mkdirs();
+
+            String logPostfixFileName = new SimpleDateFormat("_yyyyMMdd").format(new Date());
+            String logFileName = moduleName + logPostfixFileName + ".log";
+            String logFilePath = filePath + "/" + logFileName;
+
             try {
                 Handler fildHandler = new FileHandler(logFilePath, true);
                 fildHandler.setFormatter(formatter);
@@ -74,6 +71,6 @@ public class CustomLogger {
     }
 
     private static class SingleTonHolder {
-        private static final CustomLogger instance = new CustomLogger(false);
+        private static final CustomLogger instance = new CustomLogger();
     }
 }
