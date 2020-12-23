@@ -14,8 +14,9 @@ import java.util.logging.Logger;
  */
 public class CustomLogger {
 
-    private final static Logger LOG = Logger.getGlobal();
-    private static final boolean isSaveLogger = true;
+    private final static Logger LOG = Logger.getLogger("CHAN_LOGGER");
+    private static final boolean isSaveLogger = false;
+
     private CustomLogger() {
         initLogger();
     }
@@ -28,8 +29,8 @@ public class CustomLogger {
         //기본 로그 제거
         Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
-        if (handlers[0] instanceof ConsoleHandler) {
-            rootLogger.removeHandler(handlers[0]);
+        for (int i = 0; i < handlers.length; i++) {
+            rootLogger.removeHandler(handlers[i]);
         }
 
         CustomLogFormatter formatter = new CustomLogFormatter();
@@ -46,9 +47,9 @@ public class CustomLogger {
             String logFilePath = filePath + "/" + logFileName;
 
             try {
-                Handler fildHandler = new FileHandler(logFilePath, true);
-                fildHandler.setFormatter(formatter);
-                LOG.addHandler(fildHandler);
+                Handler fileHandler = new FileHandler(logFilePath, true);
+                fileHandler.setFormatter(formatter);
+                LOG.addHandler(fileHandler);
             } catch (IOException e) {
                 e.printStackTrace();
             }
