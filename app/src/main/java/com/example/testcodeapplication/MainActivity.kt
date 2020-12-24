@@ -3,7 +3,6 @@ package com.example.testcodeapplication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.lib.java.util.CustomLogger
 import com.example.testcodeapplication.databinding.ActivityMainBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -15,10 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val animals = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.btnTest.setOnClickListener {
+            animals.add("Cat")
+        }
 
         val animals = ArrayList<String>()
         animals.add("Tiger")
@@ -35,24 +39,24 @@ class MainActivity : AppCompatActivity() {
                 .subscribeWith(object : Observer<ArrayList<String>> {
                     //Observer가 Observable을 구독 할 때 메서드가 호출됩니다.
                     override fun onSubscribe(d: Disposable) {
-                        CustomLogger.getInstance().info("Test rxjava onSubscribe >>> ")
                     }
 
                     //Observable이 데이터 방출을 시작할 때 호출됩니다.
                     override fun onNext(t: ArrayList<String>) {
-                        CustomLogger.getInstance().info("Test rxjava onNext >>> $t")
                     }
 
                     //오류 발생시 onError() 메서드가 호출됩니다.
                     override fun onError(e: Throwable) {
-                        CustomLogger.getInstance().info("Test rxjava onError >>> " + e.message)
                     }
 
                     //Observable이 모든 항목의 방출을 완료하면 onComplete ()가 호출됩니다.
                     override fun onComplete() {
-                        CustomLogger.getInstance().info("Test rxjava onComplete >>>")
                     }
                 })
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

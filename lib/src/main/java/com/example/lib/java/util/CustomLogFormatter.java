@@ -16,10 +16,6 @@ public class CustomLogFormatter extends Formatter {
         StringBuffer buf = new StringBuffer(1000);
         buf.append(calcDate(rec.getMillis()));
 
-        buf.append(" [");
-        buf.append(rec.getLevel());
-        buf.append("] ");
-
         buf.append("[");
         buf.append(rec.getSourceMethodName());
         buf.append("] ");

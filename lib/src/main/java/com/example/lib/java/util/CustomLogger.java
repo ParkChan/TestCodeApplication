@@ -14,9 +14,8 @@ import java.util.logging.Logger;
  */
 public class CustomLogger {
 
-    private final static Logger LOG = Logger.getLogger("CHAN_LOGGER");
-    private static final boolean isSaveLogger = false;
-
+    private final static Logger logger = Logger.getLogger("CHAN_LOGGER");
+    private static final boolean isSaveLogger = true;
     private CustomLogger() {
         initLogger();
     }
@@ -26,12 +25,8 @@ public class CustomLogger {
     }
 
     private static void initLogger() {
-        //기본 로그 제거
-        Logger rootLogger = Logger.getLogger("");
-        Handler[] handlers = rootLogger.getHandlers();
-        for (int i = 0; i < handlers.length; i++) {
-            rootLogger.removeHandler(handlers[i]);
-        }
+
+        logger.setUseParentHandlers(false);
 
         CustomLogFormatter formatter = new CustomLogFormatter();
         if (isSaveLogger) {
@@ -49,26 +44,26 @@ public class CustomLogger {
             try {
                 Handler fileHandler = new FileHandler(logFilePath, true);
                 fileHandler.setFormatter(formatter);
-                LOG.addHandler(fileHandler);
+                logger.addHandler(fileHandler);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         Handler handler = new ConsoleHandler();
         handler.setFormatter(formatter);
-        LOG.addHandler(handler);
+        logger.addHandler(handler);
     }
 
     public void info(String message) {
-        LOG.info(message);
+        logger.info(message);
     }
 
     public void warning(String message) {
-        LOG.warning(message);
+        logger.warning(message);
     }
 
     public void severe(String message) {
-        LOG.severe(message);
+        logger.severe(message);
     }
 
     private static class SingleTonHolder {
