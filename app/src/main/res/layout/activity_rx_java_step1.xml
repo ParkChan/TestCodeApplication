@@ -11,29 +11,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <TextView
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/color_ffffff"
-                android:text="RxJava Test"
+                android:text="기본 동작 구성"
                 android:textColor="@color/color_000000" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_000000"
-                />
-
-            <Button
-                android:id="@+id/btn_test2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/btn_test"
-                android:background="@color/color_ffffff"
-                android:text="Next Step"
-                android:textColor="@color/color_000000" />
-
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </layout>
