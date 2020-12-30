@@ -21,6 +21,7 @@
         <activity android:name=".ui.rx.RxJavaMainActivity"/>
         <activity android:name=".ui.rx.RxJavaStep1Activity"/>
         <activity android:name=".ui.rx.RxJavaStep2Activity"/>
+        <activity android:name=".ui.rx.RxJavaStep3Activity" />
     </application>
 
 </manifest>

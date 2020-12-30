@@ -13,6 +13,9 @@ import io.reactivex.rxjava3.disposables.Disposable
 /**
  * Observer
  * Observable
+ * 참고 : https://tourspace.tistory.com/279
+ * Observable의 생성
+ * create
  */
 class RxJavaStep2Activity : AppCompatActivity() {
 
@@ -51,12 +54,14 @@ class RxJavaStep2Activity : AppCompatActivity() {
             it.onNext("B")
             it.onComplete()
         }
+
         val simpleObservable2: Observable<String> = Observable.create {
             Logger.v("simpleObservable2 Thread Name " + Thread.currentThread().name)
             it.onNext("C")
             it.onNext("D")
             it.onError(Exception("Opps!! Exception"))
         }
+
 
         simpleObservable1.subscribe(observer)
         simpleObservable2.subscribe(observer)
