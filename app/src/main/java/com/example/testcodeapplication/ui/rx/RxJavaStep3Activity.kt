@@ -8,7 +8,6 @@ import com.example.testcodeapplication.R
 import com.example.testcodeapplication.databinding.ActivityRxJavaStep3Binding
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.Callable
 import java.util.concurrent.Future
@@ -26,7 +25,6 @@ import java.util.concurrent.TimeUnit
 class RxJavaStep3Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRxJavaStep3Binding
-    private val diposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
