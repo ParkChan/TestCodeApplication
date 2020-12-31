@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
  * Observable
  * 참고 : https://tourspace.tistory.com/279
  * Observable의 생성
- * from
+ * from 그리고 just
  */
 class RxJavaStep3Activity : AppCompatActivity() {
 
@@ -30,6 +30,9 @@ class RxJavaStep3Activity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_step3)
 
 
+        /**
+         * from
+         */
         val list = listOf(1, 2, 3)
         //val list = listOf(1, 2, 3).toObservable()
         val listOb = Observable.fromIterable(list)
@@ -78,11 +81,38 @@ class RxJavaStep3Activity : AppCompatActivity() {
                 println("onComplete()")
             }
         }
+//        listOb.subscribe(observer)
+//        callOb.subscribe(observer)
+//        futureOb.subscribe(observer)
 
-        listOb.subscribe(observer)
-        callOb.subscribe(observer)
-        futureOb.subscribe(observer)
+        /**
+         * just
+         */
+        val list2 = listOf(1, 2, 3)
+        val num = 3
+        val str = "WOW!"
+        val map = mapOf(1 to "one", 2 to "two")
+
+        val justOb = Observable.just(list2, num, str, map)
+
+        val observerJust: Observer<Any> = object : Observer<Any> {
+            override fun onSubscribe(d: Disposable?) {
+                println("onSubscribe() - $d")
+            }
+
+            override fun onNext(item: Any?) {
+                println("onNext() - $item")
+            }
+
+            override fun onError(e: Throwable) {
+                println("onError() - ${e.message}")
+            }
+
+            override fun onComplete() {
+                println("onComplete()")
+            }
+        }
+        justOb.subscribe(observerJust)
 
     }
-
 }
