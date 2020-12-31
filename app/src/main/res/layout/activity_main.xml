@@ -14,24 +14,25 @@
             <Button
                 android:id="@+id/btn_test"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/item_height"
                 android:background="@color/color_ffffff"
                 android:text="RxJava Test"
+                android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_000000"
-                />
+                android:background="@color/color_000000" />
 
             <Button
                 android:id="@+id/btn_test2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/item_height"
                 android:layout_below="@id/btn_test"
                 android:background="@color/color_ffffff"
                 android:text="Next Step"
+                android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -17,6 +17,7 @@
                 android:layout_height="40dp"
                 android:background="@color/color_ffffff"
                 android:text="기본 동작 구성"
+                android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
