@@ -8,10 +8,12 @@ import com.example.testcodeapplication.R
 import com.example.testcodeapplication.databinding.ActivityRxJavaStep3Binding
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.Callable
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
+
 
 /**
  * Observer
@@ -20,11 +22,13 @@ import java.util.concurrent.TimeUnit
  * https://tourspace.tistory.com/279
  * https://brunch.co.kr/@lonnie/18
  * Observable의 생성
- * from/just/range/empty/interval/timer
+ * from/just/range/empty/interval/timer/구독해지
  */
 class RxJavaStep3Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRxJavaStep3Binding
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +97,13 @@ class RxJavaStep3Activity : AppCompatActivity() {
 
         binding.run {
             btnFromIterable.setOnClickListener {
-                listOb.subscribe(observer)
+                //listOb.subscribe(observer)
+                //observer의 instance를 등록해도 되지만 필요한 callback만 따로 등록해서 사용할 수 있음
+                listOb.subscribe(
+                        { item -> println("onNext - $item") },
+                        { err -> println("err - $err") },
+                        { println("complete()") }
+                )
             }
             btnFromCallable.setOnClickListener {
                 callOb.subscribe(observer)
@@ -112,8 +122,42 @@ class RxJavaStep3Activity : AppCompatActivity() {
             }
             btnInterval.setOnClickListener {
                 //특정 시간 간격을 주기로 0부터 증가하는 정수 값을 발행한다.
-                val source = Observable.interval(1, TimeUnit.SECONDS)
-                source.take(3).subscribe(observer)
+                val observableInterval = Observable.interval(1, TimeUnit.SECONDS)
+                //observableInterval.take(3).subscribe(observer)
+
+                val disposable: Disposable = observableInterval.subscribe(
+                        { item -> println("Test onNext - $item") },
+                        { err -> println("Test err - $err") },
+                        { println("Test complete()") }
+                )
+
+//                val disposableObserver: DisposableObserver<Any> = object : DisposableObserver<Any>() {
+//                    override fun onNext(item: Any?) {
+//                        println("onNext() - $item")
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        println("onError() - ${e.message}")
+//                    }
+//
+//                    override fun onComplete() {
+//                        println("onComplete()")
+//                    }
+//                }
+//                val disposable: Disposable = observableInterval.subscribeWith(disposableObserver)
+                compositeDisposable.add(disposable)
+
+                //구독 해지
+                Thread() {
+                    Thread.sleep(3000)
+                    //compositeDisposable.clear()
+                    compositeDisposable.dispose()
+                    //disposable.dispose()
+                    Thread.sleep(100)
+                }.apply {
+                    start()
+                    join()
+                }
             }
             btnTimer.setOnClickListener {
                 //특정 시간 이후에 숫자 0을 발행한다. 스케줄러로 computation을 사용하고 변경 가능

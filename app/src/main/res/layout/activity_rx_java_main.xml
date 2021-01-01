@@ -46,7 +46,7 @@
                 android:layout_height="@dimen/item_height"
                 android:layout_below="@id/btn_test"
                 android:background="@color/color_ffffff"
-                android:text="Observable의 생성 from/just/range/empty"
+                android:text="Observable의 생성 from/just/range/empty/interval/timer/구독해지"
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
