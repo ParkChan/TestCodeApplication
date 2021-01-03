@@ -62,8 +62,10 @@ class RxJavaStep2Activity : AppCompatActivity() {
             it.onError(Exception("Opps!! Exception"))
         }
 
-
         simpleObservable1.subscribe(observer)
         simpleObservable2.subscribe(observer)
+
+        //Observable.concat(simpleObservable1, simpleObservable2).subscribe(observer)
+
     }
 }
