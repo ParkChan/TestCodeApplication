@@ -16,6 +16,8 @@ class RxJavaMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_main)
+        binding.lifecycleOwner = this
+
         binding.btnStep1.setOnClickListener {
             val intent = Intent(this, RxJavaStep1Activity::class.java)
             startActivity(intent)

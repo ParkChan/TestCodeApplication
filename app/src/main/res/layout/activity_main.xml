@@ -12,11 +12,25 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_test"
+                android:id="@+id/btn_rxkotlin_test"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
                 android:background="@color/color_ffffff"
                 android:text="RxJava Test"
+                android:textAllCaps="false"
+                android:textColor="@color/color_000000" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_000000" />
+
+            <Button
+                android:id="@+id/btn_intent_install_test"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/color_ffffff"
+                android:text="Intent install apk test"
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 

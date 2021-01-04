@@ -34,6 +34,7 @@ class RxJavaStep3Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_step3)
+        binding.lifecycleOwner = this
 
         /**
          * from

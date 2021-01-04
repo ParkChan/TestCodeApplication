@@ -27,6 +27,7 @@ class RxJavaStep1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_step1)
+        binding.lifecycleOwner = this
 
         animals.add("Tiger")
         animals.add("Lion")

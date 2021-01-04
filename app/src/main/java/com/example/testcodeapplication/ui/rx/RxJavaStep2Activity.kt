@@ -25,6 +25,7 @@ class RxJavaStep2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_step2)
+        binding.lifecycleOwner = this
 
         val observer: Observer<String> = object : Observer<String> {
             override fun onSubscribe(d: Disposable?) {
