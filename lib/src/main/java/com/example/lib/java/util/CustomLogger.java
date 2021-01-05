@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CustomLogger {
 
     private final static Logger logger = Logger.getLogger("CHAN_LOGGER");
-    private static final boolean isSaveLogger = true;
+    private static final boolean isSaveLogger = false;
     private CustomLogger() {
         initLogger();
     }
