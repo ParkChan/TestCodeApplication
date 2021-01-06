@@ -129,6 +129,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
     implementation "com.google.android.material:material:1.2.1"
-    implementation 'com.squareup.okhttp3:okhttp:3.14.6'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 
 }
