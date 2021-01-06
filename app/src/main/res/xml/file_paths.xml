@@ -1,3 +1,21 @@
 <paths>
-    <files-path path="/" name="app.apk" />
+<!--    <files-path path="/" name="app.apk" />-->
+    <root-path
+        name="external_files"
+        path="." />
+
+    <files-path
+        path="files"
+        name="files" />
+    <cache-path
+        path="files"
+        name="cache" />
+    <external-path
+        path="files"
+        name="external" />
+    <external-files-path
+        path="files"
+        name="externalfiles" />
+
+    <files-path path="/" name="download.apk" />
 </paths>

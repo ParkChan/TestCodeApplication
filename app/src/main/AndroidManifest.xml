@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.testcodeapplication">
 
+    <!-- 이 퍼미션은 시스템(privileged)앱 또는 플랫폼 key로 서명된 앱만 받을 수 있기 때문에
+    일반적인 앱들은 이 방법을 사용할 수 없습니다.-->
+    <!-- 테스트 결과 시스템 또는 플랫폼 키가 없을 경우에는 "알수없는 앱"으로 인지된 이후 사용자 동의 이후에
+    설치가 진행되는것을 확인-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -19,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat"
         android:usesCleartextTraffic="true"
-        tools:targetApi="n">
+        >
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
