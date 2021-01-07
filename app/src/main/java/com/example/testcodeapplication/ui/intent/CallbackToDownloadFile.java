@@ -1,5 +1,7 @@
 package com.example.testcodeapplication.ui.intent;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +12,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * 코틀린 코드로 이관 필요
+ */
 public class CallbackToDownloadFile implements Callback {
 
     private File directory;
@@ -30,16 +35,22 @@ public class CallbackToDownloadFile implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        if (!this.directory.exists()) {
-            this.directory.mkdirs();
+        if (!directory.exists()) {
+            boolean isMakeDir = directory.mkdirs();
+            if(isMakeDir){
+                Logger.d("make directory success" + directory.getAbsolutePath());
+            }
         }
 
-        if (this.fileToBeDownloaded.exists()) {
-            this.fileToBeDownloaded.delete();
+        if (fileToBeDownloaded.exists()) {
+            boolean isDelete = fileToBeDownloaded.delete();
+            if(isDelete){
+                Logger.d("delete file success " + fileToBeDownloaded.getAbsolutePath());
+            }
         }
 
         try {
-            this.fileToBeDownloaded.createNewFile();
+            fileToBeDownloaded.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
             downloadFail("다운로드 파일을 생성할 수 없습니다.");

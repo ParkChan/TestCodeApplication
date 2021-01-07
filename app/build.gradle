@@ -16,37 +16,37 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-//    signingConfigs {
-//        debug {
-//            storeFile file("../ifly_pad.jks")
-//            storePassword "iflytech06"
-//            keyAlias "platform"
-//            keyPassword "iflytech06"
-//        }
-//
-//        release {
-//            storeFile file("../ifly_pad.jks")
-//            storePassword "iflytech06"
-//            keyAlias "platform"
-//            keyPassword "iflytech06"
-//        }
-//
-//        lintOptions {
-//            // if set to true (default), stops the build if errors are found.
-//            //abortOnError false
-//            // if true, only report errors.
-//            ignoreWarnings true
-//        }
-//    }
+    signingConfigs {
+        debug {
+            storeFile file("../ifly_pad.jks")
+            storePassword "iflytech06"
+            keyAlias "platform"
+            keyPassword "iflytech06"
+        }
+
+        release {
+            storeFile file("../ifly_pad.jks")
+            storePassword "iflytech06"
+            keyAlias "platform"
+            keyPassword "iflytech06"
+        }
+
+        lintOptions {
+            // if set to true (default), stops the build if errors are found.
+            //abortOnError false
+            // if true, only report errors.
+            ignoreWarnings true
+        }
+    }
 
     buildTypes {
         debug {
-//            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             minifyEnabled false
         }
 
         release {
-//            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -129,6 +129,9 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
     implementation "com.google.android.material:material:1.2.1"
+    
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
 
 }

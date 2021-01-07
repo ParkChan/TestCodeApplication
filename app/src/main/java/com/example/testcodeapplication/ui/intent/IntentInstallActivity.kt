@@ -1,7 +1,6 @@
 package com.example.testcodeapplication.ui.intent
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaScannerConnection
@@ -84,9 +83,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
     private fun downloadWebLink() {
         val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
-//        val outputPath = filesDir.absolutePath
-//        val fileName = "/download.apk"
-        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
+        val outputPath = filesDir.absolutePath + "/Meeting/huiyi/download"
         val fileName = "SoundTutorial.apk"
 
         val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
@@ -106,6 +103,8 @@ class IntentInstallActivity : AppCompatActivity() {
                 )
                 runOnUiThread{
                     installApk(outputPath.plus("/").plus(fileName))
+//                    InstallUtil.installSilent(outputPath.plus("/").plus(fileName))
+//                    InstallUtil.installSilent1(outputPath.plus("/").plus(fileName))
                     Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -141,9 +140,9 @@ class IntentInstallActivity : AppCompatActivity() {
     private fun registerForActivityResult(): ActivityResultLauncher<Intent> {
         return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             Logger.d("registerForActivityResult data $result")
-            if (result.resultCode == Activity.RESULT_OK) {
-
-            }
+//            if (result.resultCode == Activity.RESULT_OK) {
+//
+//            }
         }
     }
 
