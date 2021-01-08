@@ -14,6 +14,10 @@ fun main() {
     val result1 = data1?.name
     val result2 = data2?.name
 
+    data2.name?.also {
+        println("null check ~~~~~~~~~ $it.name")
+    }
+
     println("result1 $result1")
     println("result2 $result2")
 
