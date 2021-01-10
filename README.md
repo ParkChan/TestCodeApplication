@@ -2,8 +2,10 @@
 1. 코딩 테스트
 
 > Android
->   >IntentInstall
->   >RxKotlinTest
+>   >## intent
+>   >* IntentInstall 테스트 작성
+>   >## rxjava3 
+>   >* RxJava3 학습
 >
 > Java Code
 >   >## 코딩테스트 고득점 Kit/해시
@@ -16,8 +18,8 @@
 >   >* TimeStampTest
 >
 >   >## 유틸
->   >### 멀티모듈에서 사용할 로거 구성하기
->   > CustomLogger
-
+>   >###멀티모듈에서 사용할 로거 구성하기
+>   >* CustomLogger
+>
 > Kotlin Code
 >   >* ReqeustMapToString
