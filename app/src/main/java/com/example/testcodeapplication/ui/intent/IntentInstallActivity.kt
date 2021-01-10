@@ -7,8 +7,6 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES
-import android.view.View
-import android.view.View.OnClickListener
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -97,7 +95,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
             override fun success() {
                 MediaScannerConnection.scanFile(
-                    applicationContext, arrayOf(outputPath + "/" + fileName),
+                    applicationContext, arrayOf("$outputPath/$fileName"),
                     null,
                     null
                 )
@@ -174,15 +172,12 @@ class IntentInstallActivity : AppCompatActivity() {
                     binding.root,
                     "앱을 다운로드하여 설치하려면 외부 저장소 접근 권한이 필요합니다.",
                     Snackbar.LENGTH_INDEFINITE
-                ).setAction("확인", object : OnClickListener {
-                    override fun onClick(v: View?) {
-                        // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                        ActivityCompat.requestPermissions(
-                            this@IntentInstallActivity, REQUIRED_PERMISSIONS,
-                            PERMISSIONS_REQUEST_CODE
-                        )
-                    }
-                }).show()
+                ).setAction("확인") { // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                    ActivityCompat.requestPermissions(
+                        this@IntentInstallActivity, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE
+                    )
+                }.show()
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
