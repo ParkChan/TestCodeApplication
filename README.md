@@ -19,8 +19,7 @@
 >   >   >* TimeStampTest
 >   >
 >   >   >## 유틸
->   >   >###멀티모듈에서 사용할 로거 구성하기
->   >   >* CustomLogger
+>   >   >* CustomLogger 멀티모듈에서 사용할 로거 만들기
 >   >
 >   > Kotlin Code
 >   >   >* ReqeustMapToString
