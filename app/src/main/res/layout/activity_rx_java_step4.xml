@@ -12,11 +12,11 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_step1"
+                android:id="@+id/btn_hot_observable"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
                 android:background="@color/color_ffffff"
-                android:text="Basic"
+                android:text="cold observable test"
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
@@ -26,11 +26,11 @@
                 android:background="@color/color_000000" />
 
             <Button
-                android:id="@+id/btn_step2"
+                android:id="@+id/btn_hot_observable_test"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
                 android:background="@color/color_ffffff"
-                android:text="Observable의 생성 create"
+                android:text="hot observable test"
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
@@ -38,30 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_000000" />
-
-            <Button
-                android:id="@+id/btn_step3"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:background="@color/color_ffffff"
-                android:text="Observable의 생성 from/just/range/empty/interval/timer/구독해지"
-                android:textAllCaps="false"
-                android:textColor="@color/color_000000" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_000000" />
-
-            <Button
-                android:id="@+id/btn_step4"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:background="@color/color_ffffff"
-                android:text="Hot Observable"
-                android:textAllCaps="false"
-                android:textColor="@color/color_000000" />
-
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </layout>

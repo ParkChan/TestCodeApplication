@@ -30,6 +30,10 @@ class RxJavaMainActivity : AppCompatActivity() {
             val intent = Intent(this, RxJavaStep3Activity::class.java)
             startActivity(intent)
         }
+        binding.btnStep4.setOnClickListener {
+            val intent = Intent(this, RxJavaStep4Activity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
