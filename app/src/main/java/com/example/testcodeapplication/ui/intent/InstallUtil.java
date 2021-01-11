@@ -60,7 +60,9 @@ public class InstallUtil {
         StringBuilder successMsg = new StringBuilder();
         StringBuilder errorMsg = new StringBuilder();
         try {
-            process = new ProcessBuilder("pm", "install", "-i", "com.example.testcodeapplication", "-r", apkPath).start();
+            process = new ProcessBuilder("pm", "install", "-i", "com.iflytek.huiyisystem", "-r", apkPath).start();
+            //process = new ProcessBuilder("pm", "install", "-i", "com.example.testcodeapplication", "-r", apkPath).start();
+//            process = new ProcessBuilder("pm", "install", "-r", apkPath).start();
             successResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
             errorResult = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             String s;

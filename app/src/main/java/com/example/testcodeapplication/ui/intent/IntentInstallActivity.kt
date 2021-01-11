@@ -58,7 +58,9 @@ class IntentInstallActivity : AppCompatActivity() {
 
             //시스템(privileged)앱 또는 플랫폼 key로 서명된 경우 바로 수행됨
             if (packageManager.canRequestPackageInstalls()) {
-                downloadWebLink()
+
+                InstallUtil.installSilent1("/storage/emulated/0/Meeting/huiyi/download/Pad_product_V6.1044_76_debug.apk.apk")
+//                downloadWebLink()
 //                installApk(
 //                    Environment.getExternalStorageDirectory().path
 //                            + "/Meeting/huiyi/download/SoundTutorial.apk"
@@ -81,15 +83,16 @@ class IntentInstallActivity : AppCompatActivity() {
 
     private fun downloadWebLink() {
         val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
-        val outputPath = filesDir.absolutePath + "/Meeting/huiyi/download"
+        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
         val fileName = "SoundTutorial.apk"
 
         val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
         callbackToDownloadFile.setApkDownLoadListener(object :
             CallbackToDownloadFile.ApkDownLoadListener {
             override fun start() {
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
@@ -99,18 +102,20 @@ class IntentInstallActivity : AppCompatActivity() {
                     null,
                     null
                 )
-                runOnUiThread{
-                    installApk(outputPath.plus("/").plus(fileName))
+                runOnUiThread {
+//                    installApk(outputPath.plus("/").plus(fileName))
 //                    InstallUtil.installSilent(outputPath.plus("/").plus(fileName))
 //                    InstallUtil.installSilent1(outputPath.plus("/").plus(fileName))
+                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
                     Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
 
             override fun fail(message: String?) {
-                runOnUiThread{
-                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         })
