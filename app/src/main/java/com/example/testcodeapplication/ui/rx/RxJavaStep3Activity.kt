@@ -23,6 +23,21 @@ import java.util.concurrent.TimeUnit
  * https://brunch.co.kr/@lonnie/18
  * Observable의 생성
  * from/just/range/empty/interval/timer/구독해지
+ *
+ * fromIterable(): list 같이 iterable을 지원하는 instance를 Observable 형태로 변경
+ * 각 개별 아이템이 하나씩 전달
+ *
+ * fromCallable(): Callable 객체를 OBservable형태로 변경
+ * call() 함수의 return값이 전달
+ *
+ * fromFuture(): Future 객체를 Observable 형태로 변경
+ * get() 함수의 return값이 전달
+ *
+ * just는 받은 인자를 그대로 전달
+ * range 특정 범위만큼 수를 생성하여 전달
+ * empty 아무값을 전달하지는 않지만 onComplete()를 호출
+ * interval 특정 시간 간격으로 0부터 숫자를 증가시키면서 반환
+ * timer 주어진 시간에 한번만 값을 전달
  */
 class RxJavaStep3Activity : AppCompatActivity() {
 

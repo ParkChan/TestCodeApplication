@@ -33,9 +33,6 @@ class RxJavaStep4Activity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rx_java_step4)
         binding.lifecycleOwner = this
 
-
-
-
         binding.run {
             btnHotObservable.setOnClickListener {
                 val connectableObservable = (1..10).toObservable().publish()

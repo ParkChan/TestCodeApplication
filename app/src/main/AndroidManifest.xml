@@ -38,6 +38,7 @@
         <activity android:name=".ui.rx.RxJavaStep2Activity" />
         <activity android:name=".ui.rx.RxJavaStep3Activity" />
         <activity android:name=".ui.rx.RxJavaStep4Activity" />
+        <activity android:name=".ui.rx.RxJavaStep5Activity" />
 
         <activity android:name=".ui.intent.IntentInstallActivity" />
 
