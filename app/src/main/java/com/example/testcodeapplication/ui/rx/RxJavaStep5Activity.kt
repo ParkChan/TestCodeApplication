@@ -51,7 +51,7 @@ class RxJavaStep5Activity : AppCompatActivity() {
                     }, {
                         println("concat observable error $it")
                     }, {
-                        println("concat observable complete $it")
+                        println("concat observable complete")
                     }
                 )
                 compositeDisposable.add(disposable)
@@ -70,7 +70,7 @@ class RxJavaStep5Activity : AppCompatActivity() {
                         }, {
                             println("merge observable error $it")
                         }, {
-                            println("merge observable complete $it")
+                            println("merge observable complete")
                         }
                     )
                 compositeDisposable.add(disposable)
@@ -90,7 +90,7 @@ class RxJavaStep5Activity : AppCompatActivity() {
                         }, {
                             println("zip observable error $it")
                         }, {
-                            println("zip observable complete $it")
+                            println("zip observable complete")
                         }
                     )
                 compositeDisposable.add(disposable)
