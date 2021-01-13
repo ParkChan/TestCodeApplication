@@ -12,7 +12,7 @@ fun main() {
     println("===========")
     val test1 = Observable.just("1", "2", "3").delay(2, TimeUnit.SECONDS)
     val test2 = Observable.just("apple", "banana", "car")
-    val sda = Observable.concat(test1, test2)
+    Observable.concat(test1, test2)
         .blockingSubscribe(
             {
                 println("concat observable next $it")
