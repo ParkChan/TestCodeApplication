@@ -35,24 +35,24 @@ class RxJavaStep4Activity : AppCompatActivity() {
 
         binding.run {
             btnHotObservable.setOnClickListener {
-                val connectableObservable = (1..10).toObservable().publish()
+                val connectAbleObservable = (1..10).toObservable().publish()
 
                 //1번 구독자 등록
-                connectableObservable.subscribe { println("first subscriber: $it") }
+                connectAbleObservable.subscribe { println("first subscriber: $it") }
                 println("Add first subscriber")
 
                 //2번 구독자 등록
-                connectableObservable.map { "second subscriber: $it" }
+                connectAbleObservable.map { "second subscriber: $it" }
                     .subscribe { println(it) }
                 println("Add second subscriber")
 
                 //observerable connect()
-                compositeDisposable.add(connectableObservable.connect())
+                compositeDisposable.add(connectAbleObservable.connect())
 
                 //3번 구독자 등록
                 //1번과 2번 구독자를 등록후 Observable의 connect()를 호출하면 그때서야 데이터가 배출됨
                 //또한 배출이 완료된 이후에 등록된 3번은 데이터를 하나도 전달받지 못합니다.
-                connectableObservable.subscribe { println("Subscription 3: $it") }
+                connectAbleObservable.subscribe { println("Subscription 3: $it") }
             }
 
             btnHotObservableTest.setOnClickListener {

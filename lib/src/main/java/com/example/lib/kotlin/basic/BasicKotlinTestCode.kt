@@ -1,7 +1,4 @@
-package com.example.lib.kotlin
-
-
-class BasicKotlinTestCode {}
+package com.example.lib.kotlin.basic
 
 fun main() {
     data class Person(val age: Int, val name: String?)
@@ -20,5 +17,8 @@ fun main() {
 
     println("result1 $result1")
     println("result2 $result2")
+
+}
+fun concatTest() {
 
 }

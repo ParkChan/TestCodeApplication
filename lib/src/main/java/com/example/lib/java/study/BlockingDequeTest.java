@@ -10,6 +10,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  * LinkedBlockingDeque
  * Deque라는 단어는 "Double End Queue"라는 용어에서 왔다. 따라서 Deque는 대기열의 양 끝에 요소를 삽입하고 제거할 수 있는 대기열이다.
  * LinkedBlockingDeque는 스레드가 비어 있는 상태에서 요소를 빼내려고 하면 스레드가 어떤 끝에서 요소를 빼내려고 하는지에 관계없이 차단하는 Deque이다.
+ * LinkedBlockingDeque is thread-safe.
  */
 public class BlockingDequeTest{
     public static void main(String[] args) {
