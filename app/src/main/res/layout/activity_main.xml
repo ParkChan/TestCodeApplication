@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <import type="android.content.Context" />
+        <variable
+            name="vm"
+            type="com.example.testcodeapplication.viewmodel.MainViewModel" />
+
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,6 +26,7 @@
                 android:background="@color/color_ffffff"
                 android:text="RxJava Test"
                 android:textAllCaps="false"
+                android:onClick="@{() -> vm.startRxJava3Activity(context)}"
                 android:textColor="@color/color_000000" />
 
             <View
@@ -31,6 +40,23 @@
                 android:layout_height="@dimen/item_height"
                 android:background="@color/color_ffffff"
                 android:text="Intent install apk test"
+                android:onClick="@{() -> vm.startIntentInsatllActivity(context)}"
+                android:textAllCaps="false"
+                android:textColor="@color/color_000000" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_000000" />
+
+            <Button
+                android:id="@+id/btn_fcm_test"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_below="@id/btn_test"
+                android:background="@color/color_ffffff"
+                android:onClick="@{() -> vm.checkFcmToken()}"
+                android:text="Fcm Test"
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
