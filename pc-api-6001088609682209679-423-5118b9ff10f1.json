@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-6001088609682209679-423",
+  "private_key_id": "5118b9ff10f140da987680c4b63bcfdc45c41103",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDM0rXl0Clpkpa8\nlwaRVr3gy7E6AeKR8YGdKsCAmkGu4jBKW4fcxhPNf0udBCh/wYJES2Fu5EipN9W3\nWGwqPHyjuwwnA7ldjAnu+NI2uVoMjpAcP0yh74VqgEeHGDwS4peeheepdVg6LZJR\niCO0OXJZ3WnejrVRKiM97ubiZIdf2B72htAbXjqcflSU0HaIXqj+ErP5J5Yw6tnE\ng81QRs1/ly7uWMNy17NxGR+1BVtuBO+vhbtBskWoifcmmU7Qr9mP/FadwH9tGWHz\nY3nS9TMYL3er9alzmy+ycX9DElhLMC9gyp/wpmCl6rZ8a+W//Q5zzSWyFJRBCaus\nK3QgBurlAgMBAAECggEABA6AT8bpqw+eMKoFFUfUhulB31Y+OInB+WzpVyK2/lG4\nhyB89mBt7/n/c2KrsqwQem3Lxjh7P+69Kt5zdfqwtUV1HiiyuSmW4MbI0xCkue7w\n575RNDvcNpnH0OMn/W/DdP5N8ktCrhRM+5RosJ8aprD98cx9xtfAzu82X3GCROGn\nz7oegE4TVtBrKC9MZxhGUzD4L44P6u9jv2eokgYLDovXvfLyuEm2O7sbD6Vg1dfk\nJfRuLhoMXUV20YOWScRXGiNwQczrGYwQYgbjInPQoEqoiA296qZXB9ij6cKDLwyR\nQP4OLA1BiD4g+pTwkzgrX/v7QiyDqlqc/rzoVafAAQKBgQD6tkCx9IGYHAKuIoLi\n08qJ0CITF3HWbFoYipVcCKkc/swaWnDOqxFSCzH+TS/sPoY9Q6E4jg2Uyg7PsjDU\nEp0tojjkQBE9cATSiIFWW0ss2lA0jtOU1O4j+YSehc8X0rdvds48F2DhCQVpL3KZ\n4h8usyIXUCJ9PUmUQlPgp1By5QKBgQDRJK0GZqZFPEpZaL8QRmSB5eTq73eHjw5z\nXMKpv82ZgjGU0OkB8q9mPcyLwniklxe/EwbNJf1Z1EJVzqhrfHhE4dLAniSgkMVJ\n+dG8pTvCX++qtup38drdiN3vpkztU9Ys3q7Y+umsSPGu/CCDdAGm68peCA4gtGkL\ntTOqoh0YAQKBgB8Dao9Y6qsRU/eMh1pdzqEroPtxnABlWOPOSNmgrKLMlhzwcSHv\noW3fuqh1jecQePSdKBVh5SYxtJFWvpmNT+o0NgtuLXPHJqGQh0dSdcMvolpODLhN\nesPyeshNTyfoRg7AyJRAZBiSUBwJ5YhJo4fYWvA9VnbdnPt9FPkmWVpNAoGBAI1R\n9wioPBn0j1izCsf4iNmtem21ulMDO4SAXZlOXaMo8k/Yiloinpq7j4ewtMyivA0E\n0ke1L+iPIPPSXMOkq6//1+UH9z/4ExfVkv+htyu0n8H/L5g0+OtRHIZfHQQQ7lwL\nbKJ5iYQ9FfJjs6Sfsq4UDf5T+xfmUET1ACCAwqABAoGAHR0cbm5K8oAQBA+odXYd\nESHa0i8ilVs5obAIcf7tj2CuhDDRUXjrXHX88ZLmdtiwKeYrf8UvJpruURN6g2XQ\n8e3N7RTVtLznnjew9DM9c8lJx++8M7U1n4x11NKAPWLtsnZ7cN5SrtRx+huQfPH8\nDTTWziR3YlUKr8Jh9C10960=\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-play-fastlane-deploymen@pc-api-6001088609682209679-423.iam.gserviceaccount.com",
+  "client_id": "110534716464328587768",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-play-fastlane-deploymen%40pc-api-6001088609682209679-423.iam.gserviceaccount.com"
+}
