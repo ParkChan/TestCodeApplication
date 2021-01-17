@@ -46,6 +46,11 @@ android {
         debug {
             signingConfig signingConfigs.debug
             minifyEnabled false
+            firebaseAppDistribution {
+                serviceCredentialsFile="D:\\android_workspace\\acufly\\android_workspace\\github\\TestAppKey\\genibizmeeting-377da7d34495.json"
+                releaseNotesFile="./release-notes.txt"
+                groups="android-testers"
+            }
         }
 
         release {

@@ -3,11 +3,9 @@ package com.example.testcodeapplication.ui.intent
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,8 +20,6 @@ import com.example.testcodeapplication.R
 import com.example.testcodeapplication.databinding.ActivityIntentInstallApkBinding
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import java.io.File
 
 
@@ -82,48 +78,48 @@ class IntentInstallActivity : AppCompatActivity() {
     }
 
     private fun downloadWebLink() {
-        val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
-        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
-        val fileName = "SoundTutorial.apk"
-
-        val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
-        callbackToDownloadFile.setApkDownLoadListener(object :
-            CallbackToDownloadFile.ApkDownLoadListener {
-            override fun start() {
-                runOnUiThread {
-                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-
-            override fun success() {
-                MediaScannerConnection.scanFile(
-                    applicationContext, arrayOf("$outputPath/$fileName"),
-                    null,
-                    null
-                )
-                runOnUiThread {
-//                    installApk(outputPath.plus("/").plus(fileName))
-//                    InstallUtil.installSilent(outputPath.plus("/").plus(fileName))
-//                    InstallUtil.installSilent1(outputPath.plus("/").plus(fileName))
-                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
-                    Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-
-            override fun fail(message: String?) {
-                runOnUiThread {
-                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .build()
-        client.newCall(request).enqueue(callbackToDownloadFile)
+//        val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
+//        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
+//        val fileName = "SoundTutorial.apk"
+//
+//        val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
+//        callbackToDownloadFile.setApkDownLoadListener(object :
+//            CallbackToDownloadFile.ApkDownLoadListener {
+//            override fun start() {
+//                runOnUiThread {
+//                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            }
+//
+//            override fun success() {
+//                MediaScannerConnection.scanFile(
+//                    applicationContext, arrayOf("$outputPath/$fileName"),
+//                    null,
+//                    null
+//                )
+//                runOnUiThread {
+////                    installApk(outputPath.plus("/").plus(fileName))
+////                    InstallUtil.installSilent(outputPath.plus("/").plus(fileName))
+////                    InstallUtil.installSilent1(outputPath.plus("/").plus(fileName))
+//                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
+//                    Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            }
+//
+//            override fun fail(message: String?) {
+//                runOnUiThread {
+//                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            }
+//        })
+//        val client = OkHttpClient()
+//        val request = Request.Builder()
+//            .url(url)
+//            .build()
+//        client.newCall(request).enqueue(callbackToDownloadFile)
     }
 
     private fun installApk(apkPath: String) {

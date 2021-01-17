@@ -17,7 +17,7 @@ class BaseIntentActivity : AppCompatActivity() {
         return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
             // 아래는 결과 처리에 따라 원하는 대로...
             if (result?.resultCode == Activity.RESULT_OK) {
-                val result = result.data?.getStringExtra("result")
+//                val result = result.data?.getStringExtra("result")
             }
         }
     }
