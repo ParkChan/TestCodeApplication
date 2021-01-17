@@ -6,6 +6,7 @@
 >   >* IntentInstall 테스트 작성
 >   >## rxjava3 
 >   >* RxJava3 학습
+>   >## Firebase App Distribution 테스트 앱 자동화 배포 사용해보기
 >
 >   >lib
 >   >Java Code
