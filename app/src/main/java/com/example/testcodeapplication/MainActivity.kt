@@ -21,12 +21,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-
         //https://readystory.tistory.com/176
         mainViewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(MainViewModel::class.java)
-
         binding.vm = mainViewModel
-
         mainViewModel.getToken().observe(this,
             Observer<String> {
                 lifecycleScope.launch{
