@@ -55,7 +55,8 @@ class IntentInstallActivity : AppCompatActivity() {
             //시스템(privileged)앱 또는 플랫폼 key로 서명된 경우 바로 수행됨
             if (packageManager.canRequestPackageInstalls()) {
 
-                InstallUtil.installSilent1("/storage/emulated/0/Meeting/huiyi/download/Pad_product_V6.1044_76_debug.apk")
+//                InstallUtil.installSilent1("/storage/emulated/0/Meeting/huiyi/download/Pad_product_V6.1044_76_debug.apk")
+                InstallUtil.rootInstall(Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download/SoundTutorial.apk")
 //                downloadWebLink()
 //                installApk(
 //                    Environment.getExternalStorageDirectory().path

@@ -24,6 +24,8 @@ import java.nio.charset.Charset;
 /**
  * 프로세스 명령어를 통한 접근은 루트 권한을 필요로 한다.
  * Error >>> setgid: Operation not permitted
+ * Cannot run program "su": error=13, Permission denied
+ * <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
  */
 public class InstallUtil {
 
