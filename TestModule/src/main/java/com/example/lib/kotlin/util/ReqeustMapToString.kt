@@ -43,7 +43,7 @@ fun mapToRequestString(map: Map<String, String>): String {
         result.append("?")
         for ((index, item) in list.withIndex()) {
             result.append("${item.first}=${item.second}")
-            if (index > 0 && index < list.size - 1) {
+            if (index < list.size - 1) {
                 result.append("&")
             }
         }
