@@ -3,9 +3,11 @@ package com.example.testcodeapplication.ui.intent
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +22,8 @@ import com.example.testcodeapplication.R
 import com.example.testcodeapplication.databinding.ActivityIntentInstallApkBinding
 import com.google.android.material.snackbar.Snackbar
 import com.orhanobut.logger.Logger
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 
 
@@ -54,14 +58,8 @@ class IntentInstallActivity : AppCompatActivity() {
 
             //시스템(privileged)앱 또는 플랫폼 key로 서명된 경우 바로 수행됨
             if (packageManager.canRequestPackageInstalls()) {
-
-//                InstallUtil.installSilent1("/storage/emulated/0/Meeting/huiyi/download/Pad_product_V6.1044_76_debug.apk")
-                InstallUtil.rootInstall(Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download/SoundTutorial.apk")
-//                downloadWebLink()
-//                installApk(
-//                    Environment.getExternalStorageDirectory().path
-//                            + "/Meeting/huiyi/download/SoundTutorial.apk"
-//                )
+//                InstallUtil.rootInstall(Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download/SoundTutorial.apk")
+                downloadWebLink()
             } else {
                 val intent = Intent(
                     ACTION_MANAGE_UNKNOWN_APP_SOURCES,
@@ -79,48 +77,46 @@ class IntentInstallActivity : AppCompatActivity() {
     }
 
     private fun downloadWebLink() {
-//        val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
-//        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
-//        val fileName = "SoundTutorial.apk"
-//
-//        val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
-//        callbackToDownloadFile.setApkDownLoadListener(object :
-//            CallbackToDownloadFile.ApkDownLoadListener {
-//            override fun start() {
-//                runOnUiThread {
-//                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//
-//            override fun success() {
-//                MediaScannerConnection.scanFile(
-//                    applicationContext, arrayOf("$outputPath/$fileName"),
-//                    null,
-//                    null
-//                )
-//                runOnUiThread {
-////                    installApk(outputPath.plus("/").plus(fileName))
-////                    InstallUtil.installSilent(outputPath.plus("/").plus(fileName))
-////                    InstallUtil.installSilent1(outputPath.plus("/").plus(fileName))
-//                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
-//                    Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//
-//            override fun fail(message: String?) {
-//                runOnUiThread {
-//                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//        })
-//        val client = OkHttpClient()
-//        val request = Request.Builder()
-//            .url(url)
-//            .build()
-//        client.newCall(request).enqueue(callbackToDownloadFile)
+        val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
+        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
+        val fileName = "SoundTutorial.apk"
+
+        val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
+        callbackToDownloadFile.setApkDownLoadListener(object :
+            CallbackToDownloadFile.ApkDownLoadListener {
+            override fun start() {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun success() {
+                MediaScannerConnection.scanFile(
+                    applicationContext, arrayOf("$outputPath/$fileName"),
+                    null,
+                    null
+                )
+                runOnUiThread {
+                    installApk(outputPath.plus("/").plus(fileName))
+                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
+                    Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun fail(message: String?) {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(url)
+            .build()
+        client.newCall(request).enqueue(callbackToDownloadFile)
     }
 
     private fun installApk(apkPath: String) {
@@ -147,7 +143,6 @@ class IntentInstallActivity : AppCompatActivity() {
     }
 
     private fun checkPermission() {
-
         /**
          * 앱이 Android 11을 타겟팅하는 경우 WRITE_EXTERNAL_STORAGE 권한 및 WRITE_MEDIA_STORAGE
          * 독점 권한은 더 이상 추가 액세스를 제공하지 않습니다.
