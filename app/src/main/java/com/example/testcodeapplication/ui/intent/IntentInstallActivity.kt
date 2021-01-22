@@ -39,7 +39,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
         // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
         val REQUIRED_PERMISSIONS = arrayOf(
-            WRITE_EXTERNAL_STORAGE
+                WRITE_EXTERNAL_STORAGE
         ) // 외부 저장소
     }
 
@@ -59,11 +59,12 @@ class IntentInstallActivity : AppCompatActivity() {
             //시스템(privileged)앱 또는 플랫폼 key로 서명된 경우 바로 수행됨
             if (packageManager.canRequestPackageInstalls()) {
 //                InstallUtil.rootInstall(Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download/SoundTutorial.apk")
-                downloadWebLink()
+//                downloadWebLink()
+                uninstallApp("com.iflytek.huiyisystem")
             } else {
                 val intent = Intent(
-                    ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                    Uri.parse("package:$packageName")
+                        ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                        Uri.parse("package:$packageName")
                 )
                 registerForActivityResult.launch(intent)
             }
@@ -71,9 +72,14 @@ class IntentInstallActivity : AppCompatActivity() {
     }
 
     private fun uninstallApp(packageName: String) {
-        val packageURI = Uri.parse(packageName)
-        val uninstallIntent = Intent(Intent.ACTION_DELETE, packageURI)
-        startActivity(uninstallIntent)
+        try {
+            val packageURI = Uri.parse("package:$packageName")
+            val uninstallIntent = Intent(Intent.ACTION_DELETE, packageURI)
+            uninstallIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(uninstallIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun downloadWebLink() {
@@ -83,47 +89,47 @@ class IntentInstallActivity : AppCompatActivity() {
 
         val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
         callbackToDownloadFile.setApkDownLoadListener(object :
-            CallbackToDownloadFile.ApkDownLoadListener {
+                CallbackToDownloadFile.ApkDownLoadListener {
             override fun start() {
                 runOnUiThread {
                     Toast.makeText(applicationContext, "apk download start", Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             }
 
             override fun success() {
                 MediaScannerConnection.scanFile(
-                    applicationContext, arrayOf("$outputPath/$fileName"),
-                    null,
-                    null
+                        applicationContext, arrayOf("$outputPath/$fileName"),
+                        null,
+                        null
                 )
                 runOnUiThread {
                     installApk(outputPath.plus("/").plus(fileName))
                     Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
                     Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             }
 
             override fun fail(message: String?) {
                 runOnUiThread {
                     Toast.makeText(applicationContext, "apk download fail", Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             }
         })
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url(url)
-            .build()
+                .url(url)
+                .build()
         client.newCall(request).enqueue(callbackToDownloadFile)
     }
 
     private fun installApk(apkPath: String) {
         //val apkPath = filesDir.absolutePath + "/app.apk"
         val apkUri = FileProvider.getUriForFile(
-            applicationContext,
-            BuildConfig.APPLICATION_ID + ".fileprovider", File(apkPath)
+                applicationContext,
+                BuildConfig.APPLICATION_ID + ".fileprovider", File(apkPath)
         )
 
         val intent = Intent(Intent.ACTION_VIEW)
@@ -151,8 +157,8 @@ class IntentInstallActivity : AppCompatActivity() {
          * 앱에서 미디어 파일로 작업할 때 필요한 권한만 요청하는 방법을 자세히 알아보세요.
          */
         val writeExternalStoragePermission = ContextCompat.checkSelfPermission(
-            this,
-            WRITE_EXTERNAL_STORAGE
+                this,
+                WRITE_EXTERNAL_STORAGE
         )
 
         if (writeExternalStoragePermission == PackageManager.PERMISSION_GRANTED) {
@@ -161,35 +167,35 @@ class IntentInstallActivity : AppCompatActivity() {
         } else {
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, REQUIRED_PERMISSIONS.get(0)
-                )
+                            this, REQUIRED_PERMISSIONS.get(0)
+                    )
             ) {
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Snackbar.make(
-                    binding.root,
-                    "앱을 다운로드하여 설치하려면 외부 저장소 접근 권한이 필요합니다.",
-                    Snackbar.LENGTH_INDEFINITE
+                        binding.root,
+                        "앱을 다운로드하여 설치하려면 외부 저장소 접근 권한이 필요합니다.",
+                        Snackbar.LENGTH_INDEFINITE
                 ).setAction("확인") { // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                     ActivityCompat.requestPermissions(
-                        this@IntentInstallActivity, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE
+                            this@IntentInstallActivity, REQUIRED_PERMISSIONS,
+                            PERMISSIONS_REQUEST_CODE
                     )
                 }.show()
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(
-                    this, REQUIRED_PERMISSIONS,
-                    PERMISSIONS_REQUEST_CODE
+                        this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE
                 )
             }
         }
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSIONS_REQUEST_CODE && grantResults.size == REQUIRED_PERMISSIONS.size) {
@@ -210,28 +216,28 @@ class IntentInstallActivity : AppCompatActivity() {
             } else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this,
-                        REQUIRED_PERMISSIONS[0]
-                    )
-                    || ActivityCompat.shouldShowRequestPermissionRationale(
-                        this,
-                        REQUIRED_PERMISSIONS[1]
-                    )
+                                this,
+                                REQUIRED_PERMISSIONS[0]
+                        )
+                        || ActivityCompat.shouldShowRequestPermissionRationale(
+                                this,
+                                REQUIRED_PERMISSIONS[1]
+                        )
                 ) {
                     // 사용자가 거부만 선택한 경우에는 앱을 다시 실행하여 허용을 선택하면 앱을 사용할 수 있습니다.
                     Snackbar.make(
-                        binding.root, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. ",
-                        Snackbar.LENGTH_INDEFINITE
+                            binding.root, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. ",
+                            Snackbar.LENGTH_INDEFINITE
                     ).setAction(
-                        "확인"
+                            "확인"
                     ) { finish() }.show()
                 } else {
                     // “다시 묻지 않음”을 사용자가 체크하고 거부를 선택한 경우에는 설정(앱 정보)에서 퍼미션을 허용해야 앱을 사용할 수 있습니다.
                     Snackbar.make(
-                        binding.root, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ",
-                        Snackbar.LENGTH_INDEFINITE
+                            binding.root, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ",
+                            Snackbar.LENGTH_INDEFINITE
                     ).setAction(
-                        "확인"
+                            "확인"
                     ) { finish() }.show()
                 }
             }
