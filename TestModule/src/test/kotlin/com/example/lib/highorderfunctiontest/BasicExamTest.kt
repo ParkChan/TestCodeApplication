@@ -5,6 +5,20 @@ import org.junit.Test
 
 class BasicExamTest {
 
+    private fun highOrderFunction(func : () -> Unit) : Unit {
+        func()
+    }
+
+    private fun highOrderFunction() : () -> Unit{
+        return {println("hello world") }
+    }
+
+    @Test
+    fun `기본형 테스트`(){
+        highOrderFunction(highOrderFunction())
+    }
+
+
     private fun print1(body: (String) -> String) {
         println(body("이걸 더해서"))
     }

@@ -19,5 +19,13 @@ class ArrayExamTest {
             }
         }
         println(result)
+
+        val result2 = showResult { ints: Array<Int>, i: Int ->
+            ints.map {
+                it.plus(i)
+            }
+        }
+        println(result2)
+
     }
 }
