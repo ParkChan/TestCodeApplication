@@ -10,7 +10,7 @@ class HighOrderFunctionTest {
     }
 
     @Test
-    fun `리턴값을 확인`() {
+    fun `고차함수 기본 테스트`() {
         print { "$it 리턴되는 값을 정의" }
     }
 }
