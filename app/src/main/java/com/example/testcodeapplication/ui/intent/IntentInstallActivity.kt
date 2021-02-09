@@ -58,9 +58,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
             //시스템(privileged)앱 또는 플랫폼 key로 서명된 경우 바로 수행됨
             if (packageManager.canRequestPackageInstalls()) {
-//                InstallUtil.rootInstall(Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download/SoundTutorial.apk")
-//                downloadWebLink()
-                uninstallApp("com.iflytek.huiyisystem")
+                downloadWebLink()
             } else {
                 val intent = Intent(
                         ACTION_MANAGE_UNKNOWN_APP_SOURCES,
@@ -84,7 +82,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
     private fun downloadWebLink() {
         val url = "http://j2enty.tistory.com/attachment/cfile24.uf@154AFA254CC9242B3CF889.apk"
-        val outputPath = Environment.getExternalStorageDirectory().path + "/Meeting/huiyi/download"
+        val outputPath = filesDir.path + "/download"
         val fileName = "SoundTutorial.apk"
 
         val callbackToDownloadFile = CallbackToDownloadFile(outputPath, fileName)
@@ -118,6 +116,7 @@ class IntentInstallActivity : AppCompatActivity() {
                 }
             }
         })
+
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(url)
@@ -167,7 +166,7 @@ class IntentInstallActivity : AppCompatActivity() {
         } else {
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this, REQUIRED_PERMISSIONS.get(0)
+                            this, REQUIRED_PERMISSIONS[0]
                     )
             ) {
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.

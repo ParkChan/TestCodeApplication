@@ -1,7 +1,8 @@
-package com.example.lib.kotlin.rxjava3
+package com.example.lib.rxjava3
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.toObservable
+import org.junit.Test
 import java.util.concurrent.TimeUnit
 
 /**
@@ -11,14 +12,22 @@ import java.util.concurrent.TimeUnit
  * https://tourspace.tistory.com/279
  * Hot & Cold Observable
  */
-fun main() {
-    val test = HotObservable()
-    test.hotStreamTest1()
-    test.hotStreamTest2()
-}
 
 class HotObservable {
-    fun hotStreamTest1() {
+
+    @Test
+    fun hotStreamTest1(){
+        val test = HotObservable()
+        test.hotStream1()
+    }
+
+    @Test
+    fun hotStreamTest2(){
+        val test = HotObservable()
+        test.hotStream2()
+    }
+
+    private fun hotStream1() {
         println("hotStreamTest1 Start===========")
         val connectAbleObservable = (1..10).toObservable().publish()
 
@@ -38,7 +47,7 @@ class HotObservable {
         //또한 배출이 완료된 이후에 등록된 3번은 데이터를 하나도 전달받지 못합니다.
         connectAbleObservable.subscribe { println("Subscription 3: $it") }
     }
-    fun hotStreamTest2() {
+    private fun hotStream2() {
         println("hotStreamTest2 Start===========")
         val connectAbleObservable = Observable.interval(1, TimeUnit.SECONDS).publish()
 

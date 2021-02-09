@@ -20,21 +20,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_rxkotlin_test"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:background="@color/color_ffffff"
-                android:text="RxJava Test"
-                android:textAllCaps="false"
-                android:onClick="@{() -> vm.startRxJava3Activity(context)}"
-                android:textColor="@color/color_000000" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_000000" />
-
-            <Button
                 android:id="@+id/btn_intent_install_test"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
@@ -53,7 +38,6 @@
                 android:id="@+id/btn_fcm_test"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:layout_below="@id/btn_test"
                 android:background="@color/color_ffffff"
                 android:onClick="@{() -> vm.checkFcmToken()}"
                 android:text="Fcm Test"
@@ -69,7 +53,6 @@
                 android:id="@+id/btn_test2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:layout_below="@id/btn_test"
                 android:background="@color/color_ffffff"
                 android:text="Next Step"
                 android:textAllCaps="false"

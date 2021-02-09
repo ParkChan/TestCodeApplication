@@ -1,7 +1,8 @@
-package com.example.lib.kotlin.rxjava3
+package com.example.lib.rxjava3
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.BiFunction
+import org.junit.Test
 import java.util.concurrent.TimeUnit
 
 /**
@@ -22,24 +23,44 @@ import java.util.concurrent.TimeUnit
  * 기타 사항
  * 일반적으로 Observable 을 테스트시 Blocking을 사용(반드시 테스트 코드에서만 사용)
  */
+
 class ConcatMergeZip {
+
+    @Test
     fun concatTest() {
+        val test = ConcatMergeZip()
+        test.concat()
+    }
+
+    @Test
+    fun mergeTest() {
+        val test = ConcatMergeZip()
+        test.merge()
+    }
+
+    @Test
+    fun zipTest() {
+        val test = ConcatMergeZip()
+        test.zip()
+    }
+
+    private fun concat() {
         println("Observable.concat TestStart===========")
         val test1 = Observable.just("1", "2", "3").delay(2, TimeUnit.SECONDS)
         val test2 = Observable.just("apple", "banana", "car")
         Observable.concat(test1, test2)
-            .blockingSubscribe(
-                {
-                    println("concat observable next $it")
-                }, {
+                .blockingSubscribe(
+                        {
+                            println("concat observable next $it")
+                        }, {
                     println("concat observable error $it")
                 }, {
                     println("concat observable complete")
                 }
-            )
+                )
     }
 
-    fun mergeTest() {
+    private fun merge() {
         println("Observable.concat mergeTest===========")
         //두개의 다른 timestamp를 합쳐 하나의 timeStamp에서 발행하는것처럼 변경하여줌
         //하지만 둘중에 하나가 onError를 타게되면 그 즉시 멈추게 됨
@@ -48,40 +69,34 @@ class ConcatMergeZip {
         val test2 = Observable.just("apple", "banana", "car")
         //val disposable: Disposable = Observable.mergeDelayError(test1, test2)
         Observable.merge(test1, test2)
-            .blockingSubscribe(
-                {
-                    println("merge observable next $it")
-                }, {
+                .blockingSubscribe(
+                        {
+                            println("merge observable next $it")
+                        }, {
                     println("merge observable error $it")
                 }, {
                     println("merge observable complete")
                 }
-            )
+                )
     }
 
-    fun zipTest() {
+    private fun zip() {
         println("Observable.concat ZipTest===========")
         val test2 = Observable.just("apple", "banana", "car")
         val test3 = Observable.interval(2, TimeUnit.SECONDS)
 
         Observable.zip(
-            test3,
-            test2,
-            BiFunction { t1: Long, t2: String -> t1.toString() + t2 })
-            .blockingSubscribe(
-                {
-                    println("zip observable next $it")
-                }, {
+                test3,
+                test2,
+                BiFunction { t1: Long, t2: String -> t1.toString() + t2 })
+                .blockingSubscribe(
+                        {
+                            println("zip observable next $it")
+                        }, {
                     println("zip observable error $it")
                 }, {
                     println("zip observable complete")
                 }
-            )
+                )
     }
-}
-fun main() {
-    val test = ConcatMergeZip()
-    test.concatTest()
-    test.mergeTest()
-    test.zipTest()
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testcodeapplication.ui.intent.IntentInstallActivity
-import com.example.testcodeapplication.ui.rx.RxJavaMainActivity
 import com.google.firebase.messaging.FirebaseMessaging
 
 class MainViewModel : ViewModel() {
@@ -37,11 +36,6 @@ class MainViewModel : ViewModel() {
                 e.printStackTrace()
             }
         }.start()
-    }
-
-    fun startRxJava3Activity(context: Context) {
-        val intent = Intent(context, RxJavaMainActivity::class.java)
-        context.startActivity(intent)
     }
 
     fun startIntentInsatllActivity(context: Context) {

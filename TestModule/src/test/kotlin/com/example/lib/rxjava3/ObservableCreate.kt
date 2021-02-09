@@ -1,8 +1,9 @@
-package com.example.lib.kotlin.rxjava3
+package com.example.lib.rxjava3
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import org.junit.Test
 import java.util.concurrent.Callable
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
@@ -31,52 +32,78 @@ import java.util.concurrent.TimeUnit
  * interval 특정 시간 간격으로 0부터 숫자를 증가시키면서 반환
  * timer 주어진 시간에 한번만 값을 전달
  */
-fun main() {
-    val test = ObservableCreate()
-
-    println("create test start===============")
-    test.create()
-    Thread.sleep(3000)
-
-    println("fromIterable test start===============")
-    test.fromIterable()
-    Thread.sleep(3000)
-
-    println("fromCallAble test start===============")
-    test.fromCallAble()
-    Thread.sleep(3000)
-
-    println("fromFuture test start===============")
-    test.fromFuture()
-    Thread.sleep(3000)
-
-    println("just test start===============")
-    test.just()
-    Thread.sleep(3000)
-
-    println("range test start===============")
-    test.range()
-    Thread.sleep(3000)
-
-    println("empty test start===============")
-    test.empty()
-    Thread.sleep(3000)
-
-    println("interval test start===============")
-    test.interval()
-    Thread.sleep(3000)
-
-    println("timer test start===============")
-    test.timer()
-    Thread.sleep(3000)
-}
 
 class ObservableCreate {
+
+    @Test
+    fun createTest() {
+        val test = ObservableCreate()
+        println("create test start===============")
+        test.create()
+    }
+
+    @Test
+    fun fromIterableTest() {
+        val test = ObservableCreate()
+        println("fromIterable test start===============")
+        test.fromIterable()
+    }
+
+    @Test
+    fun fromCallAbleTest() {
+        val test = ObservableCreate()
+        println("fromCallAble test start===============")
+        test.fromCallAble()
+    }
+
+    @Test
+    fun fromFutureTest() {
+        val test = ObservableCreate()
+        println("fromFuture test start===============")
+        test.fromFuture()
+    }
+
+    @Test
+    fun justTest() {
+        val test = ObservableCreate()
+        println("just test start===============")
+        test.just()
+    }
+
+    @Test
+    fun rangeTest() {
+        val test = ObservableCreate()
+        println("range test start===============")
+        test.range()
+    }
+
+    @Test
+    fun emptyTest() {
+        val test = ObservableCreate()
+        println("empty test start===============")
+        test.empty()
+    }
+
+    @Test
+    fun intervalTest(){
+        val test = ObservableCreate()
+        println("interval test start===============")
+        test.interval()
+        Thread.sleep(3000)
+    }
+
+    @Test
+    fun timerTest() {
+        val test = ObservableCreate()
+        println("timer test start===============")
+        test.timer()
+        Thread.sleep(3000)
+    }
 
     /**
      * Create
      */
-    fun create() {
+    private fun create() {
         val simpleObservable1: Observable<String> = Observable.create {
             println("simpleObservable1 Thread Name " + Thread.currentThread().name)
             it.onNext("A")
@@ -95,7 +122,7 @@ class ObservableCreate {
         simpleObservable2.subscribe(observer)
     }
 
-    fun fromIterable() {
+    private fun fromIterable() {
         val list = arrayListOf(1, 2, 3)
         //val list = listOf(1, 2, 3).toObservable()
         val listOb: Observable<Int> = Observable.fromIterable(list)
@@ -112,13 +139,13 @@ class ObservableCreate {
         )
     }
 
-    fun fromCallAble() {
+    private fun fromCallAble() {
         val call = Callable<Int> { 4 }
         val callOb: Observable<Int> = Observable.fromCallable(call)
         callOb.subscribe(observer)
     }
 
-    fun fromFuture() {
+    private fun fromFuture() {
         val future = object : Future<Int> {
             override fun cancel(mayInterruptIfRunning: Boolean): Boolean {
                 return false
@@ -144,7 +171,7 @@ class ObservableCreate {
         futureOb.subscribe(observer)
     }
 
-    fun just() {
+    private fun just() {
         val list2 = listOf(1, 2, 3)
         val num = 3
         val str = "WOW!"
@@ -154,15 +181,15 @@ class ObservableCreate {
         justOb.subscribe(observer)
     }
 
-    fun range() {
+    private fun range() {
         Observable.range(1, 3).subscribe(observer)
     }
 
-    fun empty() {
+    private fun empty() {
         Observable.empty<String>().subscribe(observer)
     }
 
-    fun interval() {
+    private fun interval() {
         //특정 시간 간격을 주기로 0부터 증가하는 정수 값을 발행한다.
         val observableInterval = Observable.interval(1, TimeUnit.SECONDS)
         //observableInterval.take(3).subscribe(observer)
@@ -190,43 +217,32 @@ class ObservableCreate {
 //                    }
 //                }
 //                val disposable: Disposable = observableInterval.subscribeWith(disposableObserver)
-
-        Thread() {
-            Thread.sleep(3000)
-            //compositeDisposable.clear()
-            //구독 해지
-            disposable.dispose()
-            Thread.sleep(100)
-        }.apply {
-            start()
-            join()
-        }
     }
 
-    fun timer() {
+    private fun timer() {
         //특정 시간 이후에 숫자 0을 발행한다. 스케줄러로 computation을 사용하고 변경 가능
         //주어진 시간에 한번만 값을 전달
         val source: Observable<Long> = Observable.timer(3, TimeUnit.SECONDS)
         source.subscribe(observer)
     }
 
+    private val observer: Observer<Any> = object : Observer<Any> {
+        override fun onSubscribe(d: Disposable?) {
+            println("onSubscribe() - $d")
+        }
+
+        override fun onNext(item: Any?) {
+            println("onNext() - $item")
+        }
+
+        override fun onError(e: Throwable) {
+            println("onError() - ${e.message}")
+        }
+
+        override fun onComplete() {
+            println("onComplete()")
+            println("End============================")
+        }
+    }
 }
 
-val observer: Observer<Any> = object : Observer<Any> {
-    override fun onSubscribe(d: Disposable?) {
-        println("onSubscribe() - $d")
-    }
-
-    override fun onNext(item: Any?) {
-        println("onNext() - $item")
-    }
-
-    override fun onError(e: Throwable) {
-        println("onError() - ${e.message}")
-    }
-
-    override fun onComplete() {
-        println("onComplete()")
-        println("End============================")
-    }
-}

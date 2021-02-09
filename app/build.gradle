@@ -21,17 +21,9 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("../ifly_pad.jks")
-            storePassword "iflytech06"
-            keyAlias "platform"
-            keyPassword "iflytech06"
         }
 
         release {
-            storeFile file("../ifly_pad.jks")
-            storePassword "iflytech06"
-            keyAlias "platform"
-            keyPassword "iflytech06"
         }
 
 //        lintOptions {
@@ -146,12 +138,11 @@ dependencies {
 
     implementation "com.google.android.material:material:1.2.1"
 
-    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'org.conscrypt:conscrypt-android:2.4.0'
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
 
 }
