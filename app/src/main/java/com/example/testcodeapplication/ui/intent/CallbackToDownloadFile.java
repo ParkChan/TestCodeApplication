@@ -2,6 +2,8 @@ package com.example.testcodeapplication.ui.intent;
 
 import com.orhanobut.logger.Logger;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,8 +19,8 @@ import okhttp3.Response;
  */
 public class CallbackToDownloadFile implements Callback {
 
-    private File directory;
-    private File fileToBeDownloaded;
+    private final File directory;
+    private final File fileToBeDownloaded;
 
     private ApkDownLoadListener apkDownLoadListener;
 
@@ -29,12 +31,12 @@ public class CallbackToDownloadFile implements Callback {
     }
 
     @Override
-    public void onFailure(Call call, IOException e) {
+    public void onFailure(@NotNull Call call, @NotNull IOException e) {
         downloadFail("파일을 다운로드할 수 없습니다. 인터넷 연결을 확인하세요.");
     }
 
     @Override
-    public void onResponse(Call call, Response response) throws IOException {
+    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         if (!directory.exists()) {
             boolean isMakeDir = directory.mkdirs();
             if(isMakeDir){
@@ -64,10 +66,8 @@ public class CallbackToDownloadFile implements Callback {
         byte[] data = new byte[BUFFER_SIZE];
 
         int count;
-        long total = 0;
 
         while ((count = is.read(data)) != -1) {
-            total += count;
             os.write(data, 0, count);
         }
 
