@@ -34,35 +34,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:767306854543:android:f1f2a207fbc9d79adf80fa",
-        "android_client_info": {
-          "package_name": "com.iflytek.audiorecordexam"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "767306854543-9caesm7ppij6p01ruokitvvj1go6o20u.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCBY_oJ1bfEH8vw9Hq3QCdcYly4L4NVT9Q"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "767306854543-9caesm7ppij6p01ruokitvvj1go6o20u.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

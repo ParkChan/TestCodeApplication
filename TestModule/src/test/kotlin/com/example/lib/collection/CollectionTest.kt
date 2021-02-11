@@ -106,4 +106,44 @@ class CollectionTest {
         animals.distinct().forEach { println(it) }
         animals.distinctBy { animal -> animal.length }.forEach { println(it) }
     }
+
+    @Test
+    fun `zip Test`() {
+        val animals = listOf("사자", "호랑이", "코끼리")
+        val animals2 = listOf("여우", "늑대", "기린")
+        animals.zip(animals2)
+            .forEach { pair: Pair<String, String> -> "${pair.first} : ${pair.second}" }
+
+        animals.zip(animals2) { animals: String, animalNames: String -> "$animals : $animalNames" }
+            .forEach { println(it) }
+    }
+
+    @Test
+    fun `joinToString Test`() {
+        val animals = listOf("사자", "호랑이", "코끼리")
+        println(animals.joinToString())
+    }
+
+    @Test
+    fun `count Test`() {
+        println(animals.count())
+        println(animals.count() { animal: String -> animal.length > 2 })
+    }
+
+    @Test
+    fun `any 그리고 none Test`() {
+        //any() 함수는 컬랙션내에 자료가 존재하면 true, 아니면 false 를 반환
+        println(animals.any())
+        println(animals.any { animal -> animal.length > 2 })
+        println(animals.none())
+        println(animals.none { animal -> animal.length > 2 })
+    }
+
+    @Test
+    fun `max min average`() {
+        val numbers = listOf(1, 2, 3)
+        println(numbers.maxOrNull())
+        println(numbers.minOrNull())
+        println(numbers.average())
+    }
 }
