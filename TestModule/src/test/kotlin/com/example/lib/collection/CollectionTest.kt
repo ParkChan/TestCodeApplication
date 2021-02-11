@@ -24,7 +24,7 @@ class CollectionTest {
 
     @Test
     fun `flatMap Test1`() {
-        println(data.flatMap { x -> x.toList() })
+        data.flatMap { x -> x.toList() }.forEach { println(it) }
     }
 
     @Test
@@ -41,6 +41,18 @@ class CollectionTest {
         animals.map { animal -> "동물의 이름은? = $animal" }.forEach {
             println(it)
         }
+    }
+
+    @Test
+    fun `mapIndexed Test`() {
+        val numbers = 0..10
+        numbers.mapIndexed { index, number -> index * number }.forEach { println(it) }
+    }
+
+    @Test
+    fun `mapNotNull Test`() {
+        animals.mapNotNull { animal -> if (animal.length > 2) animal else null }
+            .forEach { println(it) }
     }
 
     @Test
@@ -65,5 +77,33 @@ class CollectionTest {
         animals.takeWhile { animal -> animal.length > 2 }.forEach { println(it) }
         println("takeLastWhile===========")
         animals.takeLastWhile { animal -> animal.length > 2 }.forEach { println(it) }
+    }
+
+    @Test
+    fun `drop Test`() {
+        animals.drop(1).forEach { println(it) }
+        animals.dropLast(1).forEach { println(it) }
+        println("takeWhile===========")
+        animals.dropWhile { animal -> animal.length == 2 }.forEach { println(it) }
+        println("takeLastWhile===========")
+        animals.dropLastWhile { animal -> animal.length > 2 }.forEach { println(it) }
+    }
+
+    @Test
+    fun `first and last Test`() {
+        animals.first().forEach { println(it) }
+        animals.firstOrNull()?.forEach { println(it) }
+
+        animals.last().forEach { println(it) }
+        animals.lastOrNull()?.forEach { println(it) }
+    }
+
+    @Test
+    fun `distinct Test`() {
+        //distinct() 함수는 컬랙션 내에서 중복된 항목을 제외하고 컬랙션을 반환합니다.
+        // 중복여부는 equals()로 판단하며 distinctBy()를 사용하여 중복여부를 판단을 설정 할 수 있습니다.
+        val animals = listOf("사자", "호랑이", "코끼리", "사자", "호랑이", "코끼리")
+        animals.distinct().forEach { println(it) }
+        animals.distinctBy { animal -> animal.length }.forEach { println(it) }
     }
 }
