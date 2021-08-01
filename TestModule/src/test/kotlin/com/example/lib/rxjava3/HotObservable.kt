@@ -2,7 +2,7 @@ package com.example.lib.rxjava3
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.toObservable
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit
 
 /**

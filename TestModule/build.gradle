@@ -12,9 +12,18 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.0'
     // https://github.com/ReactiveX/RxKotlin/releases
 
-    testImplementation 'junit:junit:4.13.1'
+    //JUnit5 의존성 추가
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    //JUnit5 이전 버전을 사용하거나, 함께 사용하기 위해서는 아래의 의존성을 추
+//    testCompileOnly("junit:junit:4.13.2")
+//    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
+
     //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
+    //Coroutines Test
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1'
+
 
 }
 

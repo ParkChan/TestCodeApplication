@@ -1,6 +1,7 @@
 package com.example.lib.collection
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
 
 /**
  * https://namget.tistory.com/entry/Kotlin-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%8A%A4%ED%8A%B8%EB%A6%BC-%ED%95%A8%EC%88%98-map-flatMap-groupBy-filter-take-drop-first-distinct-zip-joinToString-count-any-none-max-min-average
