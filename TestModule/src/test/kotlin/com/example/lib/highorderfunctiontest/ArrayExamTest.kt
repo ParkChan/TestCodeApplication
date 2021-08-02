@@ -26,6 +26,5 @@ class ArrayExamTest {
             }
         }
         println(result2)
-
     }
 }

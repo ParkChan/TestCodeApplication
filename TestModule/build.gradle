@@ -20,7 +20,7 @@ dependencies {
     //JUnit5 의존성 추가
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    //JUnit5 이전 버전을 사용하거나, 함께 사용하기 위해서는 아래의 의존성을 추
+    //JUnit5 이전 버전을 사용하거나, 함께 사용하기 위해서는 아래의 의존성을 추가
 //    testCompileOnly("junit:junit:4.13.2")
 //    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
 
