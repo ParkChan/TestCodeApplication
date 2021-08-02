@@ -24,7 +24,6 @@ class CoroutineChapter2SupervisorJob {
 
     @Test
     fun `coroutineScope에서 실행`() {
-
         coroutineScope.launch {
             try {
                 coroutineScope {
@@ -32,7 +31,9 @@ class CoroutineChapter2SupervisorJob {
                         println("task 1 입니다")
                         throw Exception()
                     }
-                    launch { println("task 2 입니다") }
+                    launch {
+                        println("task 2 입니다")
+                    }
                 }
             } catch (e: Exception) {
                 println(e)
@@ -46,14 +47,16 @@ class CoroutineChapter2SupervisorJob {
             try {
                 supervisorScope {
                     launch {
-                        try{
+                        try {
                             println("task 1 입니다")
                             throw Exception()
-                        }catch (e: Exception) {
+                        } catch (e: Exception) {
                             println(e)
                         }
                     }
-                    launch { println("task 2 입니다") }
+                    launch {
+                        println("task 2 입니다")
+                    }
                 }
             } catch (e: Exception) {
                 println(e)
