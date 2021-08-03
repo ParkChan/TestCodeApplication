@@ -1,17 +1,14 @@
 package com.example.testcodeapplication
 
 import android.app.Application
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
+import timber.log.Timber
 
 class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Logger.addLogAdapter(object : AndroidLogAdapter() {
-            override fun isLoggable(priority: Int, tag: String?): Boolean {
-                return BuildConfig.DEBUG
-            }
-        })
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

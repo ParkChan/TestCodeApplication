@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "71147769402",
+    "firebase_url": "https://moaplanetandroid.firebaseio.com",
+    "project_id": "moaplanetandroid",
+    "storage_bucket": "moaplanetandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71147769402:android:25b20a0a7bbdfd546cef03",
+        "android_client_info": {
+          "package_name": "com.example.fcmexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71147769402-65hhtnkftmdqve7b3no1nhdom9mpr1gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fcmexample",
+            "certificate_hash": "daae339e368d2d14d67cb0e636ddb62b3a781cd4"
+          }
+        },
+        {
+          "client_id": "71147769402-6aqba0camagk6jlc7mkcnj8upmves004.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCquWy6tvCf2BBM5s9kZ62tcTQkQXeKwM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71147769402-6aqba0camagk6jlc7mkcnj8upmves004.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

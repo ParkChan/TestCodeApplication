@@ -1,4 +1,4 @@
-package com.example.lib.coroutine
+package com.example.lib.coroutine.chapter2
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -15,7 +15,7 @@ Child 중하나가 실패하면 부모 코루틴에게 전파되고 모든 자�
 SupervisorJob을 사용하면 발생한 예외를 부모에게 전달하지 않는다.
 다른 자식 루틴에게 전파되지 않는다.
  */
-class CoroutineChapter2SupervisorJob {
+class CoroutineSupervisorJob {
 
     private val coroutineScope = TestCoroutineScope(
         Job() + TestCoroutineDispatcher()

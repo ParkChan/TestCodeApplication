@@ -2,18 +2,18 @@ package com.example.testcodeapplication.service
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.orhanobut.logger.Logger
+import timber.log.Timber
 
 class MyFcmService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Logger.d("onNewToken >>> $token")
+        Timber.d("onNewToken >>> $token")
         //sendRegistrationToServer(token)
     }
 
     override fun onMessageReceived(remotemessage: RemoteMessage) {
         super.onMessageReceived(remotemessage)
-        Logger.d("onMessageReceived >>> $remotemessage")
+        Timber.d("onMessageReceived >>> $remotemessage")
     }
 
     override fun onMessageSent(p0: String) {

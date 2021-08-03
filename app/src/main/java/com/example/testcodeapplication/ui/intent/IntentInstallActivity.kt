@@ -21,9 +21,9 @@ import com.example.testcodeapplication.BuildConfig
 import com.example.testcodeapplication.R
 import com.example.testcodeapplication.databinding.ActivityIntentInstallApkBinding
 import com.google.android.material.snackbar.Snackbar
-import com.orhanobut.logger.Logger
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 import java.io.File
 
 
@@ -103,7 +103,7 @@ class IntentInstallActivity : AppCompatActivity() {
                 )
                 runOnUiThread {
                     installApk(outputPath.plus("/").plus(fileName))
-                    Logger.d("insatll path ${outputPath.plus("/").plus(fileName)}")
+                    Timber.d("insatll path ${outputPath.plus("/").plus(fileName)}")
                     Toast.makeText(applicationContext, "apk download success", Toast.LENGTH_SHORT)
                             .show()
                 }
@@ -140,7 +140,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
     private fun registerForActivityResult(): ActivityResultLauncher<Intent> {
         return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            Logger.d("registerForActivityResult data $result")
+            Timber.d("registerForActivityResult data $result")
 //            if (result.resultCode == Activity.RESULT_OK) {
 //
 //            }
@@ -162,7 +162,7 @@ class IntentInstallActivity : AppCompatActivity() {
 
         if (writeExternalStoragePermission == PackageManager.PERMISSION_GRANTED) {
             //start fun
-            Logger.d("checkPermission WRITE_EXTERNAL_STORAGE granted")
+            Timber.d("checkPermission WRITE_EXTERNAL_STORAGE granted")
         } else {
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(

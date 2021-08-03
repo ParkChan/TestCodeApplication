@@ -1,4 +1,4 @@
-package com.example.lib.coroutine
+package com.example.lib.coroutine.chapter1
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -12,7 +12,7 @@ CoroutineDispatcher — 작업을 적절한 스레드로 디스패치합니다.
 CoroutineName — 디버깅에 유용한 코루틴의 이름입니다.
 CoroutineExceptionHandler — 잡히지 않은 예외를 처리하며 시리즈의 3부에서 다룹니다.
  */
-class CoroutineChapter1Basic {
+class CoroutineBasic {
 
     //private val scope = CoroutineScope(Job() + Dispatchers.Main)
     @ExperimentalCoroutinesApi

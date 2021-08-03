@@ -1,7 +1,5 @@
 package com.example.testcodeapplication.ui.intent;
 
-import com.orhanobut.logger.Logger;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -13,6 +11,7 @@ import java.io.OutputStream;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import timber.log.Timber;
 
 /**
  * 코틀린 코드로 이관 필요
@@ -40,14 +39,14 @@ public class CallbackToDownloadFile implements Callback {
         if (!directory.exists()) {
             boolean isMakeDir = directory.mkdirs();
             if(isMakeDir){
-                Logger.d("make directory success" + directory.getAbsolutePath());
+                Timber.d("make directory success" + directory.getAbsolutePath());
             }
         }
 
         if (fileToBeDownloaded.exists()) {
             boolean isDelete = fileToBeDownloaded.delete();
             if(isDelete){
-                Logger.d("delete file success " + fileToBeDownloaded.getAbsolutePath());
+                Timber.d("delete file success " + fileToBeDownloaded.getAbsolutePath());
             }
         }
 

@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.testcodeapplication.databinding.ActivityMainBinding
 import com.example.testcodeapplication.viewmodel.MainViewModel
-import com.orhanobut.logger.Logger
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getToken().observe(this,
             Observer<String> {
                 lifecycleScope.launch{
-                    Logger.d("received token $it")
+                    Timber.d("received token $it")
                 }
             })
     }
