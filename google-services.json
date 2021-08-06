@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "767306854543",
-    "firebase_url": "https://genibizmeeting.firebaseio.com",
-    "project_id": "genibizmeeting",
-    "storage_bucket": "genibizmeeting.appspot.com"
+    "project_number": "495034793699",
+    "project_id": "testcodeapplication",
+    "storage_bucket": "testcodeapplication.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:767306854543:android:b7e42318b015354fdf80fa",
+        "mobilesdk_app_id": "1:495034793699:android:8266044e7877308c0fcfd6",
         "android_client_info": {
           "package_name": "com.example.testcodeapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "767306854543-9caesm7ppij6p01ruokitvvj1go6o20u.apps.googleusercontent.com",
+          "client_id": "495034793699-u31o66moj7126h4h20nsf1vt0vrvqpvq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCBY_oJ1bfEH8vw9Hq3QCdcYly4L4NVT9Q"
+          "current_key": "AIzaSyA0Rcu5-h7iYZaqWU9tCEB78p4f70NDKAI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "767306854543-9caesm7ppij6p01ruokitvvj1go6o20u.apps.googleusercontent.com",
+              "client_id": "495034793699-u31o66moj7126h4h20nsf1vt0vrvqpvq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

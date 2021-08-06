@@ -4,18 +4,29 @@ import org.junit.jupiter.api.Test
 import java.time.LocalTime
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 object FixedSizeThreadPoolExecutorExample {
+
+    private fun sleepSec(sec: Long) {
+        try {
+            TimeUnit.SECONDS.sleep(sec)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
+
+    private const val testNoneTime = 20L
+    private const val testErrorTime = 5L
 
     @Test
     fun fixedSizeThreadPoolExecutorExample() {
         val executor = Executors.newFixedThreadPool(4) as ThreadPoolExecutor
         for (i in 0..9) {
             println(LocalTime.now().toString() + " Execute task " + i)
-
-            // ThreadPoolExecutor에 Task를 예약하면, 여유가 있을 때 Task를 수행합니다.
             executor.execute {
                 println(LocalTime.now().toString() + " Doing job " + i)
+                sleepSec(3)
                 println(LocalTime.now().toString() + " Done job " + i)
             }
         }
@@ -23,5 +34,21 @@ object FixedSizeThreadPoolExecutorExample {
         // 더이상 ThreadPoolExecutor에 Task를 추가할 수 없습니다.
         // 작업이 모두 완료되면 쓰레드풀을 종료시킵니다.
         executor.shutdown()
+
+        // shutdown() 호출 전에 등록된 Task 중에 아직 완료되지 않은 Task가 있을 수 있습니다.
+        // Timeout을 20초 설정하고 완료되기를 기다립니다.
+        // 20초 전에 완료되면 true를 리턴하며, 20초가 지나도 완료되지 않으면 false를 리턴합니다.
+
+        // shutdown() 호출 전에 등록된 Task 중에 아직 완료되지 않은 Task가 있을 수 있습니다.
+        // Timeout을 20초 설정하고 완료되기를 기다립니다.
+        // 20초 전에 완료되면 true를 리턴하며, 20초가 지나도 완료되지 않으면 false를 리턴합니다.
+        if (executor.awaitTermination(testNoneTime, TimeUnit.SECONDS)) {
+            println(LocalTime.now().toString() + " All jobs are terminated")
+        } else {
+            println(LocalTime.now().toString() + " some jobs are not terminated")
+
+            // 모든 Task를 강제 종료합니다.
+            executor.shutdownNow()
+        }
     }
 }
