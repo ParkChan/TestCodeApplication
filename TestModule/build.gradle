@@ -1,8 +1,6 @@
 plugins {
     id 'java-library'
     id 'kotlin'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
 }
 
 
@@ -36,7 +34,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     // Coroutine Testing
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
-
 
 }
 
