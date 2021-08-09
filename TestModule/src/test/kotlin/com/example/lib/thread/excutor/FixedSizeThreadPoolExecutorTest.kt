@@ -1,4 +1,4 @@
-package com.example.lib.excutor
+package com.example.lib.thread.excutor
 
 import org.junit.jupiter.api.Test
 import java.time.LocalTime
@@ -6,22 +6,14 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
-object FixedSizeThreadPoolExecutorExample {
+class FixedSizeThreadPoolExecutorTest {
 
-    private fun sleepSec(sec: Long) {
-        try {
-            TimeUnit.SECONDS.sleep(sec)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-    }
-
-    private const val testNoneTime = 20L
-    private const val testErrorTime = 5L
+    private val testNoneTime = 20L
+    private val testErrorTime = 5L
 
     @Test
-    fun fixedSizeThreadPoolExecutorExample() {
-        val executor = Executors.newFixedThreadPool(4) as ThreadPoolExecutor
+    fun fixedSizeThreadPoolExecutorTest() {
+        val executor = Executors.newFixedThreadPool(getMaxPoolSize()) as ThreadPoolExecutor
         for (i in 0..9) {
             println(LocalTime.now().toString() + " Execute task " + i)
             executor.execute {
@@ -50,5 +42,18 @@ object FixedSizeThreadPoolExecutorExample {
             // 모든 Task를 강제 종료합니다.
             executor.shutdownNow()
         }
+    }
+
+    private fun sleepSec(sec: Long) {
+        try {
+            TimeUnit.SECONDS.sleep(sec)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun getMaxPoolSize() : Int{
+        println("Max thread pool size: ${Runtime.getRuntime().availableProcessors()}")
+        return Runtime.getRuntime().availableProcessors()
     }
 }
