@@ -32,7 +32,7 @@ class ClassDelegationTest {
     class Thermosiphon(heater: Heater) : Pump, Heater by heater {
         override fun pump() {
             if (isHot()) {
-                println("=> => pumping => =>");
+                println("=> => pumping => =>")
             }
         }
     }
