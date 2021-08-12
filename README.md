@@ -37,10 +37,10 @@
 >   >   >rxjava3
 >
 >   >Test
->   >   >## 태스트 코드 
+>   >   >## 테스트 코드 
 >   >   >* kotlin basic
 >   >   >* collection
 >   >   >* coroutine
->   >   >* highOrderFuntionTest
+>   >   >* highorderfunctiontest
 >   >   >* rxjava3
 >   >   >* thread/excutor
