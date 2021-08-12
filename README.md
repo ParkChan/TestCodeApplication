@@ -8,11 +8,13 @@
 >   >* RxJava3 학습
 >   >## Firebase Gradle을 이용한 테스트 앱 배포 사용
 >
+>   >Test
+>   >   >coroutine
 >TestModule
 >   >학습에 도움이 된 자료들
 >   >   >## [codechacha](https://codechacha.com/ko/category/java/)
 >
->   >Java Code
+>   >Java
 >   >   >## 코딩테스트 고득점 Kit/해시
 >   >   >* 완주하지 못한 선수/Marathon
 >   >   >* 전화번호 목록/PhoneNumberList
@@ -25,9 +27,9 @@
 >   >   >## 유틸
 >   >   >* CustomLogger 멀티모듈에서 사용할 로거 만들기
 >
->   >Kotlin Code
+>   >Kotlin
+>   >   >basic
 >   >   >util
->   >   >* ReqeustMapToString
 >
 >   >Test Code
 >   >   >collection
@@ -35,3 +37,12 @@
 >   >   >highoderfuction
 >
 >   >   >rxjava3
+>
+>   >Test 
+>   >   >kotlin basic
+>   >   >collection
+>   >   >coroutine
+>   >   >highOrderFuntionTest
+>   >   >rxjava3
+>   >   >thread
+>   >   >   >excutor
