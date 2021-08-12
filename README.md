@@ -23,7 +23,7 @@
 >   >   >* BlockingDequeTest
 >   >   >* QueueTest
 >   >   >* TimeStampTest
->   >   >
+>
 >   >   >## 유틸
 >   >   >* CustomLogger 멀티모듈에서 사용할 로거 만들기
 >
@@ -33,16 +33,13 @@
 >
 >   >Test Code
 >   >   >collection
->
 >   >   >highoderfuction
->
 >   >   >rxjava3
 >
 >   >Test 
->   >   >kotlin basic
->   >   >collection
->   >   >coroutine
->   >   >highOrderFuntionTest
->   >   >rxjava3
->   >   >thread
->   >   >   >excutor
+>   >   >* kotlin basic
+>   >   >* collection
+>   >   >* coroutine
+>   >   >* highOrderFuntionTest
+>   >   >* rxjava3
+>   >   >* thread/excutor
