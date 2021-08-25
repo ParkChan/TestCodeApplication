@@ -3,10 +3,20 @@ plugins {
     id 'kotlin'
 }
 
-
 java {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+compileKotlin {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+//        apiVersion = 1.4
+//        languageVersion = 1.4
+    }
 }
 
 dependencies {

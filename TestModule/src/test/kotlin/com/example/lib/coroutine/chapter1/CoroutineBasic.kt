@@ -22,26 +22,26 @@ class CoroutineBasic {
     @ExperimentalCoroutinesApi
     @Test
     fun `코루틴 실행`() {
-        val job = scope.launch{
-            try{
+        val job = scope.launch {
+            try {
                 println("New coroutine!!")
                 println("You can call suspend functions")
                 println("${Thread.currentThread()}")
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 cancel()
             }
         }
     }
 
     @Test
-    fun `코루틴 정지`(){
+    fun `코루틴 정지`() {
         scope.cancel()
     }
 
     @Test
-    fun `코루틴내에서 CoroutineContext를 변경하기`(){
-        val job = scope.launch{
-            withContext(Dispatchers.Default){
+    fun `코루틴내에서 CoroutineContext를 변경하기`() {
+        val job = scope.launch {
+            withContext(Dispatchers.Default) {
                 println("withContext New coroutine!!")
                 println("You can call suspend functions")
                 println("${Thread.currentThread()}")
