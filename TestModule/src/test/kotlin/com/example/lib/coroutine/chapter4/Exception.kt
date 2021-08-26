@@ -16,6 +16,7 @@ class Exception {
     Throwing exception from async
     Caught ArithmeticException
     */
+    @DelicateCoroutinesApi
     @Test
     fun `테스트`() = runBlocking {
         val job = GlobalScope.launch { // 실행이 있는 루트 코루틴
@@ -36,6 +37,7 @@ class Exception {
         }
     }
 
+    @DelicateCoroutinesApi
     @Test
     fun main() = runBlocking {
         //sampleStart
