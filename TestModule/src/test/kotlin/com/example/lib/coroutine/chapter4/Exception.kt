@@ -18,7 +18,7 @@ class Exception {
     */
     @DelicateCoroutinesApi
     @Test
-    fun `테스트`() = runBlocking {
+    fun `Exception propagation`() = runBlocking {
         val job = GlobalScope.launch { // 실행이 있는 루트 코루틴
             println("throwing exception from launch ")
             throw  IndexOutOfBoundsException() // 다음으로 콘솔에 인쇄됩니다. Thread.defaultUncaughtExceptionHandler
@@ -39,8 +39,7 @@ class Exception {
 
     @DelicateCoroutinesApi
     @Test
-    fun main() = runBlocking {
-        //sampleStart
+    fun `CoroutineExceptionHandler`() = runBlocking {
         val handler = CoroutineExceptionHandler { _, exception ->
             println("CoroutineExceptionHandler got $exception")
         }
@@ -51,6 +50,26 @@ class Exception {
             throw ArithmeticException() // Nothing will be printed, relying on user to call deferred.await()
         }
         joinAll(job, deferred)
-        //sampleEnd
+    }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Cancellation and exceptions`() = runBlocking {
+        val job = launch {
+            val child = launch {
+                try {
+                    delay(Long.MAX_VALUE)
+                } finally {
+                    println("Child is cancelled")
+                }
+            }
+            yield()
+            println("Cancelling child")
+            child.cancel()
+            child.join()
+            yield()
+            println("Parent is not cancelled")
+        }
+        job.join()
     }
 }
