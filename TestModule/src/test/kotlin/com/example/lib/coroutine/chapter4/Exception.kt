@@ -65,8 +65,8 @@ class Exception {
             }
             yield()
             println("Cancelling child")
-            child.cancel()
-            child.join()
+            child.cancel()  //작업을 취소하려면 cancel을 이용
+            child.join()    //명시적으로 코루틴이 완료되길 기다림
             yield()
             println("Parent is not cancelled")
         }
