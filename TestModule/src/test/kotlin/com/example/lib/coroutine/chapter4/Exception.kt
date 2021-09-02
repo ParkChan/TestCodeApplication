@@ -2,6 +2,7 @@ package com.example.lib.coroutine.chapter4
 
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
+import java.io.IOException
 
 /**
  * (참조)[https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/topics/exception-handling.md]
@@ -69,6 +70,29 @@ class Exception {
             child.join()    //명시적으로 코루틴이 완료되길 기다림
             yield()
             println("Parent is not cancelled")
+        }
+        job.join()
+    }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Exceptions aggregation`() = runBlocking {
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("CoroutineExceptionHandler got $exception with suppressed ${exception.suppressed.contentToString()}")
+        }
+        val job = GlobalScope.launch(handler) {
+            launch {
+                try {
+                    delay(Long.MAX_VALUE) // it gets cancelled when another sibling fails with IOException
+                } finally {
+                    throw ArithmeticException() // the second exception
+                }
+            }
+            launch {
+                delay(100)
+                throw IOException() // the first exception
+            }
+            delay(Long.MAX_VALUE)
         }
         job.join()
     }
