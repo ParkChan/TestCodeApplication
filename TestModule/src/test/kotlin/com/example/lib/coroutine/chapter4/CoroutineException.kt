@@ -7,7 +7,7 @@ import java.io.IOException
 /**
  * (참조)[https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/topics/exception-handling.md]
  */
-class Exception {
+class CoroutineException {
 
     /*
     출력 결과
