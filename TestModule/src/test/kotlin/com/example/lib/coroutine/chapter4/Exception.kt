@@ -74,9 +74,14 @@ class Exception {
         job.join()
     }
 
+    /**
+     * When multiple children of a coroutine fail with an exception,
+     * the general rule is "the first exception wins", so the first exception gets handled.
+     * All additional exceptions that happen after the first one are attached to the first exception as suppressed ones.
+     */
     @DelicateCoroutinesApi
     @Test
-    fun `Exceptions aggregation`() = runBlocking {
+    fun `Exceptions aggregation IOException이 발생했지만 핸들러에 ArithmeticException이 전달됨`() = runBlocking {
         val handler = CoroutineExceptionHandler { _, exception ->
             println("CoroutineExceptionHandler got $exception with suppressed ${exception.suppressed.contentToString()}")
         }
@@ -84,15 +89,47 @@ class Exception {
             launch {
                 try {
                     delay(Long.MAX_VALUE) // it gets cancelled when another sibling fails with IOException
+                }catch (e: Exception){
+                    println("exception ${e.message}")
                 } finally {
                     throw ArithmeticException() // the second exception
                 }
             }
             launch {
-                delay(100)
-                throw IOException() // the first exception
+                try{
+                    delay(100)
+                    throw IOException() // the first exception
+                }catch (e: Exception){
+                    println("exception $e")
+                }finally {
+                    throw IOException() // the first exception
+                }
             }
             delay(Long.MAX_VALUE)
+        }
+        job.join()
+    }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Exceptions aggregation 취소오류가 발생했지만 핸들러에 IOException이 전달됨`() = runBlocking {
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("CoroutineExceptionHandler got $exception")
+        }
+        val job = GlobalScope.launch(handler) {
+            val inner = launch { // all this stack of coroutines will get cancelled
+                launch {
+                    launch {
+                        throw IOException() // the original exception
+                    }
+                }
+            }
+            try {
+                inner.join()
+            } catch (e: CancellationException) {
+                println("Rethrowing CancellationException with original cause")
+                throw e // cancellation exception is rethrown, yet the original IOException gets to the handler
+            }
         }
         job.join()
     }
