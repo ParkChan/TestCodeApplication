@@ -16,8 +16,10 @@ class CoroutineBasic {
 
     //private val scope = CoroutineScope(Job() + Dispatchers.Main)
     @ExperimentalCoroutinesApi
-    private val scope = TestCoroutineScope(Job() + TestCoroutineDispatcher()
-            + CoroutineName("테스트 용도의 코루틴 스레드"))
+    private val scope = TestCoroutineScope(
+        Job() + TestCoroutineDispatcher()
+                + CoroutineName("테스트 용도의 코루틴 스레드")
+    )
 
     @ExperimentalCoroutinesApi
     @Test
@@ -47,5 +49,17 @@ class CoroutineBasic {
                 println("${Thread.currentThread()}")
             }
         }
+    }
+
+    /**
+     * https://kotlinlang.org/docs/coroutines-basics.html#your-first-coroutine
+     */
+    @Test
+    fun `코루틴 첫 시작`() = runBlocking { // this: CoroutineScope
+        launch { // launch a new coroutine and continue
+            delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
+            println("World!") // print after delay
+        }
+        println("Hello") // main coroutine continues while a previous one is delayed
     }
 }
