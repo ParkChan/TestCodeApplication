@@ -4,9 +4,6 @@ import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 import java.io.IOException
 
-/**
- * (참조)[https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/topics/exception-handling.md]
- */
 class CoroutineException {
 
     /*
@@ -20,6 +17,9 @@ class CoroutineException {
     @DelicateCoroutinesApi
     @Test
     fun `Exception propagation`() = runBlocking {
+        /**
+         * (참조)[https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/topics/exception-handling.md]
+         */
         val job = GlobalScope.launch { // 실행이 있는 루트 코루틴
             println("throwing exception from launch ")
             throw  IndexOutOfBoundsException() // 다음으로 콘솔에 인쇄됩니다. Thread.defaultUncaughtExceptionHandler
@@ -89,19 +89,19 @@ class CoroutineException {
             launch {
                 try {
                     delay(Long.MAX_VALUE) // it gets cancelled when another sibling fails with IOException
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     println("exception ${e.message}")
                 } finally {
                     throw ArithmeticException() // the second exception
                 }
             }
             launch {
-                try{
+                try {
                     delay(100)
                     throw IOException() // the first exception
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     println("exception $e")
-                }finally {
+                } finally {
                     throw IOException() // the first exception
                 }
             }
@@ -133,4 +133,78 @@ class CoroutineException {
         }
         job.join()
     }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Supervision job`() = runBlocking {
+        val supervisor = SupervisorJob()
+        with(CoroutineScope(coroutineContext + supervisor)) {
+            // launch the first child -- its exception is ignored for this example (don't do this in practice!)
+            val firstChild = launch(CoroutineExceptionHandler { _, _ -> }) {
+                println("The first child is failing")
+                throw AssertionError("The first child is cancelled")
+            }
+            // launch the second child
+            val secondChild = launch {
+                firstChild.join()
+                // Cancellation of the first child is not propagated to the second child
+                println("The first child is cancelled: ${firstChild.isCancelled}, but the second one is still active")
+                try {
+                    delay(Long.MAX_VALUE)
+                } finally {
+                    // But cancellation of the supervisor is propagated
+                    println("The second child is cancelled because the supervisor was cancelled")
+                }
+            }
+            // wait until the first child fails & completes
+            firstChild.join()
+            println("Cancelling the supervisor")
+            supervisor.cancel()
+            secondChild.join()
+        }
+    }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Supervision scope`() = runBlocking {
+        try {
+            supervisorScope {
+                val child = launch {
+                    try {
+                        println("The child is sleeping")
+                        delay(Long.MAX_VALUE)
+                    } finally {
+                        println("The child is cancelled")
+                    }
+                }
+                // Give our child a chance to execute and print using yield
+                yield()
+                println("Throwing an exception from the scope")
+                throw AssertionError()
+            }
+        } catch (e: AssertionError) {
+            println("Caught an assertion error")
+        }
+    }
+
+    @DelicateCoroutinesApi
+    @Test
+    fun `Exceptions in supervised coroutines`() = runBlocking {
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("CoroutineExceptionHandler got $exception")
+        }
+        supervisorScope {
+            val child = launch(handler) {
+                println("The child throws an exception")
+                throw AssertionError()
+            }
+            println("The scope is completing")
+        }
+        println("The scope is completed")
+    }
+
+    //The child throws an exception
+    //CoroutineExceptionHandler got The child throws an exception
+    //The scope is completing
+    //The scope is completed
 }
