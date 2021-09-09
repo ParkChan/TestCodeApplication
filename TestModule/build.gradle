@@ -28,6 +28,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.1"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
     testImplementation "org.junit.jupiter:junit-jupiter-params:5.7.1"
+    testImplementation "junit:junit:4.13"
 
     testImplementation "org.assertj:assertj-core:3.18.0"
 
@@ -38,7 +39,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
     // Coroutine Testing
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
-
 }
 
 test {
