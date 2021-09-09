@@ -1,8 +1,11 @@
 package com.example.lib.coroutine.chapter1
 
+import com.example.lib.coroutine.MainCoroutineRule
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Rule
 import org.junit.jupiter.api.Test
 
 /*
@@ -58,6 +61,20 @@ class CoroutineBasic {
     fun `코루틴 첫 시작`() = runBlocking { // this: CoroutineScope
         launch { // launch a new coroutine and continue
             delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
+            println("World!") // print after delay
+        }
+        println("Hello") // main coroutine continues while a previous one is delayed
+    }
+
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `MainCoroutineRule 테스트`() = mainCoroutineRule.runBlockingTest {
+        launch { // launch a new coroutine and continue
+            delay(10000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
         println("Hello") // main coroutine continues while a previous one is delayed
