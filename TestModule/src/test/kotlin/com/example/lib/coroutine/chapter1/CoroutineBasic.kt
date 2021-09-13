@@ -20,8 +20,8 @@ class CoroutineBasic {
     //private val scope = CoroutineScope(Job() + Dispatchers.Main)
     @ExperimentalCoroutinesApi
     private val scope = TestCoroutineScope(
-        Job() + TestCoroutineDispatcher()
-                + CoroutineName("테스트 용도의 코루틴 스레드")
+            Job() + TestCoroutineDispatcher()
+                    + CoroutineName("테스트 용도의 코루틴 스레드")
     )
 
     @ExperimentalCoroutinesApi
@@ -60,7 +60,7 @@ class CoroutineBasic {
     @Test
     fun `코루틴 첫 시작`() = runBlocking { // this: CoroutineScope
         launch { // launch a new coroutine and continue
-            delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
+            delay(5000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
         println("Hello") // main coroutine continues while a previous one is delayed
@@ -74,9 +74,55 @@ class CoroutineBasic {
     @ExperimentalCoroutinesApi
     fun `MainCoroutineRule 테스트`() = mainCoroutineRule.runBlockingTest {
         launch { // launch a new coroutine and continue
-            delay(10000L) // non-blocking delay for 1 second (default time unit is ms)
+            delay(5000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
         println("Hello") // main coroutine continues while a previous one is delayed
     }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `first suspending function`() = runBlocking {
+        launch { doWorld1() }
+        println("Hello") // main coroutine continues while a previous one is delayed
+    }
+
+    private suspend fun doWorld1() {
+        delay(3000L) // non-blocking delay for 1 second (default time unit is ms)
+        println("World!") // print after delay
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `coroutineScope Test`() = runBlocking {
+        doWorld2()
+    }
+
+    private suspend fun doWorld2() = coroutineScope {
+        launch {
+            delay(3000L)
+            println("World!")
+        }
+        println("Hello")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `동시성 테스트`() = runBlocking {
+        doWorld3()
+        println("Done")
+    }
+
+    private suspend fun doWorld3() = coroutineScope { // this: CoroutineScope
+        launch {
+            delay(2000L)
+            println("World 2")
+        }
+        launch {
+            delay(1000L)
+            println("World 1")
+        }
+        println("Hello")
+    }
+
 }
