@@ -80,6 +80,10 @@ class CoroutineBasic {
         println("Hello") // main coroutine continues while a previous one is delayed
     }
 
+    /**
+     * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
+     * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
+     */
     @Test
     @ExperimentalCoroutinesApi
     fun `first suspending function`() = runBlocking {
@@ -125,4 +129,15 @@ class CoroutineBasic {
         println("Hello")
     }
 
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `An explicit job`() = runBlocking{
+        val job = launch { // launch a new coroutine and keep a reference to its Job
+            delay(1000L)
+            println("World!")
+        }
+        println("Hello")
+        job.join() // wait until child coroutine completes
+        println("Done")
+    }
 }
