@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.jupiter.api.Test
+import java.lang.Thread.sleep
 
 /*
 CoroutineContext 코루틴의 동작을 정의하는 요소 집합입니다. 다음으로 구성되어 있습니다.
@@ -131,7 +132,7 @@ class CoroutineBasic {
 
     @Test
     @ExperimentalCoroutinesApi
-    fun `An explicit job`() = runBlocking{
+    fun `An explicit job`() = runBlocking {
         val job = launch { // launch a new coroutine and keep a reference to its Job
             delay(1000L)
             println("World!")
@@ -139,5 +140,28 @@ class CoroutineBasic {
         println("Hello")
         job.join() // wait until child coroutine completes
         println("Done")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `코루틴의 경량화 확인하기`() = runBlocking {
+        repeat(100_000) { // launch a lot of coroutines
+            launch {
+                delay(5000L)
+                print(".")
+            }
+        }
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `코루틴의 경량화 스레드와의 비교`() {
+        repeat(100_000) {
+            Thread {
+                sleep(5000L)
+                print(".")
+            }.start()
+        }
+        //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
     }
 }
