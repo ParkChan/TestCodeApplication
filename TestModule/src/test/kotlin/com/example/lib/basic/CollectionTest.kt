@@ -9,6 +9,16 @@ class CollectionTest {
     private val canBeInClub27 = { p: Person -> p.age <= 27 }
 
     @Test
+    fun `Map Test`() {
+        val people = listOf(
+            Person("Alice", 29),
+            Person("Bob", 31),
+            Person("Charles", 31)
+        )
+        println(people.map { it.name })
+    }
+
+    @Test
     fun `Find Test`() {
         val people = listOf(
             Person("Alice", 27),
