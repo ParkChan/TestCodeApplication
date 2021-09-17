@@ -21,8 +21,8 @@ class CoroutineBasic {
     //private val scope = CoroutineScope(Job() + Dispatchers.Main)
     @ExperimentalCoroutinesApi
     private val scope = TestCoroutineScope(
-            Job() + TestCoroutineDispatcher()
-                    + CoroutineName("테스트 용도의 코루틴 스레드")
+        Job() + TestCoroutineDispatcher()
+                + CoroutineName("테스트 용도의 코루틴 스레드")
     )
 
     @ExperimentalCoroutinesApi
@@ -88,7 +88,6 @@ class CoroutineBasic {
         val deferred: Deferred<Int> = async {
             loadData()
         }
-        delay(1_000L)
         println("waiting...")
         val result = deferred.await()
         println(result)
@@ -108,22 +107,37 @@ class CoroutineBasic {
         val job = launch {
             println(loadData())
         }
-        delay(1_000L)
         println("waiting...")
         job.join()
+        println("End")
     }
 
     @Test
     @ExperimentalCoroutinesApi
-    fun `코루틴의 Context를 변경하거나 Dispatchers를 변경하여 실행중인 스레드를 변경하는 withContext`() = runBlocking{
+    fun `코루틴의 Context 변경 또는 Dispatchers를 변경하여 실행중인 스레드를 변경하는 withContext`() = runBlocking {
         val job = launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 println(loadData())
             }
         }
         delay(1_000L)
         println("waiting...")
         job.join()
+        println("End")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `여러개의 비동기 처리의 결과를 완료 되기까지 기다렸다가 수행 되는 예제 코드`() = runBlockingTest {
+        val deferreds: List<Deferred<Int>> = (1..3).map {
+            async {
+                delay(1000L * it)
+                println("Loading $it")
+                it
+            }
+        }
+        val sum = deferreds.awaitAll().sum()
+        println("$sum")
     }
 
     /**
@@ -136,77 +150,77 @@ class CoroutineBasic {
         launch { doWorld1() }
         println("Hello") // main coroutine continues while a previous one is delayed
     }
+}
 
-    private suspend fun doWorld1() {
-        delay(3000L) // non-blocking delay for 1 second (default time unit is ms)
-        println("World!") // print after delay
+private suspend fun doWorld1() {
+    delay(3000L) // non-blocking delay for 1 second (default time unit is ms)
+    println("World!") // print after delay
+}
+
+@Test
+@ExperimentalCoroutinesApi
+fun `coroutineScope Test`() = runBlocking {
+    doWorld2()
+}
+
+private suspend fun doWorld2() = coroutineScope {
+    launch {
+        delay(3000L)
+        println("World!")
     }
+    println("Hello")
+}
 
-    @Test
-    @ExperimentalCoroutinesApi
-    fun `coroutineScope Test`() = runBlocking {
-        doWorld2()
+@Test
+@ExperimentalCoroutinesApi
+fun `동시성 테스트`() = runBlocking {
+    doWorld3()
+    println("Done")
+}
+
+private suspend fun doWorld3() = coroutineScope { // this: CoroutineScope
+    launch {
+        delay(2000L)
+        println("World 2")
     }
+    launch {
+        delay(1000L)
+        println("World 1")
+    }
+    println("Hello")
+}
 
-    private suspend fun doWorld2() = coroutineScope {
+@Test
+@ExperimentalCoroutinesApi
+fun `An explicit job`() = runBlocking {
+    val job = launch { // launch a new coroutine and keep a reference to its Job
+        delay(1000L)
+        println("World!")
+    }
+    println("Hello")
+    job.join() // wait until child coroutine completes
+    println("Done")
+}
+
+@Test
+@ExperimentalCoroutinesApi
+fun `코루틴의 경량화 확인하기`() = runBlocking {
+    repeat(100_000) { // launch a lot of coroutines
         launch {
-            delay(3000L)
-            println("World!")
+            delay(5000L)
+            print(".")
         }
-        println("Hello")
     }
+}
 
-    @Test
-    @ExperimentalCoroutinesApi
-    fun `동시성 테스트`() = runBlocking {
-        doWorld3()
-        println("Done")
+@Test
+@ExperimentalCoroutinesApi
+fun `코루틴의 경량화 스레드와의 비교`() {
+    repeat(100_000) {
+        Thread {
+            sleep(5000L)
+            print(".")
+        }.start()
     }
-
-    private suspend fun doWorld3() = coroutineScope { // this: CoroutineScope
-        launch {
-            delay(2000L)
-            println("World 2")
-        }
-        launch {
-            delay(1000L)
-            println("World 1")
-        }
-        println("Hello")
-    }
-
-    @Test
-    @ExperimentalCoroutinesApi
-    fun `An explicit job`() = runBlocking {
-        val job = launch { // launch a new coroutine and keep a reference to its Job
-            delay(1000L)
-            println("World!")
-        }
-        println("Hello")
-        job.join() // wait until child coroutine completes
-        println("Done")
-    }
-
-    @Test
-    @ExperimentalCoroutinesApi
-    fun `코루틴의 경량화 확인하기`() = runBlocking {
-        repeat(100_000) { // launch a lot of coroutines
-            launch {
-                delay(5000L)
-                print(".")
-            }
-        }
-    }
-
-    @Test
-    @ExperimentalCoroutinesApi
-    fun `코루틴의 경량화 스레드와의 비교`() {
-        repeat(100_000) {
-            Thread {
-                sleep(5000L)
-                print(".")
-            }.start()
-        }
-        //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
-    }
+    //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
 }
