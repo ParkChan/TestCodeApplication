@@ -61,7 +61,7 @@ class CoroutineBasic {
     @Test
     fun `코루틴 첫 시작`() = runBlocking { // this: CoroutineScope
         launch { // launch a new coroutine and continue
-            delay(5000L) // non-blocking delay for 1 second (default time unit is ms)
+            delay(5_000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
         println("Hello") // main coroutine continues while a previous one is delayed
@@ -75,10 +75,55 @@ class CoroutineBasic {
     @ExperimentalCoroutinesApi
     fun `MainCoroutineRule 테스트`() = mainCoroutineRule.runBlockingTest {
         launch { // launch a new coroutine and continue
-            delay(5000L) // non-blocking delay for 1 second (default time unit is ms)
+            delay(5_000L) // non-blocking delay for 1 second (default time unit is ms)
             println("World!") // print after delay
         }
         println("Hello") // main coroutine continues while a previous one is delayed
+    }
+
+    //[참조](https://developer88.tistory.com/2130)
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `결과값을 전달할게 있을때 사용 Deferred await 테스트`() = runBlockingTest {
+        val deferred: Deferred<Int> = async {
+            loadData()
+        }
+        delay(1_000L)
+        println("waiting...")
+        val result = deferred.await()
+        println(result)
+//        println(deferred.start())       //결과값을 리턴x 코루틴이 끝날때까지 기다리지 않음 : await과의 차이
+    }
+
+    private suspend fun loadData(): Int {
+        println("loading...")
+        delay(3_000L)
+        println("loaded!")
+        return 42
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `결과값을 전달할게 없고 새 코루틴에서 실행하는 launch`() = runBlockingTest {
+        val job = launch {
+            println(loadData())
+        }
+        delay(1_000L)
+        println("waiting...")
+        job.join()
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `코루틴의 Context를 변경하거나 Dispatchers를 변경하여 실행중인 스레드를 변경하는 withContext`() = runBlocking{
+        val job = launch {
+            withContext(Dispatchers.IO){
+                println(loadData())
+            }
+        }
+        delay(1_000L)
+        println("waiting...")
+        job.join()
     }
 
     /**
