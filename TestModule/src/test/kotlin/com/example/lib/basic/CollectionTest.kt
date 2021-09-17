@@ -36,4 +36,23 @@ class CollectionTest {
         )
         println(people.groupBy { it.age })
     }
+
+    @Test
+    fun `flatMap Test`() {
+        val people = listOf(
+            "abc",
+            "edf",
+            "ghi",
+        )
+        println(people.flatMap { it.toList() })
+    }
+
+    @Test
+    fun `flatten Test`() {
+        val people = listOf(
+            listOf("a","b","c"),  
+            listOf("가","나","다")
+        )
+        println(people.flatten())
+    }
 }
