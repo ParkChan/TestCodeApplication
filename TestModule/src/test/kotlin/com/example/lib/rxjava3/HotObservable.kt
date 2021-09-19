@@ -17,14 +17,12 @@ class HotObservable {
 
     @Test
     fun hotStreamTest1(){
-        val test = HotObservable()
-        test.hotStream1()
+        hotStream1()
     }
 
     @Test
     fun hotStreamTest2(){
-        val test = HotObservable()
-        test.hotStream2()
+        hotStream2()
     }
 
     private fun hotStream1() {

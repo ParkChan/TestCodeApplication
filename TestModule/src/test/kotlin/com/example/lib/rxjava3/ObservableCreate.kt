@@ -37,66 +37,57 @@ class ObservableCreate {
 
     @Test
     fun createTest() {
-        val test = ObservableCreate()
         println("create test start===============")
-        test.create()
+        create()
     }
 
     @Test
     fun fromIterableTest() {
-        val test = ObservableCreate()
         println("fromIterable test start===============")
-        test.fromIterable()
+        fromIterable()
     }
 
     @Test
     fun fromCallAbleTest() {
-        val test = ObservableCreate()
         println("fromCallAble test start===============")
-        test.fromCallAble()
+        fromCallAble()
     }
 
     @Test
     fun fromFutureTest() {
-        val test = ObservableCreate()
         println("fromFuture test start===============")
-        test.fromFuture()
+        fromFuture()
     }
 
     @Test
     fun justTest() {
-        val test = ObservableCreate()
         println("just test start===============")
-        test.just()
+        just()
     }
 
     @Test
     fun rangeTest() {
-        val test = ObservableCreate()
         println("range test start===============")
-        test.range()
+        range()
     }
 
     @Test
     fun emptyTest() {
-        val test = ObservableCreate()
         println("empty test start===============")
-        test.empty()
+        empty()
     }
 
     @Test
     fun intervalTest(){
-        val test = ObservableCreate()
         println("interval test start===============")
-        test.interval()
+        interval()
         Thread.sleep(3000)
     }
 
     @Test
     fun timerTest() {
-        val test = ObservableCreate()
         println("timer test start===============")
-        test.timer()
+        timer()
         Thread.sleep(3000)
     }
 

@@ -28,20 +28,17 @@ class ConcatMergeZip {
 
     @Test
     fun concatTest() {
-        val test = ConcatMergeZip()
-        test.concat()
+        concat()
     }
 
     @Test
     fun mergeTest() {
-        val test = ConcatMergeZip()
-        test.merge()
+        merge()
     }
 
     @Test
     fun zipTest() {
-        val test = ConcatMergeZip()
-        test.zip()
+        zip()
     }
 
     private fun concat() {
