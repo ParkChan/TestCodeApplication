@@ -2,12 +2,10 @@ package com.example.lib.coroutine
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
+import kotlinx.coroutines.test.*
+import org.junit.jupiter.api.extension.AfterEachCallback
+import org.junit.jupiter.api.extension.BeforeEachCallback
+import org.junit.jupiter.api.extension.ExtensionContext
 
 /**
  * https://wooooooak.github.io/android/2020/12/04/android-testing/
@@ -17,17 +15,43 @@ import org.junit.runner.Description
  * kotlinx-coroutines-test는 coroutine testing 전용으로 만들어진 라이브러리이다.
  */
 @ExperimentalCoroutinesApi
-class MainCoroutineRule(val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()):
-    TestWatcher(),
-    TestCoroutineScope by TestCoroutineScope(dispatcher) {
-    override fun starting(description: Description?) {
-        super.starting(description)
-        Dispatchers.setMain(dispatcher)
+class MainCoroutineRule(
+    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher(),
+) : BeforeEachCallback, AfterEachCallback,
+    TestCoroutineScope by TestCoroutineScope(testDispatcher) {
+
+    fun runBlockingTest(
+        block: suspend TestCoroutineScope.() -> Unit
+    ) = testDispatcher.runBlockingTest(block)
+
+    override fun beforeEach(context: ExtensionContext?) {
+        Dispatchers.setMain(testDispatcher)
     }
 
-    override fun finished(description: Description?) {
-        super.finished(description)
-        cleanupTestCoroutines()
+    override fun afterEach(context: ExtensionContext?) {
         Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
     }
 }
+
+//@ExperimentalCoroutinesApi
+//class MainCoroutineRule(val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()):
+//    TestWatcher(),
+//    TestCoroutineScope by TestCoroutineScope(dispatcher) {
+//    override fun starting(description: Description?) {
+//        super.starting(description)
+//        Dispatchers.setMain(dispatcher)
+//    }
+//
+//    override fun finished(description: Description?) {
+//        super.finished(description)
+//        cleanupTestCoroutines()
+//        Dispatchers.resetMain()
+//    }
+//}
+//
+//@ExperimentalCoroutinesApi
+//fun MainCoroutineRule.runBlockingTest(block: suspend () -> Unit) =
+//    this.dispatcher.runBlockingTest {
+//        block()
+//    }

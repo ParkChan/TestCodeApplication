@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException
 
 /**
  * Observes a [LiveData] until the `block` is done executing.
+ * [참조](https://medium.com/androiddevelopers/unit-testing-livedata-and-other-common-observability-problems-bb477262eb04)
  */
 fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
     val observer = Observer<T> { }

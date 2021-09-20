@@ -144,14 +144,14 @@ class CoroutineBasic {
     @ExperimentalCoroutinesApi
     fun `join 테스트 작성하기`() = mainCoroutineRule.runBlockingTest {
         println("Start")
-        val job = launch(mainCoroutineRule.dispatcher) {
+        val job = launch(mainCoroutineRule.coroutineContext){
             val data: List<Int> = (1..3).map {
                 delay(1000L * it)
                 it
             }
             println("result is ${data.sum()}")
         }
-        //job.join()
+        job.join()
         println("End")
     }
 

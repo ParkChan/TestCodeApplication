@@ -1,42 +1,42 @@
 package com.example.testcodeapplication.coroutine
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import kotlinx.coroutines.Dispatchers
+import com.example.testcodeapplication.getOrAwaitValue
+import com.example.testcodeapplication.viewmodel.MyViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.extension.RegisterExtension
 
+/**
+ * https://modelmaker.tistory.com/16
+ */
+@ExtendWith(InstantTaskExecutorExtension::class)
 class TestCoroutineDispatcherExam1 {
 
-    @ExperimentalCoroutinesApi
-    val testDispatcher = TestCoroutineDispatcher()
-
-    @ExperimentalCoroutinesApi
-    val testScope = TestCoroutineScope(Job() + testDispatcher)
-
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-    @Before
-    fun setup() {
-        Dispatchers.setMain(testDispatcher)
+    companion object {
+        @JvmField
+        @RegisterExtension
+        val coroutineExtension = MainCoroutineRule()
+        val viewModel: MyViewModel = MyViewModel()
     }
 
-    @After
-    fun teatDown() {
-        Dispatchers.resetMain()
-        testScope.cleanupTestCoroutines()
+    @ExperimentalCoroutinesApi
+    @BeforeEach
+    fun setUp() {
     }
 
+    @ExperimentalCoroutinesApi
     @Test
-    fun `테스트 라이브 데이터`() {
-
+    @DisplayName("라이브 데이터 테스트 입니다")
+    fun `라이브 데이터 테스트`() = coroutineExtension.runBlockingTest {
+        println("Start")
+        viewModel.setNewValue("foo")
+        // Pass:
+        assertEquals(viewModel.liveData1.getOrAwaitValue(), "foo")
+        assertEquals(viewModel.liveData2.getOrAwaitValue(), "FOO")
+        println("End")
     }
 }
