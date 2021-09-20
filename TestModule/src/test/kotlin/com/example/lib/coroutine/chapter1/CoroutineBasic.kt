@@ -128,7 +128,7 @@ class CoroutineBasic {
 
     @Test
     @ExperimentalCoroutinesApi
-    fun `여러개의 비동기 처리의 결과를 완료 되기까지 기다렸다가 수행 되는 예제 코드`() = runBlockingTest {
+    fun `여러개의 비동기 처리의 결과를 완료 되기까지 기다렸다가 수행 되는 예제 코드1`() = runBlockingTest {
         val deferreds: List<Deferred<Int>> = (1..3).map {
             async {
                 delay(1000L * it)
@@ -140,87 +140,102 @@ class CoroutineBasic {
         println("$sum")
     }
 
-    /**
-     * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
-     * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
-     */
     @Test
     @ExperimentalCoroutinesApi
-    fun `first suspending function`() = runBlocking {
-        launch { doWorld1() }
-        println("Hello") // main coroutine continues while a previous one is delayed
+    fun `join 테스트 작성하기`() = mainCoroutineRule.runBlockingTest {
+        println("Start")
+        val job = launch(mainCoroutineRule.dispatcher) {
+            val data: List<Int> = (1..3).map {
+                delay(1000L * it)
+                it
+            }
+            println("result is ${data.sum()}")
+        }
+        //job.join()
+        println("End")
     }
-}
 
-private suspend fun doWorld1() {
-    delay(3000L) // non-blocking delay for 1 second (default time unit is ms)
-    println("World!") // print after delay
-}
-
-@Test
-@ExperimentalCoroutinesApi
-fun `coroutineScope Test`() = runBlocking {
-    doWorld2()
-}
-
-private suspend fun doWorld2() = coroutineScope {
-    launch {
-        delay(3000L)
-        println("World!")
-    }
-    println("Hello")
-}
-
-@Test
-@ExperimentalCoroutinesApi
-fun `동시성 테스트`() = runBlocking {
-    doWorld3()
-    println("Done")
-}
-
-private suspend fun doWorld3() = coroutineScope { // this: CoroutineScope
-    launch {
-        delay(2000L)
-        println("World 2")
-    }
-    launch {
-        delay(1000L)
-        println("World 1")
-    }
-    println("Hello")
-}
-
-@Test
-@ExperimentalCoroutinesApi
-fun `An explicit job`() = runBlocking {
-    val job = launch { // launch a new coroutine and keep a reference to its Job
-        delay(1000L)
-        println("World!")
-    }
-    println("Hello")
-    job.join() // wait until child coroutine completes
-    println("Done")
-}
-
-@Test
-@ExperimentalCoroutinesApi
-fun `코루틴의 경량화 확인하기`() = runBlocking {
-    repeat(100_000) { // launch a lot of coroutines
-        launch {
-            delay(5000L)
-            print(".")
+        /**
+         * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
+         * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
+         */
+        @Test
+        @ExperimentalCoroutinesApi
+        fun `first suspending function`() = runBlocking {
+            launch { doWorld1() }
+            println("Hello") // main coroutine continues while a previous one is delayed
         }
     }
-}
 
-@Test
-@ExperimentalCoroutinesApi
-fun `코루틴의 경량화 스레드와의 비교`() {
-    repeat(100_000) {
-        Thread {
-            sleep(5000L)
-            print(".")
-        }.start()
+    private suspend fun doWorld1() {
+        delay(3000L) // non-blocking delay for 1 second (default time unit is ms)
+        println("World!") // print after delay
     }
-    //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
-}
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `coroutineScope Test`() = runBlocking {
+        doWorld2()
+    }
+
+    private suspend fun doWorld2() = coroutineScope {
+        launch {
+            delay(3000L)
+            println("World!")
+        }
+        println("Hello")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `동시성 테스트`() = runBlocking {
+        doWorld3()
+        println("Done")
+    }
+
+    private suspend fun doWorld3() = coroutineScope { // this: CoroutineScope
+        launch {
+            delay(2000L)
+            println("World 2")
+        }
+        launch {
+            delay(1000L)
+            println("World 1")
+        }
+        println("Hello")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `An explicit job`() = runBlocking {
+        val job = launch { // launch a new coroutine and keep a reference to its Job
+            delay(1000L)
+            println("World!")
+        }
+        println("Hello")
+        job.join() // wait until child coroutine completes
+        println("Done")
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `코루틴의 경량화 확인하기`() = runBlocking {
+        repeat(100_000) { // launch a lot of coroutines
+            launch {
+                delay(5000L)
+                print(".")
+            }
+        }
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `코루틴의 경량화 스레드와의 비교`() {
+        repeat(100_000) {
+            Thread {
+                sleep(5000L)
+                print(".")
+            }.start()
+        }
+        //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
+    }
