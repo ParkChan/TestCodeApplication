@@ -2,7 +2,7 @@ package com.example.lib.basic
 
 import org.junit.jupiter.api.Test
 
-class CollectionTest {
+class CollectionBasicTest {
 
     private data class Person(val name: String, val age: Int)
 
