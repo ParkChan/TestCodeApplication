@@ -50,9 +50,17 @@ class CollectionTest {
     @Test
     fun `flatten Test`() {
         val people = listOf(
-            listOf("a","b","c"),  
-            listOf("가","나","다")
+            listOf("a", "b", "c"),
+            listOf("가", "나", "다")
         )
         println(people.flatten())
+    }
+
+    @Test
+    fun `list add Test`() {
+        val abc = listOf("a", "b", "c")
+        val def = listOf("가", "나", "다")
+        println(abc + def)
+        println(abc.plus(def))
     }
 }
