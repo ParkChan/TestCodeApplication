@@ -1,4 +1,4 @@
-package com.example.lib.coroutine.chapter1
+package com.example.lib.collection
 
 import org.junit.jupiter.api.Test
 

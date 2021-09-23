@@ -8,12 +8,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
-@CoroutinesTimeout(100)
+@CoroutinesTimeout(1000)
 class ChannelTest {
 
-
     @Test
-    fun `채널의 유형에 따른 버퍼 크기 지정`(){
+    fun `채널의 유형에 따른 버퍼 크기 지정`() {
         val rendezvousChannel = Channel<String>()           //버퍼가 없는 채널(일반적
         val bufferedChannel = Channel<String>(10)   //버퍼 크기를 지정 하는 채널
         val conflatedChannel = Channel<String>(CONFLATED)   //이전에 전송된 요소를 덮어 쓰는 채널
@@ -21,7 +20,7 @@ class ChannelTest {
     }
 
     @Test
-    fun `Rendezvous 채널 생성을 통한 send 및 receive 테스트`() = runBlocking{
+    fun `Rendezvous 채널 생성을 통한 send 및 receive 테스트`() = runBlocking<Unit> {
         val channel = Channel<String>()
         launch {
             channel.send("A1")
@@ -40,7 +39,7 @@ class ChannelTest {
         }
     }
 
-    fun log(message: Any?) {
+    private fun log(message: Any?) {
         println("[${Thread.currentThread().name}] $message")
     }
 
