@@ -4,23 +4,31 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.debug.junit5.CoroutinesTimeout
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
-@CoroutinesTimeout(1000)
+/**
+ * (참조)https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/08_Channels
+ * (참조)[https://bb-library.tistory.com/248]
+ * (참조:태환)[https://thdev.tech/kotlin/2021/01/09/Coroutines-Callback/]
+ */
+@CoroutinesTimeout(10000)
 class ChannelTest {
 
     @Test
     fun `채널의 유형에 따른 버퍼 크기 지정`() {
-        val rendezvousChannel = Channel<String>()           //버퍼가 없는 채널(일반적
+        val rendezvousChannel = Channel<String>()           //버퍼가 크기가 없는 채널(일반적
         val bufferedChannel = Channel<String>(10)   //버퍼 크기를 지정 하는 채널
         val conflatedChannel = Channel<String>(CONFLATED)   //이전에 전송된 요소를 덮어 쓰는 채널
         val unlimitedChannel = Channel<String>(UNLIMITED)   //무제한 채널
     }
 
     @Test
-    fun `Rendezvous 채널 생성을 통한 send 및 receive 테스트`() = runBlocking<Unit> {
+    fun `Channel의 capacity의 기본값인 RENDEZVOUS 채널 send 및 receive 테스트`() = runBlocking<Unit> {
         val channel = Channel<String>()
         launch {
             channel.send("A1")
@@ -41,6 +49,36 @@ class ChannelTest {
 
     private fun log(message: Any?) {
         println("[${Thread.currentThread().name}] $message")
+    }
+
+    @Test
+    fun testChannel() = runBlocking {
+        val channel = Channel<Int>()
+//        val channel = Channel<Int>(capacity = 10)
+//        val channel = Channel<Int>(CONFLATED)
+        launch {
+            (0..10).forEach {
+                println("send $it")
+                channel.send(it)
+            }
+        }
+        repeat(11) {
+            println("receive ${channel.receive()}")
+        }
+    }
+
+    @Test
+    fun testFlow() = runBlocking {
+        flow<Int> {
+            (0..10).forEach {
+                println("emit $it")
+                emit(it) // 1을 입력하면
+            }
+        }.collect {
+            println("collect $it") // 1이 출력되고,
+            delay(1) // 1ms를 대기한다. 그동안 blocking 한다.
+        }
+        delay(100)
     }
 
 }
