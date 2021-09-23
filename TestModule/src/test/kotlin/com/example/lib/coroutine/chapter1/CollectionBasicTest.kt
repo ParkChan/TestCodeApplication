@@ -1,4 +1,4 @@
-package com.example.lib.basic
+package com.example.lib.coroutine.chapter1
 
 import org.junit.jupiter.api.Test
 
@@ -62,5 +62,13 @@ class CollectionBasicTest {
         val def = listOf("가", "나", "다")
         println(abc + def)
         println(abc.plus(def))
+    }
+
+    @Test
+    fun `withIndex Test`() {
+        val chars = listOf("a", "b", "c", "가", "나", "다")
+        for ((index, char) in chars.withIndex()) {
+            println("index : ${index.toString()}  value: $char")
+        }
     }
 }
