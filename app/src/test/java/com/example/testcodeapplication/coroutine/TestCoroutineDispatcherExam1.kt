@@ -19,7 +19,7 @@ class TestCoroutineDispatcherExam1 {
     companion object {
         @JvmField
         @RegisterExtension
-        val coroutineExtension = MainCoroutineRule()
+        val mainCoroutineRule = MainCoroutineRule()
         val viewModel: MyViewModel = MyViewModel()
     }
 
@@ -31,7 +31,7 @@ class TestCoroutineDispatcherExam1 {
     @ExperimentalCoroutinesApi
     @Test
     @DisplayName("라이브 데이터 테스트 입니다")
-    fun `라이브 데이터 테스트`() = coroutineExtension.runBlockingTest {
+    fun `라이브 데이터 테스트`() = mainCoroutineRule.runBlockingTest {
         println("Start")
         viewModel.setNewValue("foo")
         // Pass:
