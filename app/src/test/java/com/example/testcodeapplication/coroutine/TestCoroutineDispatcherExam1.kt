@@ -3,6 +3,7 @@ package com.example.testcodeapplication.coroutine
 import com.example.testcodeapplication.getOrAwaitValue
 import com.example.testcodeapplication.viewmodel.MyViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -39,4 +40,15 @@ class TestCoroutineDispatcherExam1 {
         assertEquals(viewModel.liveData2.getOrAwaitValue(), "FOO")
         println("End")
     }
+
+    @Test
+    fun `StateFlow test`() = mainCoroutineRule.runBlockingTest {
+        println("Start")
+        viewModel.userName.collect { name ->
+            println("receive >>> $name")
+        }
+        viewModel.setName("찬군입니다.")
+        println("End")
+    }
+
 }
