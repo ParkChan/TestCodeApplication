@@ -16,6 +16,7 @@ class MockkTest {
 
     interface SampleRepository {
         fun insert(sample: Sample)
+        fun getSample(): Sample
     }
 
     data class Sample(val value: String)
@@ -41,6 +42,32 @@ class MockkTest {
         viewModel.insert(sample)
         verify { repository.insert(sample) }
     }
+
+    @Test
+    fun testEtc() {
+        val sample = mockk<Sample>()
+        val repository: SampleRepository = mockk()
+        every { repository.insert(sample) } just Runs
+        every { repository.insert(sample) } throws Exception()
+        every { repository.getSample() } returns mockk()
+        every { repository.getSample() } answers {
+            println("call repository.getSample()")
+            sample
+        }
+    }
+
+    @Test
+    fun `mock 객체의 메서드를 호출하는데 파라미터가 private 변수일시 any() 함수를 사용하여 처리`() {
+        val sample = mockk<Sample>()
+        val repository: SampleRepository = mockk(relaxed = true)
+        val viewModel =
+            SampleViewModel(repository)
+        viewModel.insert(sample)
+        verify {
+            repository.insert(any())
+        }
+    }
+
 
     interface PaymentService {
         fun pay(): PayResult
@@ -72,7 +99,9 @@ class MockkTest {
         orderService.order()
 
         // pay() 메소드를 실행 했는지 호출(행위) 검증
-        verify { paymentService.pay() }
+        verify {
+            paymentService.pay()
+        }
     }
 
 }
