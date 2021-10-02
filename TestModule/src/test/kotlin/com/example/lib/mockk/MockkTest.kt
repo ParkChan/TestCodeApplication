@@ -1,23 +1,45 @@
 package com.example.lib.mockk
 
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.jupiter.api.Test
 
+/*
+    참조 URL : https://leveloper.tistory.com/199
+ */
 class MockkTest {
 
-    data class Sample(val value: String) {
-        fun getString() = value
+    class SampleViewModel(private val repository: SampleRepository) {
+        fun insert(sample: Sample) {
+            repository.insert(sample)
+        }
+    }
+
+    interface SampleRepository {
+        fun insert(sample: Sample)
+    }
+
+    data class Sample(val value: String)
+
+    @Test
+    fun `sampleViewModelTest01 every블록을 사용하지 않으면 오류 발생`() {
+        val sample = mockk<Sample>()
+        val repository: SampleRepository = mockk()
+        val viewModel = SampleViewModel(repository)
+
+        every { repository.insert(sample) } just Runs
+
+        viewModel.insert(sample)
+        verify { repository.insert(sample) }
     }
 
     @Test
-    fun test() {
-        val sample = mockk<Sample> {
-            every { value } returns "sample"
-        }
-        val result = sample.getString()
-        assert(result === "sampleTest")
+    fun `sampleViewModelTest every 대신 relaxed = true 를 사용`() {
+        val sample = mockk<Sample>()
+        val repository: SampleRepository = mockk(relaxed = true)
+        val viewModel = SampleViewModel(repository)
+
+        viewModel.insert(sample)
+        verify { repository.insert(sample) }
     }
 
     interface PaymentService {
@@ -37,7 +59,7 @@ class MockkTest {
     }
 
     @Test
-    fun mockTest2() {
+    fun orderServiceTest() {
         // paymentService mock 객체 생성
         val paymentService = mockk<PaymentService>()
         // 생성된 mock을 이용해서 orderService 객체 생성
@@ -54,4 +76,5 @@ class MockkTest {
     }
 
 }
+
 
