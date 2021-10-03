@@ -21,7 +21,7 @@ public class CustomLogger {
     }
 
     public static CustomLogger getInstance() {
-        return SingleTonHolder.instance;
+        return SingletonHolder.instance;
     }
 
     private static void initLogger() {
@@ -66,7 +66,7 @@ public class CustomLogger {
         logger.severe(message);
     }
 
-    private static class SingleTonHolder {
+    private static class SingletonHolder {
         private static final CustomLogger instance = new CustomLogger();
     }
 }
