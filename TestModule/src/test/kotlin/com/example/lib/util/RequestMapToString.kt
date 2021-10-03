@@ -1,14 +1,15 @@
-package com.example.lib.kotlin.util
+package com.example.lib.util
 
-import com.example.lib.java.util.CustomLogger
+import org.junit.jupiter.api.Test
 
+@Test
 fun main() {
     println("===========")
     val requestMap: Map<String, String> = mutableMapOf("id" to "user", "password" to "1234")
     val requestMap1: Map<String, String> = mapOf("id" to "user")
 
-    CustomLogger.getInstance().info(mapToRequestString(requestMap))
-    CustomLogger.getInstance().info(mapToRequestString(requestMap1))
+    println(mapToRequestString(requestMap))
+    println(mapToRequestString(requestMap1))
 }
 
 fun mapToRequestStringBefore(map: Map<String, String?>): String {
@@ -39,14 +40,12 @@ fun mapToRequestStringBefore(map: Map<String, String?>): String {
 fun mapToRequestString(map: Map<String, String>): String {
     val result = StringBuilder()
     if (map.isNotEmpty()) {
-        val list = map.toList()
         result.append("?")
-        for ((index, item) in list.withIndex()) {
-            result.append("${item.first}=${item.second}")
-            if (index < list.size - 1) {
-                result.append("&")
-            }
+        map.forEach { (key, value) ->
+            result.append("${key}=${value}")
+            result.append("&")
         }
+        result.deleteCharAt(result.length - 1)
     }
     return result.toString()
 }
