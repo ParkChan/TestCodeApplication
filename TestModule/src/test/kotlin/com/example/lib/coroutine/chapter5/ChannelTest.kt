@@ -1,12 +1,9 @@
-package com.example.lib.coroutine.channel
+package com.example.lib.coroutine.chapter5
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.debug.junit5.CoroutinesTimeout
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
@@ -65,20 +62,6 @@ class ChannelTest {
         repeat(11) {
             println("receive ${channel.receive()}")
         }
-    }
-
-    @Test
-    fun testFlow() = runBlocking {
-        flow<Int> {
-            (0..10).forEach {
-                println("emit $it")
-                emit(it) // 1을 입력하면
-            }
-        }.collect {
-            println("collect $it") // 1이 출력되고,
-            delay(1) // 1ms를 대기한다. 그동안 blocking 한다.
-        }
-        delay(100)
     }
 
 }

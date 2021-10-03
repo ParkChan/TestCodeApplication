@@ -1,6 +1,8 @@
 package com.example.testcodeapplication.viewmodel
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
@@ -12,5 +14,13 @@ class MyViewModel : ViewModel() {
 
     fun setNewValue(newValue: String) = viewModelScope.launch{
         _liveData1.value = newValue
+    }
+
+    //StateFlow Exam
+    private val _userNameFlow = MutableStateFlow("")
+    val userName: StateFlow<String> = _userNameFlow
+
+    fun setName(name: String) = viewModelScope.launch{
+        _userNameFlow.value = name
     }
 }
