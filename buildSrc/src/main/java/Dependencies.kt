@@ -11,12 +11,11 @@ object RootConfig {
 object AndroidConfig {
     const val COMPILE_AND_TARGET_SDK = 29       //Q
     const val BUILD_TOOLS_VERSION = "29.0.3"
-    const val APPLICATION_ID = "com.poke"
+    const val APPLICATION_ID = ""
     const val MIN_SDK = 21      //Lollipop
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
-    const val TEST_INSTRUMENTATION_CUSTOM_RUNNER = "com.poke.MyCustomTestRunner"
 
 }
 
@@ -24,7 +23,7 @@ object JetBrain {
     private const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:${Kotlin.VERSION}"
 }
 
-object Coroutines{
+object Coroutines {
     private const val COROUTINE_VERSION = "1.5.1"
     const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINE_VERSION"
     const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
@@ -50,7 +49,7 @@ object TestConfig {
     const val MOCKK = "io.mockk:mockk:1.10.6"
 }
 
-object AndroidDxDependencies {
+object AndroidDx {
     private const val LIFECYCLE_VERSION = "2.2.0"
     private const val PAGING_VERSION = "3.0.0-alpha01"
 
@@ -86,7 +85,7 @@ object DaggerHilt {
 
 }
 
-object NetworkDependencies {
+object Network {
     private const val RETROFIT_VERSION = "2.9.0"
     private const val MOSHI_VERSION = "1.9.2"
 
@@ -100,28 +99,13 @@ object NetworkDependencies {
     const val MOSHI_KOTLIN_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen:$MOSHI_VERSION"
 }
 
-object Dependencies {
-
-    private const val LOGGER_VERSION = "2.2.0"
-    private const val GLIDE_VERSION = "4.11.0"
-
-    //Logger
-    const val LOGGER = "com.orhanobut:logger:$LOGGER_VERSION"
-
-    //Glide
-    const val GLIDE = "com.github.bumptech.glide:glide:$GLIDE_VERSION"
-    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
-
-    //TedPermmision
-    const val TED_PERMISION = "gun0912.ted:tedpermission-rx2:2.2.3"
-
-}
-
 object RxJava3 {
     private const val VERSION = "3.0.0"
     const val ANDROID = "io.reactivex.rxjava3:rxandroid:$VERSION"
+
     // https://github.com/ReactiveX/RxAndroid
     const val JAVA = "io.reactivex.rxjava3:rxjava:$VERSION"
+
     // https://github.com/ReactiveX/RxJava/releases
     const val KOTLIN = "io.reactivex.rxjava3:rxkotlin:$VERSION"
     // https://github.com/ReactiveX/RxKotlin/releases
