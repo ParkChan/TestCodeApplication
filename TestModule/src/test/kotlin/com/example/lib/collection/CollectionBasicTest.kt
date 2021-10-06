@@ -71,4 +71,27 @@ class CollectionBasicTest {
             println("index : ${index.toString()}  value: $char")
         }
     }
+
+    @Test
+    fun `중복제거`() {
+        val data = arrayOf(1, 3, 6, 4, 1, 2)
+        println(data.distinct())
+
+    }
+
+    @Test
+    fun `sort 메소드는 해당 Collection 의 원소 위치가 변경됩니다`() {
+        val data = arrayOf(1, 3, 6, 4, 1, 2)
+        data.sort()
+        print("sort Data ${data.toList()}")
+    }
+
+    @Test
+    fun `sorted 메소드를 사용하면 기존 Collection 은 변하지 않습니다`() {
+        val data = arrayOf(1, 3, 6, 4, 1, 2)
+        print("sortedData ${data.sorted()}")
+        println()
+        print("originData ${data.toList()}")
+        println()
+    }
 }
