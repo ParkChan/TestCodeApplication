@@ -5,7 +5,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Rule
 import org.junit.jupiter.api.Test
 import java.lang.Thread.sleep
 
@@ -68,8 +67,7 @@ class CoroutineBasic {
     }
 
     @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    val mainCoroutineRule = MainCoroutineRule()
 
     @Test
     @ExperimentalCoroutinesApi

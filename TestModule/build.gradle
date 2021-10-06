@@ -17,9 +17,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation JetBrain.KOTLIN_STDLIB
 
-    implementation RxJava3.ANDROID
-    implementation RxJava3.JAVA
-    implementation RxJava3.KOTLIN
+    implementation RxJavaConfig.ANDROID
+    implementation RxJavaConfig.JAVA
+    implementation RxJavaConfig.KOTLIN
 
     testImplementation TestConfig.JUNIT_JUPITER_API
     testRuntimeOnly TestConfig.JUNIT_JUPITER_ENGINE
