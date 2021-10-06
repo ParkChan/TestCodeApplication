@@ -27,6 +27,7 @@ object CoroutineConfig {
     const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINE_VERSION"
     const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
     const val TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINE_VERSION"
+    const val DEBUG = "org.jetbrains.kotlinx:kotlinx-coroutines-debug:$COROUTINE_VERSION"
 }
 
 object TestConfig {

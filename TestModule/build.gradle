@@ -28,9 +28,11 @@ dependencies {
 
     testImplementation TestConfig.MOCKK
 
-    implementation Coroutines.CORE
-    implementation Coroutines.ANDROID
-    testImplementation Coroutines.TEST
+    implementation CoroutineConfig.CORE
+    implementation CoroutineConfig.ANDROID
+    testImplementation CoroutineConfig.TEST
+    testImplementation CoroutineConfig.DEBUG
+
 }
 
 test {
@@ -39,4 +41,9 @@ test {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
