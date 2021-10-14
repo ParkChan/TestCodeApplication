@@ -26,6 +26,7 @@ class TestCoroutineDispatcherExam1 {
     @ExperimentalCoroutinesApi
     @BeforeEach
     fun setUp() {
+
     }
 
     @ExperimentalCoroutinesApi
