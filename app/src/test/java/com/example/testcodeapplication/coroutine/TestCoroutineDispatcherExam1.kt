@@ -6,7 +6,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -31,7 +30,6 @@ class TestCoroutineDispatcherExam1 {
 
     @ExperimentalCoroutinesApi
     @Test
-    @DisplayName("라이브 데이터 테스트 입니다")
     fun `라이브 데이터 테스트`() = mainCoroutineRule.runBlockingTest {
         println("Start")
         viewModel.setNewValue("foo")
