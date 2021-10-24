@@ -142,7 +142,7 @@ class CoroutineBasic {
     @ExperimentalCoroutinesApi
     fun `join 테스트 작성하기`() = mainCoroutineRule.runBlockingTest {
         println("Start")
-        val job = launch(mainCoroutineRule.coroutineContext){
+        val job = launch(mainCoroutineRule.coroutineContext) {
             val data: List<Int> = (1..3).map {
                 delay(1000L * it)
                 it
@@ -153,16 +153,15 @@ class CoroutineBasic {
         println("End")
     }
 
-        /**
-         * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
-         * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
-         */
-        @Test
-        @ExperimentalCoroutinesApi
-        fun `first suspending function`() = runBlocking {
-            launch { doWorld1() }
-            println("Hello") // main coroutine continues while a previous one is delayed
-        }
+    /**
+     * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
+     * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
+     */
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `first suspending function`() = runBlocking {
+        launch { doWorld1() }
+        println("Hello") // main coroutine continues while a previous one is delayed
     }
 
     private suspend fun doWorld1() {
@@ -237,3 +236,4 @@ class CoroutineBasic {
         }
         //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
     }
+}
