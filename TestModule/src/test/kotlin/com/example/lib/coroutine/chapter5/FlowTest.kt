@@ -2,8 +2,7 @@ package com.example.lib.coroutine.chapter5
 
 import kotlinx.coroutines.debug.junit5.CoroutinesTimeout
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
@@ -29,6 +28,37 @@ class FlowTest {
         delay(100)
     }
 
+    val intFlow = flowOf(1, 2, 3).onEach { delay(10) }
+    val charFlow = flowOf("A", "B", "C","D","E").onEach { delay(20) }
 
+    @Test
+    fun `combine 테스트 두 개의 Flow를 결합해서 하나의 결과를 만들고 싶을 때 combine을 사용합니다`() = runBlocking {
+        println("Start")
+        val startTime = System.currentTimeMillis()
+        intFlow.combine(charFlow) { num, character ->
+            "$num / $character"
+        }.collect {
+            println(it)
+        }
+        println("실행 시간 ${System.currentTimeMillis() - startTime}")
+        println("End")
+    }
 
+    @Test
+    fun `zip 테스트 combine과 다른 점은 두 Flow의 방출 값을 모아서 한 번에 방출`() = runBlocking {
+        intFlow.zip(charFlow) { num, character ->
+            "$num / $character"
+        }.collect {
+            println(it)
+        }
+    }
+
+    @Test
+    fun `flattenMerge 테스트 두 방출 값을 하나의 결과로 방출`() = runBlocking {
+        val startTime = System.currentTimeMillis()
+        flowOf(intFlow, charFlow).flattenMerge().collect {
+            println("$it")
+        }
+        println("실행 시간 ${System.currentTimeMillis() - startTime}")
+    }
 }

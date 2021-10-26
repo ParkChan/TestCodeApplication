@@ -209,19 +209,21 @@ class CoroutineBasic {
             val two =
                 async{ doSomethingUsefulTwo() }
 
-            println("The answer is ${one.await() + two.await()}")
+            val result1 = one.await()
+            val result2 = two.await()
+            println("The answer is ${result1 + result2}")
 
         }
         println("5: Completed async in $asyncTime5 ms")
 
         val asyncTime6 = measureTimeMillis {
-            //하나의 ascyc에 돌아가게 하는 결과는?
+            //하나의 async 돌아가게 하는 결과는?
             val one =
                 async{
                     doSomethingUsefulOne()
                     doSomethingUsefulTwo()
                 }
-            println("""The answer is ${one.await()}""")
+            println("The answer is ${one.await()}")
         }
         println("6: Completed async in $asyncTime6 ms")
     }
