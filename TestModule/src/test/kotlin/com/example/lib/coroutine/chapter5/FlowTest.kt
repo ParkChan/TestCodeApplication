@@ -54,7 +54,7 @@ class FlowTest {
     }
 
     @Test
-    fun `flattenMerge 테스트 두 방출 값을 하나의 결과로 방출`() = runBlocking {
+    fun `flattenMerge 테스트 다른 방출 값과 관계도 없으며, 여러 개의 Flow들의 방출 값이 하나의 Flow의 방출`() = runBlocking {
         val startTime = System.currentTimeMillis()
         flowOf(intFlow, charFlow).flattenMerge().collect {
             println("$it")
