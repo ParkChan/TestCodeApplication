@@ -30,7 +30,7 @@ class FlowTest {
 
     val intFlow = flowOf(1, 2, 3).onEach { delay(10) }
     val charFlow = flowOf("A", "B", "C","D","E").onEach { delay(20) }
-
+    val emptyFlow = emptyFlow<String>()
     @Test
     fun `combine 테스트 두 개의 Flow를 결합해서 하나의 결과를 만들고 싶을 때 combine을 사용합니다`() = runBlocking {
         println("Start")
