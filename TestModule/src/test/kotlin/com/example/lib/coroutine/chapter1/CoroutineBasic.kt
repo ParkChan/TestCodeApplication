@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.Test
 import java.lang.Thread.sleep
+import kotlin.system.measureTimeMillis
 
 /*
 CoroutineContext 코루틴의 동작을 정의하는 요소 집합입니다. 다음으로 구성되어 있습니다.
@@ -138,11 +139,100 @@ class CoroutineBasic {
         println("$sum")
     }
 
+    suspend fun doSomethingUsefulOne(): Int {
+        delay(1000L)
+        return 13
+    }
+
+    suspend fun doSomethingUsefulTwo(): Int {
+        delay(1000L)
+        return 29
+    }
+
+    @Test
+    fun `순차적인 중단함수 호출과 async를 이용한 동시수행 비교`() = runBlocking {
+        val time = measureTimeMillis {
+            val one = doSomethingUsefulOne()
+            val two = doSomethingUsefulTwo()
+            println("The answer is ${one + two}")
+        }
+        println("Completed in $time ms")
+
+        val asyncTime = measureTimeMillis {
+            //one 과 two 는 job타입으로 필요한 경우 취소를 요청 가능
+            val one = async { doSomethingUsefulOne() }
+            val two = async { doSomethingUsefulTwo() }
+            println("The answer is ${one.await() + two.await()}")
+        }
+        println("1: Completed async in $asyncTime ms")
+
+        //순차적으로 수행되는 구성이어서 첫번째 속도와 같음
+        val asyncTime2 = measureTimeMillis {
+            //one 과 two 는 job타입으로 필요한 경우 취소를 요청 가능
+            val one =
+                withContext(Dispatchers.Default) { doSomethingUsefulOne() }
+            val two =
+                withContext(Dispatchers.Default) { doSomethingUsefulTwo() }
+            println("The answer is ${one + two}")
+        }
+        println("2: Completed async in $asyncTime2 ms")
+
+        //하나의 withContext에서 수행했지만 내부적으로 순차적으로 수행되어서 첫번째 속도와 같음
+        val asyncTime3 = measureTimeMillis {
+            val one =
+                withContext(Dispatchers.Default) {
+                    doSomethingUsefulOne()
+                    doSomethingUsefulTwo()
+                }
+            println("The answer is $one")
+        }
+        println("3: Completed async in $asyncTime3 ms")
+
+        val asyncTime4 = measureTimeMillis {
+            //CoroutineStart.LAZY 를 사용하여 실행을 지연시키는 방법
+            val one =
+                async(start = CoroutineStart.LAZY) { doSomethingUsefulOne() }
+            val two =
+                async(start = CoroutineStart.LAZY) { doSomethingUsefulTwo() }
+
+            one.start()
+            two.start()
+            println("The answer is ${one.await() + two.await()}")
+
+        }
+        println("4: Completed async in $asyncTime4 ms")
+
+        val asyncTime5 = measureTimeMillis {
+            //일반적인 async를 사용한 동시수행
+            val one =
+                async{ doSomethingUsefulOne() }
+            val two =
+                async{ doSomethingUsefulTwo() }
+
+            val result1 = one.await()
+            val result2 = two.await()
+            println("The answer is ${result1 + result2}")
+
+        }
+        println("5: Completed async in $asyncTime5 ms")
+
+        val asyncTime6 = measureTimeMillis {
+            //하나의 async 돌아가게 하는 결과는?
+            val one =
+                async{
+                    doSomethingUsefulOne()
+                    doSomethingUsefulTwo()
+                }
+            println("The answer is ${one.await()}")
+        }
+        println("6: Completed async in $asyncTime6 ms")
+    }
+
     @Test
     @ExperimentalCoroutinesApi
     fun `join 테스트 작성하기`() = mainCoroutineRule.runBlockingTest {
         println("Start")
-        val job = launch(mainCoroutineRule.coroutineContext){
+        val job = launch(mainCoroutineRule.coroutineContext) {
             val data: List<Int> = (1..3).map {
                 delay(1000L * it)
                 it
@@ -153,16 +243,15 @@ class CoroutineBasic {
         println("End")
     }
 
-        /**
-         * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
-         * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
-         */
-        @Test
-        @ExperimentalCoroutinesApi
-        fun `first suspending function`() = runBlocking {
-            launch { doWorld1() }
-            println("Hello") // main coroutine continues while a previous one is delayed
-        }
+    /**
+     * 아래부터는 하단 링크 참조를 통한 실습 예제 내용 입니다.
+     * https://kotlinlang.org/docs/coroutines-basics.html#scope-builder-and-concurrency
+     */
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `first suspending function`() = runBlocking {
+        launch { doWorld1() }
+        println("Hello") // main coroutine continues while a previous one is delayed
     }
 
     private suspend fun doWorld1() {
@@ -218,7 +307,7 @@ class CoroutineBasic {
     @Test
     @ExperimentalCoroutinesApi
     fun `코루틴의 경량화 확인하기`() = runBlocking {
-        repeat(100_000) { // launch a lot of coroutines
+        repeat(50_000) { // launch a lot of coroutines
             launch {
                 delay(5000L)
                 print(".")
@@ -229,7 +318,7 @@ class CoroutineBasic {
     @Test
     @ExperimentalCoroutinesApi
     fun `코루틴의 경량화 스레드와의 비교`() {
-        repeat(100_000) {
+        repeat(50_000) {
             Thread {
                 sleep(5000L)
                 print(".")
@@ -237,3 +326,4 @@ class CoroutineBasic {
         }
         //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
     }
+}
