@@ -11,7 +11,7 @@ object AndroidConfig {
     const val COMPILE_AND_TARGET_SDK = 30
     const val BUILD_TOOLS_VERSION = "30.0.3"
     const val MIN_SDK = 21
-    const val TARGER_SDK = 30
+    const val TARGER_SDK = 31
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
@@ -67,6 +67,7 @@ object AndroidXConfig {
 
 object GoogleConfig {
     const val MATERIAL = "com.google.android.material:material:1.1.0"
+    const val FIRE_BASE = "com.google.firebase:firebase-messaging:22.0.0"
 }
 
 object DaggerHiltConfig {
@@ -106,4 +107,8 @@ object RxJavaConfig {
     // https://github.com/ReactiveX/RxJava/releases
     const val KOTLIN = "io.reactivex.rxjava3:rxkotlin:$VERSION"
     // https://github.com/ReactiveX/RxKotlin/releases
+}
+
+object LogConfig {
+    private val TIMBER = "com.jakewharton.timber:timber:5.0.1"
 }
