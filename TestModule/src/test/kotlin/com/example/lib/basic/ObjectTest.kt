@@ -30,6 +30,9 @@ class ObjectTest {
         println(student1.name)
         println(student2.name)
     }
+    // 추가 설명 : 데이터 클래스(Data class)는 데이터 보관 목적으로 만든 클래스를 말합니다.
+    // 데이터 클래스는 프로퍼티에 대한 toString(), hashCode(), equals(), copy() 메소드를
+    // 자동으로 만들어 줍니다. 그래서 boilerplate code를 만들지 않아도 됩니다.
 
     @Test
     fun `Object 클래스 설명(자바 기준)`(){
