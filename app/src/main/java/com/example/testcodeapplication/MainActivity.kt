@@ -18,8 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         Timber.d(">>> lifecycle is onCreate()")
+        super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         mainViewModel =
@@ -34,42 +35,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        super.onStart()
         Timber.d(">>> lifecycle is onStart()")
+        super.onStart()
     }
 
     override fun onRestart() {
-        super.onRestart()
         Timber.d(">>> lifecycle is onRestart()")
+        super.onRestart()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
         Timber.d(">>> lifecycle is onRestoreInstanceState()")
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onResume() {
-        super.onResume()
         Timber.d(">>> lifecycle is onResume()")
+        super.onResume()
+    }
+
+    override fun onPostResume() {
+        Timber.d(">>> lifecycle is onPostResume()")
+        super.onPostResume()
     }
 
     override fun onPause() {
-        super.onPause()
         Timber.d(">>> lifecycle is onPause()")
+        super.onPause()
     }
 
     override fun onStop() {
-        super.onStop()
         Timber.d(">>> lifecycle is onStop()")
+        super.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         Timber.d(">>> lifecycle is onSaveInstanceState()")
+        super.onSaveInstanceState(outState)
+
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         Timber.d(">>> lifecycle is onDestroy()")
+        super.onDestroy()
+
     }
 }
