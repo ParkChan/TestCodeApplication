@@ -30,12 +30,25 @@ class FlowTest {
 
     val intFlow = flowOf(1, 2, 3).onEach { delay(10) }
     val charFlow = flowOf("A", "B", "C","D","E").onEach { delay(20) }
-    val emptyFlow = emptyFlow<String>()
+    val emptyFlow = flowOf(emptyList<String>())
     @Test
     fun `combine 테스트 두 개의 Flow를 결합해서 하나의 결과를 만들고 싶을 때 combine을 사용합니다`() = runBlocking {
         println("Start")
         val startTime = System.currentTimeMillis()
         intFlow.combine(charFlow) { num, character ->
+            "$num / $character"
+        }.collect {
+            println(it)
+        }
+        println("실행 시간 ${System.currentTimeMillis() - startTime}")
+        println("End")
+    }
+
+    @Test
+    fun `combine flow중 하나라도 emptyFlow면 수행이 안 되지만 빈 값을 전달하여 수행하도록 합니다`() = runBlocking {
+        println("Start")
+        val startTime = System.currentTimeMillis()
+        intFlow.combine(emptyFlow) { num, character ->
             "$num / $character"
         }.collect {
             println(it)

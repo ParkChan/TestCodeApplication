@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         Timber.d(">>> lifecycle is onSaveInstanceState()")
         super.onSaveInstanceState(outState)
-
     }
 
     override fun onDestroy() {
