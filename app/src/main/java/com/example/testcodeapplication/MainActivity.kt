@@ -11,7 +11,7 @@ import com.example.testcodeapplication.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-
+//https://developer.android.com/reference/android/app/Activity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
