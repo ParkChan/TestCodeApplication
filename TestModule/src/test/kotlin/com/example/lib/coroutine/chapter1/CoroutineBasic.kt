@@ -6,7 +6,6 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.Test
-import java.lang.Thread.sleep
 import kotlin.system.measureTimeMillis
 
 /*
@@ -205,9 +204,9 @@ class CoroutineBasic {
         val asyncTime5 = measureTimeMillis {
             //일반적인 async를 사용한 동시수행
             val one =
-                async{ doSomethingUsefulOne() }
+                async { doSomethingUsefulOne() }
             val two =
-                async{ doSomethingUsefulTwo() }
+                async { doSomethingUsefulTwo() }
 
             val result1 = one.await()
             val result2 = two.await()
@@ -219,7 +218,7 @@ class CoroutineBasic {
         val asyncTime6 = measureTimeMillis {
             //하나의 async 돌아가게 하는 결과는?
             val one =
-                async{
+                async {
                     doSomethingUsefulOne()
                     doSomethingUsefulTwo()
                 }
@@ -306,24 +305,36 @@ class CoroutineBasic {
 
     @Test
     @ExperimentalCoroutinesApi
-    fun `코루틴의 경량화 확인하기`() = runBlocking {
-        repeat(50_000) { // launch a lot of coroutines
-            launch {
-                delay(5000L)
-                print(".")
+    fun `코루틴의 경량화 확인하기 coroutineTest`() = runBlocking {
+        println("시작::활성화 된 스레드 갯수 = ${Thread.activeCount()}")
+        val time = measureTimeMillis {
+            val jobs = ArrayList<Job>()
+            repeat(10000) {
+                jobs += launch(Dispatchers.Default) {
+                    delay(1000L)
+                }
             }
+            println("끝::활성화 된 스레드 갯수 = ${Thread.activeCount()}")
+            jobs.forEach { it.join() }
         }
+        println("Took $time ms")
     }
 
     @Test
     @ExperimentalCoroutinesApi
-    fun `코루틴의 경량화 스레드와의 비교`() {
-        repeat(50_000) {
-            Thread {
-                sleep(5000L)
-                print(".")
-            }.start()
+    fun `코루틴의 경량화 스레드와의 비교 threadTest`() {
+        //만약 메모리가 작은 환경이라면 스레드를 생성하다가 다음과 같은 OOM 에러가 발생할 수도 있다
+        println("시작::활성화 된 스레드 갯수 = ${Thread.activeCount()}")
+        val time = measureTimeMillis {
+            val jobs = ArrayList<Thread>()
+            repeat(10000) {
+                jobs += Thread {
+                    Thread.sleep(1000L)
+                }.also { it.start() }
+            }
+            println("끝::활성화 된 스레드 갯수 = ${Thread.activeCount()}")
+            jobs.forEach { it.join() }
         }
-        //당신의 코드는 일종의 메모리 부족 오류를 일으킬 가능성이 높습니다.
+        println("Took $time ms")
     }
 }
