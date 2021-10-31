@@ -33,4 +33,17 @@ class HighOrderFunction {
         twoAndThree(sum)
     }
 
+    @Test
+    fun `함수참조 테스트`(){
+        fun printNext(text: String): String {
+            return text.plus("문자열 합치기 입니다")
+        }
+        fun performRequest(
+            callback: (content: String) -> String
+        ) {
+            val result = callback("결과는")
+            println(result)
+        }
+        performRequest(::printNext)
+    }
 }
