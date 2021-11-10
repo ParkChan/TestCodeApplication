@@ -1,4 +1,4 @@
-package com.example.lib.collection.queue
+package com.example.lib.collection.basic.list.linkedlist
 
 import com.example.lib.java.util.CustomLogger
 import org.junit.jupiter.api.Test
