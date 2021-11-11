@@ -7,4 +7,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 투명 테마 -->
+    <style name="TranslucentTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!--on below line we are setting background as transparent color-->
+        <item name="android:background">@android:color/transparent</item>
+        <!--on below line we are displaying the windowNotitle as true as we are not displaying our status bar-->
+        <item name="android:windowNoTitle">true</item>
+        <!--on below line we are setting our window background as transparent color-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--on below line we are setting color background cache hint as null-->
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <!--on below line we are adding a window translucent as true-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--on below line we are adding a window animationstyle-->
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
+    <!-- 다이얼로그 테마 -->
+    <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog"/>
+
 </resources>
