@@ -1,4 +1,4 @@
-package com.example.lib.collection.basic
+package com.example.lib.collection.basic.list
 
 import org.junit.jupiter.api.Test
 import java.util.*
