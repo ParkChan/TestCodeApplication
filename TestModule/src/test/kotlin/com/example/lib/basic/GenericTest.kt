@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test
 //kotlin
 // in 반공변:Write-Only
 // out 공변:Read-Only
+/**
+ * 참조 : https://readystory.tistory.com/201
+ * 참조 : https://medium.com/@joongwon/java-java%EC%9D%98-generics-604b562530b3
+ */
 class GenericTest {
 
     open class Fruit
