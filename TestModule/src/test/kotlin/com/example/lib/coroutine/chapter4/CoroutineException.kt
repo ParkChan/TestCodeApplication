@@ -85,12 +85,14 @@ class CoroutineException {
                     delay(Long.MAX_VALUE)
                 } catch (e :CancellationException) {
                     println("Child is cancelled")
+                    //코루틴은 내부적으로 취소 동작을 위해 CancellationException을 사용
+                    //CancellationException 예외는 모든 핸들러들이 무시하므로 handler를 등록해도 아무런 효과가 없습니다.
+                    //그래서 코루틴 동작 중 취소 상황 시 처리를 해야할 일이 있다면 try-catch블록을 이용해서 예외처리용으로 사용이 가능
                 }
             }
-            yield()
+            yield()     // Thread순서 양보, 생략 시 child코루틴이 시작도 전에 cancel실행 가능
             println("Cancelling child")
-            child.cancel()  //작업을 취소하려면 cancel을 이용
-            child.join()    //명시적으로 코루틴이 완료되길 기다림
+            child.cancelAndJoin()
             yield()
             println("Parent is not cancelled")
         }
