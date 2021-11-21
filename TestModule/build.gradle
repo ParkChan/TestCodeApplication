@@ -21,6 +21,8 @@ dependencies {
     implementation RxJavaConfig.JAVA
     implementation RxJavaConfig.KOTLIN
 
+    implementation TestConfig.JUNIT
+
     testImplementation TestConfig.JUNIT_JUPITER_API
     testRuntimeOnly TestConfig.JUNIT_JUPITER_ENGINE
     testImplementation TestConfig.JUNIT_JUPITER_PARAMS

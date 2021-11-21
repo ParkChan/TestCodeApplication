@@ -61,6 +61,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         Timber.d(">>> lifecycle is onPause()")
+        //투명한 액티비티가 위에 올라오면 onPause 까지
+        //다이얼로그 액티비티가 위에 올라오면 onPause 까지
+        //불투명한 액티비티가 위에 올라오면 onStop 호출
         super.onPause()
     }
 

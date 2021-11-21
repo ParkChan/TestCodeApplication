@@ -34,10 +34,11 @@ class HighOrderFunction {
     }
 
     @Test
-    fun `함수참조 테스트`(){
+    fun `함수참조 테스트`() {
         fun printNext(text: String): String {
             return text.plus("문자열 합치기 입니다")
         }
+
         fun performRequest(
             callback: (content: String) -> String
         ) {
@@ -45,5 +46,21 @@ class HighOrderFunction {
             println(result)
         }
         performRequest(::printNext)
+    }
+
+    @Test
+    fun `구구단 테스트`() {
+        operator(multiplication)
+    }
+
+    fun operator(operation: (Int) -> Unit) {
+        operation(2)
+    }
+
+    var multiplication = fun(dan: Int) {
+        println("$dan 단을 실행합니다")
+        for (i in 1..9) {
+            println("$dan * $i = ${dan * i}")
+        }
     }
 }
