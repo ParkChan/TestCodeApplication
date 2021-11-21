@@ -74,6 +74,29 @@ class CoroutineException {
         job.join()
     }
 
+    @Test
+    fun `CancellationException 예외는 Handler에 호출되지 않기 때문에 소용이 없다`() = runBlocking {
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("CoroutineExceptionHandler $exception")
+        }
+        val job = launch(handler) {
+            val child = launch {
+                try {
+                    delay(Long.MAX_VALUE)
+                } catch (e :CancellationException) {
+                    println("Child is cancelled")
+                }
+            }
+            yield()
+            println("Cancelling child")
+            child.cancel()  //작업을 취소하려면 cancel을 이용
+            child.join()    //명시적으로 코루틴이 완료되길 기다림
+            yield()
+            println("Parent is not cancelled")
+        }
+        job.join()
+    }
+
     /**
      * When multiple children of a coroutine fail with an exception,
      * the general rule is "the first exception wins", so the first exception gets handled.
