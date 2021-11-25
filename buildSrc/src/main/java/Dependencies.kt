@@ -23,7 +23,7 @@ object JetBrain {
 }
 
 object CoroutineConfig {
-    private const val COROUTINE_VERSION = "1.5.1"
+    private const val COROUTINE_VERSION = "1.5.2"
     const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINE_VERSION"
     const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINE_VERSION"
     const val TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINE_VERSION"
