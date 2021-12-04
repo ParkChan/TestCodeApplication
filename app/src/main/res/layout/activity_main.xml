@@ -14,10 +14,22 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/color_ffffff"
+                android:textColor="@color/color_000000"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_000000" />
 
             <Button
                 android:id="@+id/btn_intent_install_test"
@@ -58,6 +70,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/color_000000" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
     </ScrollView>
 </layout>
