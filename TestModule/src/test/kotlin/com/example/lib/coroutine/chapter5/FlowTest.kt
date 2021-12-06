@@ -85,17 +85,19 @@ class FlowTest {
     fun `flatMapLatest 이전에 대기중이거나 동작중인 flow는 cancel`() = runBlocking {
         val startTime = System.currentTimeMillis()
         (1..3).asFlow().onEach { delay(100) }
-            .flatMapLatest { requestFlow(it) }.collect { value ->
+            .flatMapLatest {
+                requestFlow(it)
+            }.collect { value ->
                 println("$value at ${System.currentTimeMillis() - startTime} ms from start")
             }
     }
 
     private fun requestFlow(i: Int): Flow<String> = flow {
-        try{
+        try {
             emit("$i: First")
             delay(500)
             emit("$i: Second")
-        }catch (cancel: CancellationException){
+        } catch (cancel: CancellationException) {
             println("cancelled!!")
         }
     }

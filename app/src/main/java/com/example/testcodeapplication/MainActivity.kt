@@ -1,6 +1,8 @@
 package com.example.testcodeapplication
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,6 +18,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private val watcher: TextWatcher = object : TextWatcher{
+        override fun beforeTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            Timber.d("TextChangedListener:beforeTextChanged >>> ${cs.toString()}")
+        }
+
+        override fun onTextChanged(cs: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            Timber.d("TextChangedListener:onTextChanged >>> ${cs.toString()}")
+        }
+
+        override fun afterTextChanged(cs: Editable?) {
+            Timber.d("TextChangedListener:afterTextChanged >>> ${cs.toString()}")
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d(">>> lifecycle is onCreate()")
@@ -32,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                     Timber.d("received token $it")
                 }
             })
+        binding.etQuery.addTextChangedListener(watcher)
     }
 
     override fun onStart() {
