@@ -15,18 +15,19 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         main.java.srcDirs += 'src/main/java'
         test.java.srcDirs += 'src/test/kotlin'
     }
+    test {
+        useJUnitPlatform()
+    }
 }
+
 
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation JetBrain.KOTLIN_STDLIB
 
     implementation RxJavaConfig.ANDROID
     implementation RxJavaConfig.JAVA
     implementation RxJavaConfig.KOTLIN
-
-    implementation TestConfig.JUNIT
 
     testImplementation TestConfig.JUNIT_JUPITER_API
     testRuntimeOnly TestConfig.JUNIT_JUPITER_ENGINE
@@ -40,10 +41,6 @@ dependencies {
     testImplementation CoroutineConfig.TEST
     testImplementation CoroutineConfig.DEBUG
 
-}
-
-test {
-    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile) {

@@ -14,12 +14,9 @@ object AndroidConfig {
     const val TARGER_SDK = 31
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"
-    const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
+    const val ANDROID_JUNIT_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
+    const val ANDROID_JUNIT5_BUILDER = "de.mannodermaus.junit5.AndroidJUnit5Builder"
 
-}
-
-object JetBrain {
-    private const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:${Kotlin.VERSION}"
 }
 
 object CoroutineConfig {
