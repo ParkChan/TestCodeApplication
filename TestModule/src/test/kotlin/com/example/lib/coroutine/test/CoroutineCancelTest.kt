@@ -49,5 +49,4 @@ class CoroutineCancelTest {
             delay(1)
         }
     }
-    //4
 }
