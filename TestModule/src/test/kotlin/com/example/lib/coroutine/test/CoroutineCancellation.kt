@@ -49,6 +49,7 @@ class CoroutineCancellation {
         println("main: Now I can quit.")
     }
 
+
     //그렇다면 가장 처음에 보았던 공식 문서 예제는 어떻게 취소가 되었을까?
     //suspend 함수가 Exception을 던진다.
     //비밀은 delay() 에 있다.
