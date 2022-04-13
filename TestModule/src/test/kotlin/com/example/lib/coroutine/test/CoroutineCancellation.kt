@@ -51,14 +51,4 @@ class CoroutineCancellation {
         println("main: Now I can quit.")
     }
 
-
-    //그렇다면 가장 처음에 보았던 공식 문서 예제는 어떻게 취소가 되었을까?
-    //suspend 함수가 Exception을 던진다.
-    //비밀은 delay() 에 있다.
-    //정확하게 말하자면 suspend 함수가 내부적으로
-    //isActive를 체크하여 isActive가 false일 때 Exception을 던지는 것이다.
-    //cancel()의 타겟인 코루틴 내부에 suspend 함수가 있다면, 그 suspend 함수가 CancellationException을 throw한다.
-    //그러나 suspend가 없다면, CancellationException 는 throw되지 않는다.
-    //이런 경우에는 isActive를 체크하여 명시적으로 CancellationException 를 던질 수 있다.
-
 }
