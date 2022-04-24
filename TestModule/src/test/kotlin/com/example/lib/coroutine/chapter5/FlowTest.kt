@@ -34,6 +34,38 @@ class FlowTest {
     private var emptyFlow = emptyFlow<String>()
 
     @Test
+    fun `데이터를 발행하는 시간보다 처리하는 시간이 더 긴 경우 collectLastest를 사용하면 마지막 데이터만이 소비됩니다`() = runBlocking {
+        val flow = flow<Int> {
+            (0..10).forEach {
+                //데이터를 0.1초마다 발행
+                delay(100)
+                emit(it)
+            }
+        }
+        flow.collectLatest {
+            //데이터를 1초동안 처리하는 중...
+            delay(1000)
+            println("number >>> $it")
+        }
+    }
+
+    @Test
+    fun `한 번 시작된 데이터 소비는 끝날때까지 하고, 데이터 소비가 끝난 시점의 가장 최신 데이터를 다시 소비됩니다`() = runBlocking {
+        val flow = flow<Int> {
+            for(i in 0..10){
+                emit(i)
+                delay(300)
+            }
+        }
+        flow.onEach {
+            println("number >>> emit $it")
+        }.conflate().collect {
+            delay(3000)
+            println("number >>> $it")
+        }
+    }
+
+    @Test
     fun `두 개의 Flow를 결합해서 하나의 결과를 만들고 싶을 때 combine을 사용합니다`() = runBlocking {
         println("Start")
         val startTime = System.currentTimeMillis()
