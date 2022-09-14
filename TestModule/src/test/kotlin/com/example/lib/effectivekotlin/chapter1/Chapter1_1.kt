@@ -28,26 +28,6 @@ class Chapter1_1 {
     }
 
     @Test
-    fun `generateSequence 테스트1`() {
-        val oddNumbers = generateSequence(1) { it + 2 } // `it` is the previous element
-        println(oddNumbers.take(5).toList()) // [1, 3, 5, 7, 9]
-        //println(oddNumbers.count())     // error: the sequence is infinite
-    }
-
-    @Test
-    fun `generateSequence 테스트2`() {
-        val oddNumbersLessThan10 = generateSequence(1) { if (it < 10) it + 2 else null }
-        //[1, 3, 5, 7, 9, 11]
-        println(oddNumbersLessThan10.count()) // 6
-    }
-
-    @Test
-    fun `drop test`() {
-        val data = (0..10).drop(1)
-        println(data)       // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
-
-    @Test
     fun `시퀀스를 활용하는 예제로 확장 및 원하는 범위를 나중에 집어넣는 형태로 수정`() {
         val primes: Sequence<Int> = sequence {
             var numbers = generateSequence(2) { it + 1 }

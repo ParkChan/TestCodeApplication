@@ -5,17 +5,23 @@ import org.junit.jupiter.api.Test
 
 class BasicExamTest {
 
-    private fun highOrderFunction(func : () -> Unit) : Unit {
+    private fun highOrderFunction(func: () -> Unit) {
         func()
     }
 
-    private fun highOrderFunction() : () -> Unit{
-        return {println("hello world") }
+    private fun highOrderFunction1(): () -> Unit {
+        return { println("hello world") }
+    }
+
+    private fun highOrderFunction2() {
+        println("hello world")
     }
 
     @Test
-    fun `기본형 테스트`(){
-        highOrderFunction(highOrderFunction())
+    fun `기본형 테스트`() {
+        println("highOrderFunction1 과 highOrderFunction2 은 동일")
+        highOrderFunction(highOrderFunction1())
+        highOrderFunction(::highOrderFunction2)
     }
 
 
@@ -42,9 +48,9 @@ class BasicExamTest {
         body2: (String) -> String,
         body3: (String) -> String
     ) {
-        println(body1("첫번째"))
-        println(body2("두번째"))
-        println(body3("두번째"))
+        println(body1("1번째"))
+        println(body2("2번째"))
+        println(body3("3번째"))
     }
 
     @Test
