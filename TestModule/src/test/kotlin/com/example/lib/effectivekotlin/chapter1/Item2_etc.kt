@@ -2,7 +2,7 @@ package com.example.lib.effectivekotlin.chapter1
 
 import org.junit.jupiter.api.Test
 
-class Chapter1_ETC {
+class Item2_etc {
 
     @Test
     fun `generateSequence 테스트1`() {

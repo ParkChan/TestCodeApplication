@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
  * 에라토스테네스의 체 란?
  * 소수들을 대량으로 빠르고 정확하게 구하는 방법
  */
-class Chapter1_1 {
+class Item2 {
 
     //에라토스테네스의 체 알고리즘
     //1. 부터 까지의 자연수를 전부 나열한다.
