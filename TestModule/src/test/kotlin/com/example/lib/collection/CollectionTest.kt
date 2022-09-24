@@ -147,4 +147,48 @@ class CollectionTest {
         println(numbers.minOrNull())
         println(numbers.average())
     }
+
+    @Test
+    fun `chunked`() {
+        val range=0..10
+        println(range.chunked(3))
+        //return List<List<Int>>
+        //[[0,1,2],[3,4,5],[6,7,8],[9,10]]
+
+        println(range.chunked(3){it.sum()})
+        //listOf(3,12,21,19)
+
+        println(range.chunked(3){it.average()})
+        //listOf(1.0,4.0,7.0,9,5)
+    }
+
+    @Test
+    fun `컬렉션을 윈도우로 처리하기 windowed`() {
+        val range = 0..10
+        println(range.windowed(size = 3, step = 3))
+        //[[0,1,2],[3,4,5],[6,7,8]]
+        //한 리스트에 3개씩, 3만큼 전진
+        //마지막 윈도우는 3개가 아님. partialWindows 기본값 false 이기 때문에 출력되지 않음
+
+        println(range.windowed(3, 3) { it.average() })
+        //[1.0,4.0,7.0]
+
+        println(range.windowed(3, 1))
+        //[[0,1,2],[1,2,3],[2,3,4],[3,4,5],[4,5,6],[6,7,8],[7,8,9],[8,9,10]]
+        //한 윈도우에 3개씩, 1만큼 전진
+        //[9,10],[10] 은 3개가 들어있지 않고 partialWindows 기본값 false 이기 때문에 출력되지 않음
+
+        println(range.windowed(3, 1) { it.average() })
+        //[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
+
+    }
+
+    @Test
+    fun `coerceIn 값이 범위 안에 있으면 해당 값을, 값이 범위 안에 없으면 경계값을 리턴`() {
+        val range = 3..8
+        println(5.coerceIn(range))  //5
+        println(1.coerceIn(range))  //1
+        println(9.coerceIn(range))  //8
+        println(5.coerceIn(3, 6))   //5
+    }
 }
