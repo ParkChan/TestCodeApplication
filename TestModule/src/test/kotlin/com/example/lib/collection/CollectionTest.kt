@@ -191,4 +191,27 @@ class CollectionTest {
         println(9.coerceIn(range))  //8
         println(5.coerceIn(3, 6))   //5
     }
+
+    @Test
+    fun `다수의 속성으로 정렬하기`() {
+
+        data class User(val score : Int, val first : String, val last : String)
+        val golfers = listOf(
+            User(70,"eunji", "park"),
+            User(70,"eunji", "kim"),
+            User(78,"jihong", "han"),
+            User(78,"hanmo", "kim"))
+
+        //점수로 정렬 - 점수가 같으면 성으로 정렬 - 성이 같으면 이름으로 정렬
+        //오름차순으로 정렬됨
+        golfers.sortedWith(
+            compareBy({ it.score }, { it.last }, { it.first })
+        )
+        //comparator thenBy 함수를 사용해 정렬하기
+        val comparator = compareBy<User>(User::score)
+            .thenBy(User::last)
+            .thenBy(User::first)
+        golfers.sortedWith(comparator)
+    }
+
 }
