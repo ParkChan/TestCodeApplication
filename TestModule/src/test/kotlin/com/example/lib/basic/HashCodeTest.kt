@@ -59,7 +59,6 @@ class HashCodeTest {
         personHashMap[Person3(2, "찬2")] = Person3(2, "찬2")
         personHashMap[Person3(3, "찬3")] = Person3(3, "찬3")
 
-        //Person 객체에 대한 해시값은 찾았지만 같은 객체인지 모르기 때문에 값을 가져오지 못한다.
         println(personHashMap[Person3(1, "찬1")]?.age)
         println(personHashMap[Person3(1, "찬1")]?.name)
     }
