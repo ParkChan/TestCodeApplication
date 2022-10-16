@@ -1,11 +1,13 @@
 package com.example.lib.coroutine.chapter5
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.debug.junit5.CoroutinesTimeout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import java.io.IOException
 
 /**
  * (참조)https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/08_Channels
@@ -134,5 +136,47 @@ class FlowTest {
         }
     }
 
+    /**
+     * https://amitshekhar.me/blog/retry-operator-in-kotlin-flow
+     */
+    @Test
+    fun `Kotlin Flow의 재시도 연산자`() = runBlocking {
+        doLongRunningTask()
+            .flowOn(Dispatchers.Default)
+            .retry(retries = 3) { cause ->
+                if (cause is IOException) {
+                    delay(1000)
+                    println("retry true")
+                    return@retry true
+                } else {
+                    println("retry false")
+                    return@retry false
+                }
+            }
+            .catch { error ->
+                // error
+                println(error)
+            }
+            .collect {
+                // success
+                println(it)
+            }
+    }
+
+    private fun doLongRunningTask(): Flow<Int> {
+        return flow {
+            // your code for doing a long running task
+            // Added delay, random number, and exception to simulate
+            delay(2000)
+            val randomNumber = (0..2).random()
+            if (randomNumber == 0) {
+                throw IOException()
+            } else if (randomNumber == 1) {
+                throw IndexOutOfBoundsException()
+            }
+            delay(2000)
+            emit(0)
+        }
+    }
 
 }
