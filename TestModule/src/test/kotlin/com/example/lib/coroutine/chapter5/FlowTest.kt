@@ -140,7 +140,7 @@ class FlowTest {
      * https://amitshekhar.me/blog/retry-operator-in-kotlin-flow
      */
     @Test
-    fun `Kotlin Flow의 재시도 연산자`() = runBlocking {
+    fun `Kotlin Flow의 재시도 retry 연산자 `() = runBlocking {
         doLongRunningTask()
             .flowOn(Dispatchers.Default)
             .retry(retries = 3) { cause ->
@@ -152,12 +152,32 @@ class FlowTest {
                     println("retry false")
                     return@retry false
                 }
-            }
-            .catch { error ->
+            }.catch { error ->
                 // error
                 println(error)
+            }.collect {
+                // success
+                println(it)
             }
-            .collect {
+    }
+
+    @Test
+    fun `Kotlin Flow의 재시도 retryWhen 연산자 `() = runBlocking {
+        doLongRunningTask()
+            .flowOn(Dispatchers.Default)
+            .retryWhen { cause, attempt ->
+                if (cause is IOException && attempt < 3) {
+                    delay(1000)
+                    println("retry true")
+                    return@retryWhen true
+                } else {
+                    println("retry false")
+                    return@retryWhen false
+                }
+            }.catch { error ->
+                // error
+                println(error)
+            }.collect {
                 // success
                 println(it)
             }
@@ -178,5 +198,4 @@ class FlowTest {
             emit(0)
         }
     }
-
 }
