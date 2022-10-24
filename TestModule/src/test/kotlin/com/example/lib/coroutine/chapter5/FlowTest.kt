@@ -183,6 +183,30 @@ class FlowTest {
             }
     }
 
+    @Test
+    fun `Kotlin Flow의 재시도 retry 지연시키기`() = runBlocking {
+        var currentDelay = 1000L    //재시도 지연
+        val delayFactor = 2         //지연을 늘리기 위한 배수
+        doLongRunningTask()
+            .flowOn(Dispatchers.Default)
+            .retry(retries = 3) { cause ->
+                if (cause is IOException) {
+                    delay(currentDelay)
+                    currentDelay = (currentDelay * delayFactor)
+                    println("currentDelay is $currentDelay")
+                    return@retry true
+                } else {
+                    return@retry false
+                }
+            }.catch { error ->
+                // error
+                println(error)
+            }.collect {
+                // success
+                println(it)
+            }
+    }
+
     private fun doLongRunningTask(): Flow<Int> {
         return flow {
             // your code for doing a long running task
