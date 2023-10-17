@@ -38,6 +38,22 @@ class CollectionBasicTest {
     }
 
     @Test
+    fun `collection의 element를 key로 사용하려면 associateWith()를 사용`(){
+        val numbers = listOf("one", "two", "three", "four")
+        println(numbers.associateWith { it.length })
+        // output:
+        // {one=3, two=3, three=5, four=4}
+    }
+
+    @Test
+    fun `collection의 element를 value로 사용하려면 associateBy()를 사용`(){
+        val numbers = listOf("one", "two", "three", "four")
+        println(numbers.associateBy{ it.length })
+        // output:
+        // {one=3, two=3, three=5, four=4}
+    }
+
+    @Test
     fun `flatMap Test`() {
         val people = listOf(
             "abc",
