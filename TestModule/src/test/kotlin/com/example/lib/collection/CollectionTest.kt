@@ -114,8 +114,8 @@ class CollectionTest {
         val animals = listOf("사자", "호랑이", "코끼리")
         val animals2 = listOf("여우", "늑대", "기린")
         animals.zip(animals2)
-            .forEach { pair: Pair<String, String> -> "${pair.first} : ${pair.second}" }
-
+            .forEach { pair: Pair<String, String> -> println("${pair.first} : ${pair.second}") }
+        println("============================")
         animals.zip(animals2) { animals: String, animalNames: String -> "$animals : $animalNames" }
             .forEach { println(it) }
     }
@@ -213,6 +213,24 @@ class CollectionTest {
             .thenBy(User::last)
             .thenBy(User::first)
         golfers.sortedWith(comparator)
+    }
+
+    @Test
+    fun `Mapping`(){
+        val numbers = setOf(1, 2, 3)
+
+        println(numbers.map { it * 3 })
+        println(numbers.mapIndexed { idx, value -> value * idx })
+        // output:
+        // [3, 6, 9]
+        // [0, 2, 6]
+
+        println(numbers.mapNotNull { if ( it == 2) null else it * 3 })
+        println(numbers.mapIndexedNotNull { idx, value -> if (idx == 0) null else value * idx })
+        // output:
+        // [3, 9]
+        // [2, 6]
+
     }
 
     @Test
