@@ -1,6 +1,7 @@
 package com.example.lib.collection
 
 import org.junit.jupiter.api.Test
+import java.util.Locale
 
 
 /**
@@ -212,6 +213,16 @@ class CollectionTest {
             .thenBy(User::last)
             .thenBy(User::first)
         golfers.sortedWith(comparator)
+    }
+
+    @Test
+    fun `mapKeys 그리고 mapValues`() {
+        // map 에 적용하는 경우엔 key 나 value 중 하나에는 변경이 안되도록 할 수 있다.
+        // 각각 mapKeys() 나 mapValues() 를 사용
+        // 두 함수 모두 map entry 를 argument 로 사용하므로 map 의 key 와 value 모두를 이용할 수 있다.
+        val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key11" to 11)
+        println(numbersMap.mapKeys { it.key.uppercase(Locale.getDefault()) })
+        println(numbersMap.mapValues { it.value + it.key.length })
     }
 
 }
